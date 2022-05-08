@@ -14,6 +14,6 @@ let config = {
 
 let game = new Phaser.Game(config);
 
-let enemyDiff = 300;
+let enemyDiff = 200;
 
 let keys;
