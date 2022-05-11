@@ -16,4 +16,4 @@ let game = new Phaser.Game(config);
 
 let enemyDiff = 200;
 
-let keys;
+let keys, cursors;

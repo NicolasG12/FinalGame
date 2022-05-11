@@ -16,6 +16,7 @@ class Play extends Phaser.Scene {
       this.background = this.add.image(0, 0, 'background').setOrigin(0);
       //assign keys for movement
       keys = this.input.keyboard.addKeys("W,S,A,D,SPACE");
+      cursors = this.input.keyboard.createCursorKeys();
       //create the player avatar
       this.gary = new Gary(this, 350, 350, "gary", 0).setScale(0.5);
       //create a group for the pages and create the pages
