@@ -15,7 +15,7 @@ class Play extends Phaser.Scene {
       //assign keys for movement
       keys = this.input.keyboard.addKeys("W,S,A,D,SPACE");
       //create the player avatar
-      this.gary = new Gary(this, 500, 400, "gary", 0).setScale(0.5);
+      this.gary = new Gary(this, 350, 350, "gary", 0).setScale(0.5);
       //create a group for the phantoms and create the phantoms
       this.phantoms = this.add.group();
       this.phantom1 = new Phantom(this, 250, 100, "enemy", 0, this.gary);
@@ -28,11 +28,11 @@ class Play extends Phaser.Scene {
       this.shape = this.make.graphics();
       this.shape.fillStyle(0xffffff);
       this.shape.beginPath();
-      this.shape.fillCircle(this.gary.x, this.gary.y, 200);
+      this.shape.fillCircle(this.gary.x, this.gary.y, 150);
       this.mask = this.shape.createGeometryMask();
 
       //set up the camera  
-      this.cameras.main.setBounds(0, 0, 1000, 800);
+      this.cameras.main.setBounds(0, 0, 700, 700);
       this.cameras.main.setZoom(2);
       this.cameras.main.startFollow(this.gary);
       this.cameras.main.setMask(this.mask);
