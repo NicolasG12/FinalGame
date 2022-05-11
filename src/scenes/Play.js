@@ -17,26 +17,38 @@ class Play extends Phaser.Scene {
       //create the player avatar
       this.gary = new Gary(this, 350, 350, "gary", 0).setScale(0.5);
       //create a group for the phantoms and create the phantoms
-      this.phantoms = this.add.group();
-      this.phantom1 = new Phantom(this, 250, 100, "enemy", 0, this.gary);
-      this.phantom2 = new Phantom(this, 750, 100,  'enemy', 0, this.gary);
-      this.phantom3 = new Phantom(this, 250, 700, 'enemy', 0, this.gary);
-      this.phantom4 = new Phantom(this, 750, 700, 'enemy', 0, this.gary);
-      this.phantoms.addMultiple([this.phantom1, this.phantom2, this.phantom3, this.phantom4]);
-
-      //create a shape for the mask    
-      this.shape = this.make.graphics();
-      this.shape.fillStyle(0xffffff);
-      this.shape.beginPath();
-      this.shape.fillCircle(this.gary.x, this.gary.y, 150);
-      this.mask = this.shape.createGeometryMask();
-
+      // this.phantoms = this.add.group();
+      // this.phantom1 = new Phantom(this, 250, 100, "enemy", 0);
+      let graphics = this.add.graphics();
+      //object to store the config of the follower
+      let enemyConfig = {
+         from: 0,
+         to: 1,
+         delay: 0,
+         duration: 10000, 
+         hold: 0,
+         repeat: -1,
+         yoyo: true,
+         rotateToPath: true
+      }
+      //create a path for the enemy to follow
+      graphics.lineStyle(2, 0xFFFFFF, 1);
+      this.phantomPath1 = this.add.path(100, 100);
+      this.phantomPath1.lineTo(100, 300);
+      this.phantomPath1.lineTo(400, 400);
+      this.phantomPath1.lineTo(500, 300);
+      this.phantomPath1.lineTo(200, 300);
+      this.phantomPath1.lineTo(300, 100);
+      this.phantomPath1.draw(graphics);
+      let s = this.phantomPath1.getStartPoint();
+      this.phantom1 = this.add.follower(this.phantomPath1, s.x, s.y, 'enemy');
+      this.phantom1.startFollow(enemyConfig);
+      
       //set up the camera  
       this.cameras.main.setBounds(0, 0, 700, 700);
-      this.cameras.main.setZoom(2);
+      this.cameras.main.setZoom(1);
       this.cameras.main.startFollow(this.gary);
-      this.cameras.main.setMask(this.mask);
-
+      
       //on space bar remove the mask to emulate flash of light
       keys.SPACE.on('down', () => {
          this.cameras.main.clearMask();
@@ -48,12 +60,6 @@ class Play extends Phaser.Scene {
    }
 
    update() {
-
-      this.phantom1.update();
-      this.phantom2.update();
-      this.phantom3.update();
-      this.phantom4.update();
       this.gary.update();
-
    }
 }
