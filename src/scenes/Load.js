@@ -11,4 +11,8 @@ class Load extends Phaser.Scene {
         this.load.image('fog', 'fog.png');
         this.load.image('labBackground', 'labBackground.png');
     }
+
+    create() {
+        this.scene.start("studyScene");
+    }
 }

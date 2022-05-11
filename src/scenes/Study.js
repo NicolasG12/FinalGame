@@ -1,11 +1,8 @@
-class Play extends Phaser.Scene {
+class Study extends Phaser.Scene {
    constructor() {
-      super("playScene");
+      super("studyScene");
    }
 
-   preload() {
-
-   }
    create() { 
       //add the background
       this.background = this.add.image(0, 0, 'studyBackground').setOrigin(0);

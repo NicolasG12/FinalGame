@@ -2,9 +2,6 @@ class Lab extends Phaser.Scene {
     constructor() {
         super("labScene");
     }
-    preload() {
-
-    }
     create() {
         //create the background
         this.background = this.add.image(0, 0, 'labBackground').setOrigin(0);
@@ -38,7 +35,7 @@ class Lab extends Phaser.Scene {
         this.gary.update();
         if(this.gary.x < 0) {
             this.gary.x += 20;
-            this.scene.switch("playScene");
+            this.scene.switch("studyScene");
         }
     }
 }
