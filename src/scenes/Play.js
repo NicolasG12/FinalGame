@@ -25,25 +25,25 @@ class Play extends Phaser.Scene {
       this.phantoms.addMultiple([this.phantom1, this.phantom2, this.phantom3, this.phantom4]);
 
       //create a shape for the mask    
-      // this.shape = this.make.graphics();
-      // this.shape.fillStyle(0xffffff);
-      // this.shape.beginPath();
-      // this.shape.fillCircle(this.gary.x, this.gary.y, 200);
-      // this.mask = this.shape.createGeometryMask();
+      this.shape = this.make.graphics();
+      this.shape.fillStyle(0xffffff);
+      this.shape.beginPath();
+      this.shape.fillCircle(this.gary.x, this.gary.y, 200);
+      this.mask = this.shape.createGeometryMask();
 
       //set up the camera  
       this.cameras.main.setBounds(0, 0, 1000, 800);
       this.cameras.main.setZoom(2);
       this.cameras.main.startFollow(this.gary);
-      // this.cameras.main.setMask(this.mask);
+      this.cameras.main.setMask(this.mask);
 
-      // //on space bar remove the mask to emulate flash of light
-      // keys.SPACE.on('down', () => {
-      //    this.cameras.main.clearMask();
-      //    setTimeout(() => {
-      //       this.cameras.main.setMask(this.mask);
-      //    }, 1000);
-      // })
+      //on space bar remove the mask to emulate flash of light
+      keys.SPACE.on('down', () => {
+         this.cameras.main.clearMask();
+         setTimeout(() => {
+            this.cameras.main.setMask(this.mask);
+         }, 1000);
+      })
 
    }
 
