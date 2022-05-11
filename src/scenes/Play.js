@@ -19,8 +19,16 @@ class Play extends Phaser.Scene {
       //create a group for the phantoms and create the phantoms
       // this.phantoms = this.add.group();
       // this.phantom1 = new Phantom(this, 250, 100, "enemy", 0);
-
-
+      this.phantomPath1 = this.add.path(100, 100);
+      this.phantomPath1.lineTo(100, 300);
+      this.phantomPath1.lineTo(400, 400);
+      this.phantomPath1.lineTo(500, 300);
+      this.phantomPath1.lineTo(200, 300);
+      this.phantomPath1.lineTo(300, 100);
+      // this.phantomPath1.draw(graphics);
+      let s = this.phantomPath1.getStartPoint();
+      this.phantom1 = this.add.follower(this.phantomPath1, s.x, s.y, 'enemy');
+      this.phantom1.startFollow(enemyConfig);
       
       //set up the camera  
       this.cameras.main.setBounds(0, 0, 700, 700);
@@ -35,11 +43,16 @@ class Play extends Phaser.Scene {
          }, 1000);
       })
 
+      this.events.on('wake', () => {
+         cursors = this.input.keyboard.createCursorKeys();
+      })
+
    }
 
    update() {
       if(this.gary.x > 700) {
          this.scene.switch("labScene");
+         this.gary.x -= 50;
       }
       this.gary.update();
    }

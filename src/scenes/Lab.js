@@ -23,9 +23,17 @@ class Lab extends Phaser.Scene {
         this.cameras.main.setBounds(0, 0, 700, 700);
         this.cameras.main.setZoom(2);
         this.cameras.main.startFollow(this.gary);
+
+        this.events.on('wake', () => {
+            cursors = this.input.keyboard.createCursorKeys();
+         })
     }
 
     update() {
         this.gary.update();
+        if(this.gary.x < 0) {
+            this.gary.x += 20;
+            this.scene.switch("playScene");
+        }
     }
 }
