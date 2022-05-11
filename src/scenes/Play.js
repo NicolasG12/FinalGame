@@ -47,7 +47,7 @@ class Play extends Phaser.Scene {
       this.phantomPath1.lineTo(500, 300);
       this.phantomPath1.lineTo(200, 300);
       this.phantomPath1.lineTo(300, 100);
-      this.phantomPath1.draw(graphics);
+      // this.phantomPath1.draw(graphics);
       let s = this.phantomPath1.getStartPoint();
       this.phantom1 = this.add.follower(this.phantomPath1, s.x, s.y, 'enemy');
       this.phantom1.startFollow(enemyConfig);
@@ -60,11 +60,15 @@ class Play extends Phaser.Scene {
       this.cameras.main.startFollow(this.gary);
       
       //on space bar remove the mask to emulate flash of light
-      keys.SPACE.on('down', () => {
+      cursors.space.on('down', () => {
          this.cameras.main.clearMask();
          setTimeout(() => {
             this.cameras.main.setMask(this.mask);
          }, 1000);
+      })
+
+      this.events.on('wake', () => {
+         cursors = this.input.keyboard.createCursorKeys();
       })
 
    }
@@ -76,6 +80,10 @@ class Play extends Phaser.Scene {
    update() {
       this.fog.x = this.gary.x;
       this.fog.y = this.gary.y;
+      if(this.gary.x > 700) {
+         this.scene.switch("labScene");
+         this.gary.x -= 50;
+      }
       this.gary.update();
    }
 }
