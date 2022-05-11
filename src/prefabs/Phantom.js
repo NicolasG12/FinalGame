@@ -26,7 +26,7 @@ class Phantom extends Phaser.Physics.Arcade.Sprite {
       // if (this.x <= this.startX && this.y <= this.startY) {
       //    this.setVelocity(100, 0);
       // }
-      if(Phaser.Math.Distance.Between(this.x, this.y, this.player.x, this.player.y) < 200 && Phaser.Math.Distance.Between(this.x, this.y, this.startX, this.startY) < 500) {
+      if((Phaser.Math.Distance.Between(this.x, this.y, this.player.x, this.player.y) < 200) && (Phaser.Math.Distance.Between(this.x, this.y, this.startX, this.startY) < 300)) {
          this.scene.physics.moveToObject(this, this.player);
       } else {
          this.x = this.startX;
