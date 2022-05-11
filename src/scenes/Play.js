@@ -19,30 +19,9 @@ class Play extends Phaser.Scene {
       //create a group for the phantoms and create the phantoms
       // this.phantoms = this.add.group();
       // this.phantom1 = new Phantom(this, 250, 100, "enemy", 0);
-      let graphics = this.add.graphics();
       //object to store the config of the follower
-      let enemyConfig = {
-         from: 0,
-         to: 1,
-         delay: 0,
-         duration: 10000, 
-         hold: 0,
-         repeat: -1,
-         yoyo: true,
-         rotateToPath: true
-      }
       //create a path for the enemy to follow
-      graphics.lineStyle(2, 0xFFFFFF, 1);
-      this.phantomPath1 = this.add.path(100, 100);
-      this.phantomPath1.lineTo(100, 300);
-      this.phantomPath1.lineTo(400, 400);
-      this.phantomPath1.lineTo(500, 300);
-      this.phantomPath1.lineTo(200, 300);
-      this.phantomPath1.lineTo(300, 100);
-      this.phantomPath1.draw(graphics);
-      let s = this.phantomPath1.getStartPoint();
-      this.phantom1 = this.add.follower(this.phantomPath1, s.x, s.y, 'enemy');
-      this.phantom1.startFollow(enemyConfig);
+
       
       //set up the camera  
       this.cameras.main.setBounds(0, 0, 700, 700);
@@ -60,6 +39,9 @@ class Play extends Phaser.Scene {
    }
 
    update() {
+      if(this.gary.x > 700) {
+         this.scene.switch("labScene");
+      }
       this.gary.update();
    }
 }

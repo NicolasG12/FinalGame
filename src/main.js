@@ -9,11 +9,20 @@ let config = {
          debug: true
       }
    },
-   scene:  [Play]
+   scene:  [Play, Lab]
 }
 
 let game = new Phaser.Game(config);
 
-let enemyDiff = 200;
+let enemyConfig = {
+   from: 0,
+   to: 1,
+   delay: 0,
+   duration: 10000, 
+   hold: 0,
+   repeat: -1,
+   yoyo: true,
+   rotateToPath: true
+}
 
 let keys;
