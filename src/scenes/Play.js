@@ -8,6 +8,8 @@ class Play extends Phaser.Scene {
       this.load.image("enemy", "tempEnemy.png");
       this.load.image("gary", "tempGary.png");
       this.load.image('background', 'tempBackground.png');
+      this.load.image('item', 'tempItem.png');
+      this.load.image('fog', 'fog.png');
    }
    create() { 
       //add the background
@@ -16,9 +18,14 @@ class Play extends Phaser.Scene {
       keys = this.input.keyboard.addKeys("W,S,A,D,SPACE");
       //create the player avatar
       this.gary = new Gary(this, 350, 350, "gary", 0).setScale(0.5);
-      //create a group for the phantoms and create the phantoms
-      // this.phantoms = this.add.group();
-      // this.phantom1 = new Phantom(this, 250, 100, "enemy", 0);
+      //create a group for the pages and create the pages
+      this.pages = this.add.group();
+      this.page1 = this.physics.add.sprite(500, 500, 'item');
+      this.pages.add(this.page1);
+
+      //collision detection and collection
+      this.physics.add.overlap(this.gary, this.pages, this.collectPage);
+
       let graphics = this.add.graphics();
       //object to store the config of the follower
       let enemyConfig = {
@@ -44,6 +51,9 @@ class Play extends Phaser.Scene {
       this.phantom1 = this.add.follower(this.phantomPath1, s.x, s.y, 'enemy');
       this.phantom1.startFollow(enemyConfig);
       
+      //set up mask for camera
+      this.fog = this.add.sprite(this.gary.x, this.gary.y, 'fog');
+      this.background.mask = new Phaser.Display.Masks.BitmapMask(this, this.fog);
       //set up the camera  
       this.cameras.main.setBounds(0, 0, 700, 700);
       this.cameras.main.setZoom(1);
@@ -59,7 +69,13 @@ class Play extends Phaser.Scene {
 
    }
 
+   collectPage(player, page) {
+      page.destroy();
+   }
+
    update() {
+      this.fog.x = this.gary.x;
+      this.fog.y = this.gary.y;
       this.gary.update();
    }
 }
