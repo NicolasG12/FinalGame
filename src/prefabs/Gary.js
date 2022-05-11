@@ -6,17 +6,17 @@ class Gary extends Phaser.Physics.Arcade.Sprite {
    }
 
    update() {
-      if (keys.W.isDown) {
+      if (cursors.up.isDown) {
          this.setVelocityY(-100);
-      } else if (keys.S.isDown) {
+      } else if (cursors.down.isDown) {
          this.setVelocityY(100);
       } else {
          this.setVelocityY(0);
       }
 
-      if (keys.A.isDown) {
+      if (cursors.left.isDown) {
          this.setVelocityX(-100);
-      } else if (keys.D.isDown) {
+      } else if (cursors.right.isDown) {
          this.setVelocityX(100);
       } else {
          this.setVelocityX(0);

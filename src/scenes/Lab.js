@@ -4,8 +4,10 @@ class Lab extends Phaser.Scene {
     }
     create() {
         this.gary = new Gary(this, 20, 350, "gary", 0).setScale(0.5);
+        cursors = this.input.keyboard.createCursorKeys();
         let graphics = this.add.graphics();
         graphics.lineStyle(2, 0xFFFFFF, 1);
+        //create a path for the enemy to follow
         this.phantomPath1 = this.add.path(100, 100);
         this.phantomPath1.lineTo(100, 300);
         this.phantomPath1.lineTo(400, 400);
@@ -16,5 +18,14 @@ class Lab extends Phaser.Scene {
         let s = this.phantomPath1.getStartPoint();
         this.phantom1 = this.add.follower(this.phantomPath1, s.x, s.y, 'enemy');
         this.phantom1.startFollow(enemyConfig);
+
+        //set up the camera  
+        this.cameras.main.setBounds(0, 0, 700, 700);
+        this.cameras.main.setZoom(2);
+        this.cameras.main.startFollow(this.gary);
+    }
+
+    update() {
+        this.gary.update();
     }
 }

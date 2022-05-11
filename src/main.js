@@ -14,6 +14,7 @@ let config = {
 
 let game = new Phaser.Game(config);
 
+//object to store the config of the path follower
 let enemyConfig = {
    from: 0,
    to: 1,
@@ -25,4 +26,4 @@ let enemyConfig = {
    rotateToPath: true
 }
 
-let keys;
+let cursors;
