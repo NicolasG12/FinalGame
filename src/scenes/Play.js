@@ -53,10 +53,9 @@ class Play extends Phaser.Scene {
       
       //set up mask for camera
       this.fog = this.add.sprite(this.gary.x, this.gary.y, 'fog');
-      this.background.mask = new Phaser.Display.Masks.BitmapMask(this, this.fog);
       //set up the camera  
       this.cameras.main.setBounds(0, 0, 700, 700);
-      this.cameras.main.setZoom(1);
+      this.cameras.main.setZoom(2);
       this.cameras.main.startFollow(this.gary);
       
       //on space bar remove the mask to emulate flash of light
