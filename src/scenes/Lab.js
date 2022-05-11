@@ -2,7 +2,12 @@ class Lab extends Phaser.Scene {
     constructor() {
         super("labScene");
     }
+    preload() {
+
+    }
     create() {
+        //create the background
+        this.background = this.add.image(0, 0, 'labBackground').setOrigin(0);
         this.gary = new Gary(this, 20, 350, "gary", 0).setScale(0.5);
         cursors = this.input.keyboard.createCursorKeys();
         let graphics = this.add.graphics();

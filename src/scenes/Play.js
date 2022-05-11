@@ -4,16 +4,11 @@ class Play extends Phaser.Scene {
    }
 
    preload() {
-      (this.load.path = "assets/");
-      this.load.image("enemy", "tempEnemy.png");
-      this.load.image("gary", "tempGary.png");
-      this.load.image('background', 'tempBackground.png');
-      this.load.image('item', 'tempItem.png');
-      this.load.image('fog', 'fog.png');
+
    }
    create() { 
       //add the background
-      this.background = this.add.image(0, 0, 'background').setOrigin(0);
+      this.background = this.add.image(0, 0, 'studyBackground').setOrigin(0);
       //assign keys for movement
       keys = this.input.keyboard.addKeys("W,S,A,D,SPACE");
       cursors = this.input.keyboard.createCursorKeys();
