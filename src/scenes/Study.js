@@ -18,31 +18,6 @@ class Study extends Phaser.Scene {
 
       //collision detection and collection
       this.physics.add.overlap(this.gary, this.pages, this.collectPage);
-
-      let graphics = this.add.graphics();
-      //object to store the config of the follower
-      let enemyConfig = {
-         from: 0,
-         to: 1,
-         delay: 0,
-         duration: 10000, 
-         hold: 0,
-         repeat: -1,
-         yoyo: true,
-         rotateToPath: true
-      }
-      //create a path for the enemy to follow
-      graphics.lineStyle(2, 0xFFFFFF, 1);
-      this.phantomPath1 = this.add.path(100, 100);
-      this.phantomPath1.lineTo(100, 300);
-      this.phantomPath1.lineTo(400, 400);
-      this.phantomPath1.lineTo(500, 300);
-      this.phantomPath1.lineTo(200, 300);
-      this.phantomPath1.lineTo(300, 100);
-      // this.phantomPath1.draw(graphics);
-      let s = this.phantomPath1.getStartPoint();
-      this.phantom1 = this.add.follower(this.phantomPath1, s.x, s.y, 'enemy');
-      this.phantom1.startFollow(enemyConfig);
       
       //set up mask for camera
       this.fog = this.add.sprite(this.gary.x, this.gary.y, 'fog');

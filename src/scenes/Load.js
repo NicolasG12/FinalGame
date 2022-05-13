@@ -10,6 +10,8 @@ class Load extends Phaser.Scene {
         this.load.image('item', 'tempItem.png');
         this.load.image('fog', 'fog.png');
         this.load.image('labBackground', 'labBackground.png');
+        this.load.image('table1', '01_table.png');
+        this.load.image('table2', '02_table.png');
     }
 
     create() {
