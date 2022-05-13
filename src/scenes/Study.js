@@ -7,7 +7,7 @@ class Study extends Phaser.Scene {
       //add the background
       this.background = this.add.image(0, 0, 'studyBackground').setOrigin(0);
       //assign keys for movement
-      keys = this.input.keyboard.addKeys("W,S,A,D,SPACE");
+      keys = this.input.keyboard.addKeys("W,S,A,D");
       cursors = this.input.keyboard.createCursorKeys();
       //create the player avatar
       this.gary = new Gary(this, 350, 350, "gary", 0).setScale(0.5);
@@ -61,6 +61,7 @@ class Study extends Phaser.Scene {
 
       this.events.on('wake', () => {
          cursors = this.input.keyboard.createCursorKeys();
+         keys = this.input.keyboard.addKeys("W,S,A,D");
       })
 
    }

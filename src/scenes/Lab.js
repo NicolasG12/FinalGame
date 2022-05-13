@@ -28,7 +28,8 @@ class Lab extends Phaser.Scene {
 
         this.events.on('wake', () => {
             cursors = this.input.keyboard.createCursorKeys();
-         })
+            keys = this.input.keyboard.addKeys("W,S,A,D");         
+        })
     }
 
     update() {
