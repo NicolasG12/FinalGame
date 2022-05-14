@@ -4,17 +4,21 @@ class Load extends Phaser.Scene {
     }
     preload() {
         (this.load.path = "assets/");
-        this.load.image("enemy", "tempEnemy.png");
+        this.load.image("enemy", "enemy.png");
         this.load.image("gary", "tempGary.png");
         this.load.image('studyBackground', 'studyBackground.png');
-        this.load.image('item', 'tempItem.png');
         this.load.image('fog', 'fog.png');
         this.load.image('labBackground', 'labBackground.png');
         this.load.image('table1', '01_table.png');
         this.load.image('table2', '02_table.png');
+        this.load.image('labTable1', 'labLargeTables.png');
+        this.load.image('labTable2', 'labTables.png');
+        this.load.image('labTable3', 'labMiddleTable.png');
+        this.load.image('labTable4', 'labMiddleLargeTable.png');
+        this.load.image('page1', '01_page.png');
     }
 
     create() {
-        this.scene.start("studyScene");
+        this.scene.start("hubScene");
     }
 }

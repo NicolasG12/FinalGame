@@ -6,10 +6,10 @@ let config = {
    physics: {
       default: 'arcade',
       arcade: {
-         debug: true
+         debug: false
       }
    },
-   scene:  [Load, Study, Lab]
+   scene:  [Load, Hub, Lab]
 }
 
 let game = new Phaser.Game(config);
@@ -23,7 +23,9 @@ let enemyConfig = {
    hold: 0,
    repeat: -1,
    yoyo: true,
-   rotateToPath: true
+   rotateToPath: false
 }
 
 let keys, cursors;
+
+
