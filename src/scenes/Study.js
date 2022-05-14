@@ -25,6 +25,16 @@ class Study extends Phaser.Scene {
       this.cameras.main.setBounds(0, 0, 700, 700);
       this.cameras.main.setZoom(2);
       this.cameras.main.startFollow(this.gary);
+
+      this.gary.body.setCollideWorldBounds(true);
+      this.gary.body.onWorldBounds = true;
+
+      this.physics.world.on('worldbounds', (body, blockedUp, blockedDown, blockedLeft, blockedRight) => {
+         if(blockedRight) {
+            this.scene.switch("labScene");
+            this.gary.x -= 50;
+         }
+      });
       
       //on space bar remove the mask to emulate flash of light
       cursors.space.on('down', () => {
@@ -48,10 +58,6 @@ class Study extends Phaser.Scene {
    update() {
       this.fog.x = this.gary.x;
       this.fog.y = this.gary.y;
-      if(this.gary.x > 700) {
-         this.scene.switch("labScene");
-         this.gary.x -= 50;
-      }
       this.gary.update();
    }
 }

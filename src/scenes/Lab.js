@@ -23,6 +23,17 @@ class Lab extends Phaser.Scene {
         //add a collider between player and tables
         this.physics.add.collider(this.gary, this.tables);
 
+        //set world collision
+        this.gary.body.setCollideWorldBounds(true);
+        this.gary.body.onWorldBounds = true;
+
+        this.physics.world.on('worldbounds', (body, blockedUp, blockedDown, blockedLeft, blockedRight) => {
+            if(blockedLeft) {
+               this.scene.switch("studyScene");
+               this.gary.x += 20;
+            }
+         });
+
         let graphics = this.add.graphics();
         graphics.lineStyle(2, 0xFFFFFF, 1);
         //create a path for the enemy to follow
@@ -38,7 +49,7 @@ class Lab extends Phaser.Scene {
         this.phantom1.startFollow(enemyConfig);
 
         //set up the camera  
-        this.cameras.main.setBounds(0, 0, 600, 1200);
+        this.cameras.main.setBounds(0, 0, 700, 700);
         this.cameras.main.setZoom(2);
         this.cameras.main.startFollow(this.gary);
 
@@ -50,10 +61,6 @@ class Lab extends Phaser.Scene {
 
     update() {
         this.gary.update();
-        if(this.gary.x < 0) {
-            this.gary.x += 20;
-            this.scene.switch("studyScene");
-        }
         this.fog.x = this.gary.x;
         this.fog.y = this.gary.y;
     }
