@@ -13,10 +13,10 @@ class Lab extends Phaser.Scene {
         //get the room object
         this.room = roomSizes.find(room => room.room == "lab");
         //add in the player on left hand side of screen
-        this.gary = new Gary(this, this.room.width - 20, this.room.height/2, "gary", 0).setScale(0.5);
+        this.gary = new Gary(this, this.room.width - 20, this.room.height/2, "gary", 0).setScale(.4);
         //set up fog for mask
-        this.fog = this.add.sprite(this.gary.x, this.gary.y, 'fog').setDepth(1);
-        this.fog.setVisible(false);
+        this.fog = this.add.sprite(this.gary.x, this.gary.y, 'fog').setDepth(1).setScale(.75);
+        // this.fog.setVisible(false);
 
 
         //place the tables around the scene and create a group for them
@@ -51,6 +51,7 @@ class Lab extends Phaser.Scene {
         s = this.phantomPath2.getStartPoint();
         this.phantom2 = this.add.follower(this.phantomPath2, s.x, s.y, 'enemy').setScale(.25);
         this.phantom2.startFollow(enemyConfig);
+
 
         //create the item for the player to collect
         this.page = this.physics.add.sprite(75, 250, 'page1').setScale(.1);
