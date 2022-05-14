@@ -15,7 +15,7 @@ class Lab extends Phaser.Scene {
         //add in the player on left hand side of screen
         this.gary = new Gary(this, this.room.width - 20, this.room.height/2, "gary", 0).setScale(.4);
         //set up fog for mask
-        this.fog = this.add.sprite(this.gary.x, this.gary.y, 'fog').setDepth(1).setScale(.75);
+        this.fog = this.add.sprite(this.gary.x, this.gary.y, 'fog').setDepth(1).setScale(.5);
         // this.fog.setVisible(false);
 
 
@@ -74,9 +74,25 @@ class Lab extends Phaser.Scene {
         });
     }
 
+    checkCollision(gary, phantom) {
+        if(gary.x < phantom.x + phantom.width && 
+            gary.x + gary.width > phantom.x && 
+            gary.y < phantom.y + phantom.height && 
+            gary.height + gary.y > phantom.y) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     update() {
         this.gary.update();
+        console.log(this.gary.x, this.gary.y);
+        if(this.checkCollision(this.gary, this.phantom1) || this.checkCollision(this.gary, this.phantom2)) {
+            console.log("game over");
+        }
         this.fog.x = this.gary.x;
         this.fog.y = this.gary.y;
+
     }
 }
