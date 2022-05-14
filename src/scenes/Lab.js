@@ -51,6 +51,10 @@ class Lab extends Phaser.Scene {
         s = this.phantomPath2.getStartPoint();
         this.phantom2 = this.add.follower(this.phantomPath2, s.x, s.y, 'enemy').setScale(.25);
         this.phantom2.startFollow(enemyConfig);
+        //enables the physics body on the phantom sprites
+        this.phantoms = this.add.group();
+        this.phantoms.addMultiple([this.phantom1, this.phantom2]);
+        this.physics.world.enable(this.phantoms);
 
 
         //create the item for the player to collect
@@ -72,25 +76,13 @@ class Lab extends Phaser.Scene {
         this.physics.add.overlap(this.gary, this.page, () =>{
             this.page.destroy();
         });
-    }
-
-    checkCollision(gary, phantom) {
-        if(gary.x < phantom.x + phantom.width && 
-            gary.x + gary.width > phantom.x && 
-            gary.y < phantom.y + phantom.height && 
-            gary.height + gary.y > phantom.y) {
-            return true;
-        } else {
-            return false;
-        }
+        this.physics.add.overlap(this.gary, this.phantoms, () => {
+            console.log("game over");
+        });
     }
 
     update() {
         this.gary.update();
-        console.log(this.gary.x, this.gary.y);
-        if(this.checkCollision(this.gary, this.phantom1) || this.checkCollision(this.gary, this.phantom2)) {
-            console.log("game over");
-        }
         this.fog.x = this.gary.x;
         this.fog.y = this.gary.y;
 
