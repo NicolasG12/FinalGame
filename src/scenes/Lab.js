@@ -72,7 +72,7 @@ class Lab extends Phaser.Scene {
       this.physics.world.enable(this.phantoms);
 
       //create the item for the player to collect
-      this.page = this.physics.add.sprite(75, 250, "page1").setScale(0.1);
+      this.page = this.physics.add.sprite(75, 250, "page1").setScale(0.3);
 
       //set up the camera
       this.cameras.main.setBounds(0, 0, this.room.width, this.room.height);
