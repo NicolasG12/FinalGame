@@ -1,10 +1,10 @@
 class Phantom extends Phaser.GameObjects.PathFollower {
-   constructor(scene, x, y, texture, frame) {
-      super(scene, x, y, texture, frame);
+   constructor(scene, path, x, y, texture, frame) {
+      super(scene, path, x, y, texture, frame);
       scene.add.existing(this);
+      this.startFollow(enemyConfig);
    }
 
    update() {
-      
    }
 }

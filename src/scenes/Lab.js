@@ -54,18 +54,12 @@ class Lab extends Phaser.Scene {
       this.phantomPath1 = this.add.path(75, 145);
       this.phantomPath1.lineTo(425, 145);
       let s = this.phantomPath1.getStartPoint();
-      this.phantom1 = this.add
-         .follower(this.phantomPath1, s.x, s.y, "enemy")
-         .setScale(0.25);
-      this.phantom1.startFollow(enemyConfig);
+      this.phantom1 = new Phantom(this, this.phantomPath1, s.x, s.y, 'enemy', 0).setScale(0.25);
       //enemy two path
       this.phantomPath2 = this.add.path(75, 360);
       this.phantomPath2.lineTo(425, 360);
       s = this.phantomPath2.getStartPoint();
-      this.phantom2 = this.add
-         .follower(this.phantomPath2, s.x, s.y, "enemy")
-         .setScale(0.25);
-      this.phantom2.startFollow(enemyConfig);
+      this.phantom2 = new Phantom(this, this.phantomPath2, s.x, s.y, 'enemy', 0).setScale(0.25);
       //enables the physics body on the phantom sprites
       this.phantoms = this.add.group();
       this.phantoms.addMultiple([this.phantom1, this.phantom2]);
