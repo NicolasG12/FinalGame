@@ -1,5 +1,5 @@
 //array for table location
-let tableLocation = [
+let labTables = [
     //top tables
     {
         "texture": "labTable1",
@@ -51,7 +51,7 @@ let tableLocation = [
     {
         "texture": "labTable1",
         "x": 400,
-        "y": 390
+        "y": 405
     },
     {
         "texture": "labTable2",
