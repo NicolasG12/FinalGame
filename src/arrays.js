@@ -107,7 +107,7 @@ let hubTables = [
         "y": 250
     },
     
-]
+];
 
 let roomSizes = [
     {
