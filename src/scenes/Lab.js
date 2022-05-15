@@ -59,7 +59,6 @@ class Lab extends Phaser.Scene {
 
         //create the item for the player to collect
         this.page = this.physics.add.sprite(75, 250, 'page1').setScale(.1);
-        // this.hudPage = this.add.sprite(450, 150, 'page1').setScale(.1);
 
         //set up the camera  
         this.cameras.main.setBounds(0, 0, this.room.width, this.room.height);
@@ -77,7 +76,7 @@ class Lab extends Phaser.Scene {
             this.page.destroy();
         });
         this.physics.add.overlap(this.gary, this.phantoms, () => {
-            console.log("game over");
+            this.scene.start("gameOverScene");
         });
     }
 
