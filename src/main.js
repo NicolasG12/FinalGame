@@ -6,7 +6,7 @@ let config = {
    physics: {
       default: 'arcade',
       arcade: {
-         debug: true
+         debug: false
       }
    },
    scene:  [Load, Hub, Lab, GameOver, GameClear]
@@ -27,7 +27,7 @@ let enemyConfig = {
 }
 
 // Variables
-let page1 = 1;
+let page1 = 0;
 
 let keys, cursors;
 

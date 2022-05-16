@@ -18,6 +18,13 @@ class Load extends Phaser.Scene {
         this.load.image('labTable4', 'labMiddleLargeTable.png');
         this.load.image('page1', 'tempGary.png');
         this.load.image('altar', 'temp_altar.png');
+
+        this.load.audio('creaks', 'Creaks.wav');
+        this.load.audio('collect', 'select.wav');
+        this.load.audio('whispers', 'Ghost_Whisper.wav');
+        this.load.audio('largeEnemyNoise', 'Larger_Enemy_Noise.wav');
+        this.load.audio('mainMenu', 'MainMenu.wav');
+
     }
 
     create() {

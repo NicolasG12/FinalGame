@@ -17,6 +17,11 @@ class Hub extends Phaser.Scene {
       //create an altar object
       this.altar = this.physics.add.sprite(game.config.width / 4, game.config.height / 4, "altar", 0).setScale(2);
 
+      this.creaks = this.sound.add('creaks', { volume: 0.5 });
+      this.creaksInter = setInterval(() => {
+         this.creaks.play();
+      }, 10000);
+
 
       //place tables
       this.tables = this.physics.add.group();
@@ -35,6 +40,7 @@ class Hub extends Phaser.Scene {
 
       this.physics.world.on('worldbounds', (body, blockedUp, blockedDown, blockedLeft, blockedRight) => {
          if (blockedLeft) {
+            clearInterval(this.creaksInter);
             this.scene.switch("labScene");
             this.gary.x += 20;
          }
@@ -49,6 +55,8 @@ class Hub extends Phaser.Scene {
       this.physics.add.overlap(this.gary, this.altar, () => {
          if (page1 == 1) {
             page1 = 2;
+            clearInterval(this.creaksInter);
+            this.sound.play('collect');
             this.scene.start("gameClearScene");
          }
       });
