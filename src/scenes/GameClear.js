@@ -6,7 +6,7 @@ class GameClear extends Phaser.Scene {
         page1 = 0;
         this.scene.stop("hubScene");
         this.scene.stop("labScene");
-        this.add.text(20, 20, "Level 1 Clear");
+        this.add.text(20, 20, "Level 1 Clear\nPress 'Space' to play again");
 
         this.background = this.sound.add('mainMenu', { volume: 0.5 });
         this.background.setLoop(true);

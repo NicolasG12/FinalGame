@@ -6,7 +6,7 @@ class GameOver extends Phaser.Scene {
       page1 = 0;
       this.scene.stop("hubScene");
       this.scene.stop("labScene");
-      this.add.text(20, 20, "Game Over");
+      this.add.text(20, 20, "Game Over\nPress 'Space' to restart");
 
       this.background = this.sound.add('mainMenu', { volume: 0.5 });
       this.background.setLoop(true);
