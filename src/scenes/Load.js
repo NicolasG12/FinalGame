@@ -17,6 +17,7 @@ class Load extends Phaser.Scene {
         this.load.image('labTable3', 'labMiddleTable.png');
         this.load.image('labTable4', 'labMiddleLargeTable.png');
         this.load.image('page1', 'tempGary.png');
+        this.load.image('altar', 'temp_altar.png');
     }
 
     create() {

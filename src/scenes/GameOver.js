@@ -3,6 +3,7 @@ class GameOver extends Phaser.Scene {
       super("gameOverScene");
    }
    create() {
+      page1 = 0;
       this.scene.stop("hubScene");
       this.scene.stop("labScene");
       this.add.text(20, 20, "Game Over");

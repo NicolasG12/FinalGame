@@ -9,7 +9,7 @@ let config = {
          debug: true
       }
    },
-   scene:  [Load, Hub, Lab, GameOver]
+   scene:  [Load, Hub, Lab, GameOver, GameClear]
 }
 
 let game = new Phaser.Game(config);
@@ -25,6 +25,9 @@ let enemyConfig = {
    yoyo: true,
    rotateToPath: false
 }
+
+// Variables
+let page1 = 1;
 
 let keys, cursors;
 

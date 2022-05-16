@@ -101,6 +101,7 @@ class Lab extends Phaser.Scene {
       this.physics.add.collider(this.gary, this.tables);
       this.physics.add.overlap(this.gary, this.page, () => {
          this.page.destroy();
+         page1 = 1;
       });
       this.physics.add.overlap(this.gary, this.phantoms, () => {
          this.scene.start("gameOverScene");

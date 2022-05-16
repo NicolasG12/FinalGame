@@ -3,7 +3,7 @@ class Hub extends Phaser.Scene {
       super("hubScene");
    }
 
-   create() { 
+   create() {
       //add the background
       // this.background = this.add.image(0, 0, 'studyBackground').setOrigin(0);
       //assign keys for movement
@@ -13,13 +13,15 @@ class Hub extends Phaser.Scene {
       //get the room object
       this.room = roomSizes.find(room => room.room == "hub");
       //create the player avatar
-      this.gary = new Gary(this, this.room.width - 20, this.room.height - 20, "gary", 0).setScale(0.5);
+      this.gary = new Gary(this, this.room.width - 20, this.room.height - 20, "gary", 0).setScale(0.4);
+      //create an altar object
+      this.altar = this.physics.add.sprite(game.config.width / 4, game.config.height / 4, "altar", 0).setScale(2);
 
 
       //place tables
       this.tables = this.physics.add.group();
       hubTables.forEach((table) => {
-          this.tables.create(table.x, table.y, table.texture).setOrigin(0).setScale(.2).setImmovable(true);
+         this.tables.create(table.x, table.y, table.texture).setOrigin(0).setScale(.2).setImmovable(true);
       });
       //set up the camera  
       this.cameras.main.setBounds(0, 0, this.room.width, this.room.height);
@@ -32,7 +34,7 @@ class Hub extends Phaser.Scene {
       this.physics.world.setBounds(0, 0, this.room.width, this.room.height);
 
       this.physics.world.on('worldbounds', (body, blockedUp, blockedDown, blockedLeft, blockedRight) => {
-         if(blockedLeft) {
+         if (blockedLeft) {
             this.scene.switch("labScene");
             this.gary.x += 20;
          }
@@ -44,9 +46,15 @@ class Hub extends Phaser.Scene {
       });
 
       this.physics.add.collider(this.gary, this.tables);
+      this.physics.add.overlap(this.gary, this.altar, () => {
+         if (page1 == 1) {
+            page1 = 2;
+            this.scene.start("gameClearScene");
+         }
+      });
 
    }
-   
+
    update() {
       this.gary.update();
    }
