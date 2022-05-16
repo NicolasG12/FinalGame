@@ -22,8 +22,9 @@ class Lab extends Phaser.Scene {
         ).setScale(0.4);
         //set up fog for mask
         this.fog = this.add.sprite(this.gary.x, this.gary.y, "fog").setDepth(1);
+        // this.fog.setVisible(false);
         this.burstFog = this.add.sprite(this.gary.x, this.gary.y, "burstFog").setDepth(1);
-        //   this.burstFog.setVisible(false);
+        // this.burstFog.setVisible(false);
 
         // Add Creaks
         this.creaks = this.sound.add('creaks', { volume: 0.5 });
@@ -35,6 +36,9 @@ class Lab extends Phaser.Scene {
         this.whispers = this.sound.add('whispers', { volume: 0.05 });
         this.whispers.setLoop(true);
         this.whispers.play();
+
+        //add large enemy music
+        this.enemyMusic = this.sound.add('largeEnemyNoise', {volume: 0.5});
 
         //place the tables around the scene and create a group for them
         this.tables = this.physics.add.group();
@@ -56,6 +60,7 @@ class Lab extends Phaser.Scene {
                 if (blockedRight) {
                     clearInterval(this.creaksInter);
                     this.whispers.stop();
+                    this.enemyMusic.stop();
                     this.scene.switch("hubScene");
                     this.gary.x -= 20;
                 }
@@ -83,6 +88,9 @@ class Lab extends Phaser.Scene {
         this.phantoms = this.add.group();
         this.phantoms.addMultiple([this.phantom1, this.phantom2]);
         this.physics.world.enable(this.phantoms);
+
+        this.bigPhantom = this.physics.add.sprite(0, 0, "enemy").setScale(0.35);
+        this.bigPhantom.setVisible(false);
 
         //create the item for the player to collect
         this.page = this.physics.add.sprite(75, 250, "page1").setScale(0.3);
@@ -115,18 +123,30 @@ class Lab extends Phaser.Scene {
         this.physics.add.overlap(this.gary, this.page, () => {
             this.page.destroy();
             this.sound.play('collect');
+            this.enemyMusic.play();
+            this.enemyMusic.setLoop(true);
             page1 = 1;
         });
         this.physics.add.overlap(this.gary, this.phantoms, () => {
             clearInterval(this.creaksInter);
             this.whispers.stop();
+            this.enemyMusic.stop();
+            this.scene.start("gameOverScene");
+        });
+        this.physics.add.overlap(this.gary, this.bigPhantom, () => {
+            clearInterval(this.creaksInter);
+            this.whispers.stop();
+            this.enemyMusic.stop();
             this.scene.start("gameOverScene");
         });
     }
 
     update() {
         this.gary.update();
-
+        if(page1 == 1) {
+            this.bigPhantom.setVisible(true);
+            this.physics.moveToObject(this.bigPhantom, this.gary, 20);
+        }
         this.fog.x = this.gary.x;
         this.fog.y = this.gary.y;
         this.burstFog.x = this.gary.x;
