@@ -151,13 +151,13 @@ let roomSizes = [
    },
    {
        "room": "hub",
-       "width": 400,
-       "height": 400
+       "width": 320,
+       "height": 320
    },
    {
        "room": "lab",
-       "width": 500,
-       "height": 500
+       "width": 480,
+       "height": 480
    }
 ];
 
