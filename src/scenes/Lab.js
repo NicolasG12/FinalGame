@@ -11,16 +11,14 @@ class Lab extends Phaser.Scene {
         //create the cursor keys
         cursors = this.input.keyboard.createCursorKeys();
 
-        //get the room object
-        this.room = roomSizes.find((room) => room.room == "lab");
         //add in the player on left hand side of screen
         this.gary = new Gary(
             this,
-            this.room.width - 20,
-            this.room.height / 2,
-            "gary",
-            0
-        ).setScale(0.4);
+            this.ROOMWIDTH - 20,
+            this.ROOMHEIGHT / 2,
+            "gary_atlas",
+            'Gary_Idle_0'
+        );
         //set up fog for mask
         this.fog = this.add.sprite(this.gary.x, this.gary.y, "fog").setDepth(1);
         // this.fog.setVisible(false);
@@ -41,17 +39,8 @@ class Lab extends Phaser.Scene {
         //add large enemy music
         this.enemyMusic = this.sound.add('largeEnemyNoise', {volume: 0.5});
 
-        //place the tables around the scene and create a group for them
-        this.tables = this.physics.add.group();
-        labTables.forEach((table) => {
-            this.tables
-                .create(table.x, table.y, table.texture)
-                .setOrigin(0)
-                .setImmovable(true);
-        });
-
         //set the world collision
-        this.physics.world.setBounds(0, 0, this.room.width, this.room.height);
+        this.physics.world.setBounds(0, 0, this.ROOMWIDTH, this.ROOMHEIGHT);
         this.gary.body.setCollideWorldBounds(true);
         this.gary.body.onWorldBounds = true;
 
@@ -97,7 +86,7 @@ class Lab extends Phaser.Scene {
         this.page = this.physics.add.sprite(75, 250, "page1").setScale(0.3);
 
         //set up the camera
-        this.cameras.main.setBounds(0, 0, this.room.width, this.room.height);
+        this.cameras.main.setBounds(0, 0, this.ROOMWIDTH, this.ROOMWIDTH);
         this.cameras.main.setZoom(2);
         this.cameras.main.startFollow(this.gary);
 
@@ -119,8 +108,17 @@ class Lab extends Phaser.Scene {
                 this.gary.energy = true;
             }, 10000);
         });
+
+        cursors.shift.on('down', () => {
+            if(this.gary.sprint == false) {
+               this.gary.body.setMaxVelocity(150, 150);
+               this.gary.sprint = true;
+               setTimeout(() => {
+                  this.gary.sprint = false;
+               }, 3000)
+            }
+         });
         //add in physics colliders
-        this.physics.add.collider(this.gary, this.tables);
         this.physics.add.overlap(this.gary, this.page, () => {
             this.page.destroy();
             this.sound.play('collect');

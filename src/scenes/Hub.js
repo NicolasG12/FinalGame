@@ -74,11 +74,14 @@ class Hub extends Phaser.Scene {
          this.creaks.play();
       }, 10000);
 
-
-      //place tables
-      this.tables = this.physics.add.group();
-      hubTables.forEach((table) => {
-         this.tables.create(table.x, table.y, table.texture).setOrigin(0).setScale(.2).setImmovable(true);
+      cursors.shift.on('down', () => {
+         if(this.gary.sprint == false) {
+            this.gary.body.setMaxVelocity(150, 150);
+            this.gary.sprint = true;
+            setTimeout(() => {
+               this.gary.sprint = false;
+            }, 3000)
+         }
       });
       //set up the camera  
       this.cameras.main.setBounds(0, 0, this.ROOMWIDTH, this.ROOMHEIGHT);
