@@ -5,7 +5,6 @@ class Load extends Phaser.Scene {
     preload() {
         (this.load.path = "assets/");
         this.load.image("enemy", "enemy.png");
-        this.load.image("gary", "gary.png");
         this.load.image('fog', '02_fog.png');
         this.load.image('burstFog', 'burstFog.png');
         this.load.image('table1', '01_table.png');
@@ -18,12 +17,7 @@ class Load extends Phaser.Scene {
         this.load.audio('largeEnemyNoise', 'Larger_Enemy_Noise.wav');
         this.load.audio('mainMenu', 'MainMenu.wav');
 
-        // this.load.spritesheet("lab_sheet", 'spooky_spritesheet.png', {
-        //     frameWidth: 32,
-        //     frameHeight: 32
-        // });
-        // this.load.tilemapTiledJSON("lab_level", 'labLevel.json');
-
+        this.load.atlas('gary_atlas', 'garysheet.png', 'garymap.json');
     }
 
     create() {

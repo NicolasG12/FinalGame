@@ -35,10 +35,13 @@ class Lab extends Phaser.Scene {
         // });
 
         this.enemyGroup = this.add.group(this.enemies);
+        //create variables
+        this.ROOMWIDTH = 480;
+        this.ROOMHEIGHT = 480;
+        
 
         //create the cursor keys
         cursors = this.input.keyboard.createCursorKeys();
-        keys = this.input.keyboard.addKeys("W,S,A,D");
 
         //get the room object
         this.room = roomSizes.find((room) => room.room == "lab");
