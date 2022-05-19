@@ -29,7 +29,7 @@ let enemyConfig = {
 // Variables
 let page1 = 0;
 
-let cursors;
+let keys, cursors;
 
 
 //array for table location
@@ -143,5 +143,22 @@ let hubTables = [
    
 ];
 
+let roomSizes = [
+   {
+       "room": "tutorial",
+       "width": 400,
+       "height": 200
+   },
+   {
+       "room": "hub",
+       "width": 320,
+       "height": 320
+   },
+   {
+       "room": "lab",
+       "width": 576,
+       "height": 576
+   }
+];
 
 
