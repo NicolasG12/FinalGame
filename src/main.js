@@ -156,8 +156,8 @@ let roomSizes = [
    },
    {
        "room": "lab",
-       "width": 576,
-       "height": 576
+       "width": 480,
+       "height": 480
    }
 ];
 
