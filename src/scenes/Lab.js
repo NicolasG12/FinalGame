@@ -2,9 +2,39 @@ class Lab extends Phaser.Scene {
     constructor() {
         super("labScene");
     }
+    preload() {
+        this.load.spritesheet("lab_sheet", "./assets/spooky_spritesheet.png", {
+            frameWidth: 32,
+            frameHeight: 32
+        });
+
+        this.load.tilemapTiledJSON("lab_level", "./assets/labLevel.json");
+    }
+
     create() {
-        //create the background
-        this.background = this.add.image(0, 0, "labBackground").setOrigin(0);
+        const map = this.add.tilemap("lab_level");
+        const tileset = map.addTilesetImage("spooky_spritesheet", "lab_sheet");
+        
+        const backgroundLayer = map.createLayer("Background", tileset, 0, 0);
+        const collisionLayer = map.createLayer("Collision", tileset, 0, 0);
+
+        collisionLayer.setCollisionByProperty({
+            collides: true
+        });
+        
+        // this.enemies = map.createFromObjects("Objects", {
+        //     name: "enemy",
+        //     key: "lab_sheet",
+        //     frame: 0
+        // });
+
+        // this.page = map.createFromObjects("Objects", {
+        //     name: "page",
+        //     key: "lab_sheet",
+        //     frame: 2
+        // });
+
+        this.enemyGroup = this.add.group(this.enemies);
 
         //create the cursor keys
         cursors = this.input.keyboard.createCursorKeys();
@@ -22,9 +52,9 @@ class Lab extends Phaser.Scene {
         ).setScale(0.4);
         //set up fog for mask
         this.fog = this.add.sprite(this.gary.x, this.gary.y, "fog").setDepth(1);
-        // this.fog.setVisible(false);
+        this.fog.setVisible(false);
         this.burstFog = this.add.sprite(this.gary.x, this.gary.y, "burstFog").setDepth(1);
-        // this.burstFog.setVisible(false);
+        this.burstFog.setVisible(false);
 
         // Add Creaks
         this.creaks = this.sound.add('creaks', { volume: 0.5 });
@@ -40,14 +70,6 @@ class Lab extends Phaser.Scene {
         //add large enemy music
         this.enemyMusic = this.sound.add('largeEnemyNoise', {volume: 0.5});
 
-        //place the tables around the scene and create a group for them
-        this.tables = this.physics.add.group();
-        labTables.forEach((table) => {
-            this.tables
-                .create(table.x, table.y, table.texture)
-                .setOrigin(0)
-                .setImmovable(true);
-        });
 
         //set the world collision
         this.physics.world.setBounds(0, 0, this.room.width, this.room.height);
@@ -68,32 +90,7 @@ class Lab extends Phaser.Scene {
         );
 
         //create paths for the enemy
-        //enemy one path
-        this.phantomPath1 = this.add.path(75, 145);
-        this.phantomPath1.lineTo(425, 145);
-        let s = this.phantomPath1.getStartPoint();
-        this.phantom1 = this.add
-            .follower(this.phantomPath1, s.x, s.y, "enemy")
-            .setScale(0.25);
-        this.phantom1.startFollow(enemyConfig);
-        //enemy two path
-        this.phantomPath2 = this.add.path(75, 360);
-        this.phantomPath2.lineTo(425, 360);
-        s = this.phantomPath2.getStartPoint();
-        this.phantom2 = this.add
-            .follower(this.phantomPath2, s.x, s.y, "enemy")
-            .setScale(0.25);
-        this.phantom2.startFollow(enemyConfig);
-        //enables the physics body on the phantom sprites
-        this.phantoms = this.add.group();
-        this.phantoms.addMultiple([this.phantom1, this.phantom2]);
-        this.physics.world.enable(this.phantoms);
 
-        this.bigPhantom = this.physics.add.sprite(0, 0, "enemy").setScale(0.35);
-        this.bigPhantom.setVisible(false);
-
-        //create the item for the player to collect
-        this.page = this.physics.add.sprite(75, 250, "page1").setScale(0.3);
 
         //set up the camera
         this.cameras.main.setBounds(0, 0, this.room.width, this.room.height);
@@ -119,7 +116,7 @@ class Lab extends Phaser.Scene {
             }, 10000);
         });
         //add in physics colliders
-        this.physics.add.collider(this.gary, this.tables);
+        this.physics.add.collider(this.gary, collisionLayer);
         this.physics.add.overlap(this.gary, this.page, () => {
             this.page.destroy();
             this.sound.play('collect');
