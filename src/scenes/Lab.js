@@ -44,11 +44,24 @@ class Lab extends Phaser.Scene {
         );
 
         //set up the phantoms
-        this.phantoms = map.createFromObjects("Objects", {
-            name: "phantom",
-            key: "spooky_sheet",
-            frame: 4,
+        let phantomObjects = map.filterObjects("Objects", obj => obj.name === "phantom");
+        console.log(phantomObjects);
+        let phantomPaths = [];
+        phantomObjects.forEach((phantom) => {
+            let path = this.add.path(phantom.x, phantom.y);
+            phantom.properties.forEach((location) => {
+                let point = map.filterObjects("Objects", obj => obj.id === location.id);
+                path.lineTo(point.x, point.y);
+            });
+            
         });
+        this.phantoms = this.add.group();
+        let i = 0;
+        phantomObjects.map((object) => {
+            let phantom = new Phantom(this, phantomPaths[i++], object.x, object.y, 'enemy');
+            this.phantoms.add(phantom);
+        });
+
         //set up fog for mask
         this.fog = this.add.sprite(this.gary.x, this.gary.y, "fog").setDepth(1);
         this.fog.setVisible(false);
@@ -153,9 +166,6 @@ class Lab extends Phaser.Scene {
             // this.bigPhantom.setVisible(true);
             // this.physics.moveToObject(this.bigPhantom, this.gary, 20);
         }
-        this.phantoms.forEach(phantom => {
-            phantom.update();
-        });
         this.fog.x = this.gary.x;
         this.fog.y = this.gary.y;
         this.burstFog.x = this.gary.x;

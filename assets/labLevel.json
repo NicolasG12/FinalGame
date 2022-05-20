@@ -82,6 +82,12 @@
                  "height":32,
                  "id":15,
                  "name":"phantom",
+                 "properties":[
+                        {
+                         "name":"path",
+                         "type":"object",
+                         "value":29
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -94,6 +100,12 @@
                  "height":32,
                  "id":16,
                  "name":"phantom",
+                 "properties":[
+                        {
+                         "name":"path",
+                         "type":"object",
+                         "value":28
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -106,6 +118,12 @@
                  "height":32,
                  "id":17,
                  "name":"phantom",
+                 "properties":[
+                        {
+                         "name":"path",
+                         "type":"object",
+                         "value":25
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -118,12 +136,66 @@
                  "height":32,
                  "id":18,
                  "name":"phantom",
+                 "properties":[
+                        {
+                         "name":"path",
+                         "type":"object",
+                         "value":26
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":32,
                  "x":480,
                  "y":160
+                }, 
+                {
+                 "height":0,
+                 "id":25,
+                 "name":"endPoint",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":480,
+                 "y":192
+                }, 
+                {
+                 "height":0,
+                 "id":26,
+                 "name":"endPoint",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":96,
+                 "y":160
+                }, 
+                {
+                 "height":0,
+                 "id":28,
+                 "name":"endPoint",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":96,
+                 "y":416
+                }, 
+                {
+                 "height":0,
+                 "id":29,
+                 "name":"endPoint",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":480,
+                 "y":448
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -132,10 +204,10 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":19,
+ "nextobjectid":30,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.8.5",
+ "tiledversion":"1.8.4",
  "tileheight":32,
  "tilesets":[
         {

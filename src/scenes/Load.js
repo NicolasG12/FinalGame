@@ -19,6 +19,6 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start("hubScene");
+        this.scene.start("labScene");
     }
 }
