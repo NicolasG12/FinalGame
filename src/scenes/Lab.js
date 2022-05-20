@@ -50,16 +50,19 @@ class Lab extends Phaser.Scene {
         phantomObjects.forEach((phantom) => {
             let path = this.add.path(phantom.x, phantom.y);
             phantom.properties.forEach((location) => {
-                let point = map.filterObjects("Objects", obj => obj.id === location.id);
+                console.log(location.value);
+                let point = map.findObject("Objects", obj => obj.id === location.value);
+                console.log(point);
                 path.lineTo(point.x, point.y);
             });
-            
+            phantomPaths.push(path);
         });
         this.phantoms = this.add.group();
         let i = 0;
         phantomObjects.map((object) => {
             let phantom = new Phantom(this, phantomPaths[i++], object.x, object.y, 'enemy');
             this.phantoms.add(phantom);
+            phantom.startFollow(enemyConfig);
         });
 
         //set up fog for mask
