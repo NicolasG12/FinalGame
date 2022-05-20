@@ -6,6 +6,10 @@ class Lab extends Phaser.Scene {
         this.load.path = "./assets/";
         this.load.image("1bit_tiles", "tempsheet.png");
         this.load.tilemapTiledJSON("map", "labLevel.json");
+        this.load.spritesheet("spooky_sheet", "tempsheet.png", {
+            frameWidth: 32, 
+            frameHeight: 32
+        });
     }
     create() {
         //create variables
@@ -38,11 +42,18 @@ class Lab extends Phaser.Scene {
             "gary_atlas",
             'Gary_Idle_0'
         );
+
+        //set up the phantoms
+        this.phantoms = map.createFromObjects("Objects", {
+            name: "phantom",
+            key: "spooky_sheet",
+            frame: 4,
+        });
         //set up fog for mask
         this.fog = this.add.sprite(this.gary.x, this.gary.y, "fog").setDepth(1);
-        // this.fog.setVisible(false);
+        this.fog.setVisible(false);
         this.burstFog = this.add.sprite(this.gary.x, this.gary.y, "burstFog").setDepth(1);
-        // this.burstFog.setVisible(false);
+        this.burstFog.setVisible(false);
 
         // Add Creaks
         this.creaks = this.sound.add('creaks', { volume: 0.5 });
@@ -58,11 +69,7 @@ class Lab extends Phaser.Scene {
         //add large enemy music
         this.enemyMusic = this.sound.add('largeEnemyNoise', {volume: 0.5});
 
-        //set the world collision
-        this.physics.world.setBounds(0, 0, this.ROOMWIDTH, this.ROOMHEIGHT);
-        this.gary.body.setCollideWorldBounds(true);
-        this.gary.body.onWorldBounds = true;
-
+        //handles changing scenes when on the far right of screen
         this.physics.world.on(
             "worldbounds",
             (body, blockedUp, blockedDown, blockedLeft, blockedRight) => {
@@ -76,11 +83,9 @@ class Lab extends Phaser.Scene {
             }
         );
 
-
-
         //set up the camera
         this.cameras.main.setBounds(0, 0, this.ROOMWIDTH, this.ROOMWIDTH);
-        this.cameras.main.setZoom(2);
+        this.cameras.main.setZoom(1);
         this.cameras.main.startFollow(this.gary);
 
         this.events.on("wake", () => {
@@ -110,9 +115,15 @@ class Lab extends Phaser.Scene {
                }, 3000)
             }
          });
-         
+
+        //set the world collision
+        this.physics.world.setBounds(0, 0, this.ROOMWIDTH, this.ROOMHEIGHT);
+        this.gary.body.setCollideWorldBounds(true);
+        this.gary.body.onWorldBounds = true;
+        
         //add in physics colliders
         this.physics.add.collider(this.gary, collisionLayer);
+        //checking for page collection
         this.physics.add.overlap(this.gary, this.page, () => {
             this.page.destroy();
             this.sound.play('collect');
@@ -120,26 +131,31 @@ class Lab extends Phaser.Scene {
             this.enemyMusic.setLoop(true);
             page1 = 1;
         });
-        this.physics.add.overlap(this.gary, this.phantoms, () => {
-            clearInterval(this.creaksInter);
-            this.whispers.stop();
-            this.enemyMusic.stop();
-            this.scene.start("gameOverScene");
-        });
-        this.physics.add.overlap(this.gary, this.bigPhantom, () => {
-            clearInterval(this.creaksInter);
-            this.whispers.stop();
-            this.enemyMusic.stop();
-            this.scene.start("gameOverScene");
-        });
+        //checking for phantom collision
+        // this.physics.add.overlap(this.gary, this.phantoms, () => {
+        //     clearInterval(this.creaksInter);
+        //     this.whispers.stop();
+        //     this.enemyMusic.stop();
+        //     this.scene.start("gameOverScene");
+        // });
+        // //checking for large phantom collision
+        // this.physics.add.overlap(this.gary, this.bigPhantom, () => {
+        //     clearInterval(this.creaksInter);
+        //     this.whispers.stop();
+        //     this.enemyMusic.stop();
+        //     this.scene.start("gameOverScene");
+        // });
     }
 
     update() {
         this.gary.update();
         if(page1 == 1) {
-            this.bigPhantom.setVisible(true);
-            this.physics.moveToObject(this.bigPhantom, this.gary, 20);
+            // this.bigPhantom.setVisible(true);
+            // this.physics.moveToObject(this.bigPhantom, this.gary, 20);
         }
+        this.phantoms.forEach(phantom => {
+            phantom.update();
+        });
         this.fog.x = this.gary.x;
         this.fog.y = this.gary.y;
         this.burstFog.x = this.gary.x;

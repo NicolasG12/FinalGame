@@ -33,9 +33,3 @@ let enemyConfig = {
 let page1 = 0;
 
 let cursors;
-
-//player speed
-
-
-
-
