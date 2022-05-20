@@ -1,6 +1,9 @@
 let config = {
    parent: 'phaser-game',
    type: Phaser.AUTO,
+   render: {
+      pixelArt: true
+   },
    width: 700,
    height: 700,
    physics: {

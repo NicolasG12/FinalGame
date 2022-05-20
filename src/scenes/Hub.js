@@ -4,7 +4,6 @@ class Hub extends Phaser.Scene {
    }
 
    create() {
-      this.add.image(0, 0, 'labBackground');;
       //define the variables
       this.ROOMWIDTH = 320;
       this.ROOMHEIGHT = 320;

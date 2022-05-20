@@ -2,11 +2,30 @@ class Lab extends Phaser.Scene {
     constructor() {
         super("labScene");
     }
+    preload() {
+        this.load.path = "./assets/";
+        this.load.image("1bit_tiles", "tempsheet.png");
+        this.load.tilemapTiledJSON("map", "labLevel.json");
+    }
     create() {
         //create variables
-        this.ROOMWIDTH = 480;
-        this.ROOMHEIGHT = 480;
+        this.ROOMWIDTH = 576;
+        this.ROOMHEIGHT = 576;
         
+        //create the tilemap
+        const map = this.add.tilemap("map");
+
+        //add the tileset to the map
+        const tileset = map.addTilesetImage("tempsheet", "1bit_tiles");
+
+        //create the layers for the map
+        const backgroundLayer = map.createLayer("Background", tileset, 0, 0);
+        const collisionLayer = map.createLayer("Collision", tileset, 0, 0);
+        
+        //set the collision property
+        collisionLayer.setCollisionByProperty({
+            collides: true
+        });
 
         //create the cursor keys
         cursors = this.input.keyboard.createCursorKeys();
@@ -57,33 +76,7 @@ class Lab extends Phaser.Scene {
             }
         );
 
-        //create paths for the enemy
-        //enemy one path
-        this.phantomPath1 = this.add.path(75, 145);
-        this.phantomPath1.lineTo(425, 145);
-        let s = this.phantomPath1.getStartPoint();
-        this.phantom1 = this.add
-            .follower(this.phantomPath1, s.x, s.y, "enemy")
-            .setScale(0.25);
-        this.phantom1.startFollow(enemyConfig);
-        //enemy two path
-        this.phantomPath2 = this.add.path(75, 360);
-        this.phantomPath2.lineTo(425, 360);
-        s = this.phantomPath2.getStartPoint();
-        this.phantom2 = this.add
-            .follower(this.phantomPath2, s.x, s.y, "enemy")
-            .setScale(0.25);
-        this.phantom2.startFollow(enemyConfig);
-        //enables the physics body on the phantom sprites
-        this.phantoms = this.add.group();
-        this.phantoms.addMultiple([this.phantom1, this.phantom2]);
-        this.physics.world.enable(this.phantoms);
 
-        this.bigPhantom = this.physics.add.sprite(0, 0, "enemy").setScale(0.35);
-        this.bigPhantom.setVisible(false);
-
-        //create the item for the player to collect
-        this.page = this.physics.add.sprite(75, 250, "page1").setScale(0.3);
 
         //set up the camera
         this.cameras.main.setBounds(0, 0, this.ROOMWIDTH, this.ROOMWIDTH);
@@ -92,7 +85,6 @@ class Lab extends Phaser.Scene {
 
         this.events.on("wake", () => {
             cursors = this.input.keyboard.createCursorKeys();
-            keys = this.input.keyboard.addKeys("W,S,A,D");
         });
 
         //handling for player input
@@ -118,7 +110,9 @@ class Lab extends Phaser.Scene {
                }, 3000)
             }
          });
+         
         //add in physics colliders
+        this.physics.add.collider(this.gary, collisionLayer);
         this.physics.add.overlap(this.gary, this.page, () => {
             this.page.destroy();
             this.sound.play('collect');
