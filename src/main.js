@@ -26,7 +26,7 @@ let enemyConfig = {
    hold: 0,
    repeat: -1,
    yoyo: true,
-   rotateToPath: true
+   rotateToPath: false
 }
 
 // Variables
