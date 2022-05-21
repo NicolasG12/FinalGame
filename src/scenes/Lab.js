@@ -4,8 +4,8 @@ class Lab extends Phaser.Scene {
     }
     preload() {
         this.load.path = "./assets/";
-        this.load.image("1bit_tiles", "tempsheet.png");
-        this.load.tilemapTiledJSON("map", "labLevel.json");
+        this.load.image("labSheet", "labSheet.png");
+        this.load.tilemapTiledJSON("lab_map", "labLevel.json");
 
         this.load.spritesheet('fog', 'fog_ani.png', {
             frameWidth: 700,
@@ -27,10 +27,10 @@ class Lab extends Phaser.Scene {
         this.ROOMHEIGHT = 576;
         
         //create the tilemap
-        const map = this.add.tilemap("map");
+        const map = this.add.tilemap("lab_map");
 
         //add the tileset to the map
-        const tileset = map.addTilesetImage("tempsheet", "1bit_tiles");
+        const tileset = map.addTilesetImage("labSheet", "labSheet");
 
         //create the layers for the map
         const backgroundLayer = map.createLayer("Background", tileset, 0, 0);
@@ -98,7 +98,6 @@ class Lab extends Phaser.Scene {
         //create the page
         this.page = map.createFromObjects("Objects", {
             name: "page",
-            key: "1bit_tiles",
             key: "page"
         });
         this.physics.world.enable(this.page, Phaser.Physics.Arcade.STATIC_BODY);

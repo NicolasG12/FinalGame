@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="5">
+ <editorsettings>
+  <export target="hubLevel.json" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" name="hubSheet" tilewidth="32" tileheight="32" tilecount="4" columns="2">
+  <image source="hubSheet.png" width="64" height="64"/>
+  <tile id="1">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer id="2" name="Background" width="10" height="10">
+  <data encoding="csv">
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1
+</data>
+ </layer>
+ <layer id="1" name="Collision" width="10" height="10">
+  <data encoding="csv">
+4,4,4,4,0,0,4,4,4,4,
+4,0,0,0,0,0,0,0,0,4,
+4,0,2,2,0,0,2,2,0,4,
+4,0,0,0,0,0,0,0,0,4,
+0,0,0,0,0,0,0,0,0,4,
+0,0,0,0,0,0,0,0,0,4,
+4,0,0,0,0,0,0,0,0,4,
+4,0,2,2,0,0,2,2,0,4,
+4,0,0,0,0,0,0,0,0,4,
+4,4,4,4,4,4,4,4,4,4
+</data>
+ </layer>
+ <objectgroup id="3" name="Objects">
+  <object id="1" name="altar" gid="3" x="128" y="160" width="32" height="32"/>
+  <object id="2" name="altar" gid="3" x="160" y="160" width="32" height="32"/>
+  <object id="3" name="altar" gid="3" x="160" y="192" width="32" height="32"/>
+  <object id="4" name="altar" gid="3" x="128" y="192" width="32" height="32"/>
+ </objectgroup>
+</map>

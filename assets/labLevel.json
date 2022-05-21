@@ -204,7 +204,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":30,
+ "nextobjectid":31,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.5",
@@ -213,11 +213,11 @@
         {
          "columns":2,
          "firstgid":1,
-         "image":"tempsheet.png",
+         "image":"labSheet.png",
          "imageheight":96,
          "imagewidth":64,
          "margin":0,
-         "name":"tempsheet",
+         "name":"labSheet",
          "spacing":0,
          "tilecount":6,
          "tileheight":32,

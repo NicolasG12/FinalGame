@@ -3,12 +3,36 @@ class Hub extends Phaser.Scene {
       super("hubScene");
    }
 
+   preload() {
+      this.load.path = "./assets/";
+      this.load.image("hubSheet", "hubSheet.png");
+      this.load.tilemapTiledJSON("hub_map", "hubLevel.json");
+   }
+
    create() {
       //define the variables
       this.ROOMWIDTH = 320;
       this.ROOMHEIGHT = 320;
 
+      //create the tilemap
+      const map = this.add.tilemap("hub_map");
 
+      //add the tileset to the map
+      const tileset = map.addTilesetImage("hubSheet", "hubSheet");
+
+      //create the layers for the map
+      const backgroundLayer = map.createLayer("Background", tileset, 0, 0);
+      const collisionLayer = map.createLayer("Collision", tileset, 0, 0);
+
+      //set the collision property
+      collisionLayer.setCollisionByProperty({
+         collides: true
+      });
+
+      this.altar = map.createFromObjects("Objects", {
+         name: "altar",
+         key: "altar",
+      });
       //assign keys for movement
       cursors = this.input.keyboard.createCursorKeys();
 
@@ -60,13 +84,10 @@ class Hub extends Phaser.Scene {
          frameRate: 15,
          repeat: -1
       });
-      
+
       //create the player avatar
       this.gary = new Gary(this, this.ROOMWIDTH - 20, this.ROOMHEIGHT - 20, "gary_atlas", 'Gary_Idle_0');
 
-
-      //create an altar object
-      this.altar = this.physics.add.sprite(game.config.width / 4, game.config.height / 4, "altar", 0).setScale(2);
 
       this.creaks = this.sound.add('creaks', { volume: 0.5 });
       this.creaksInter = setInterval(() => {
@@ -74,7 +95,7 @@ class Hub extends Phaser.Scene {
       }, 10000);
 
       cursors.shift.on('down', () => {
-         if(this.gary.sprint == false) {
+         if (this.gary.sprint == false) {
             this.gary.body.setMaxVelocity(150, 150);
             this.gary.sprint = true;
             setTimeout(() => {
@@ -104,7 +125,8 @@ class Hub extends Phaser.Scene {
          cursors = this.input.keyboard.createCursorKeys();
       });
 
-      this.physics.add.collider(this.gary, this.tables);
+      //add in physics colliders
+      this.physics.add.collider(this.gary, collisionLayer);
       this.physics.add.overlap(this.gary, this.altar, () => {
          if (page1 == 1) {
             page1 = 2;
