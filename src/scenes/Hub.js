@@ -29,10 +29,12 @@ class Hub extends Phaser.Scene {
          collides: true
       });
 
-      this.altar = map.createFromObjects("Objects", {
+      this.altars = map.createFromObjects("Objects", {
          name: "altar",
          key: "altar",
       });
+
+      this.altarGroup = this.physics.add.group(this.altars);
       //assign keys for movement
       cursors = this.input.keyboard.createCursorKeys();
 
@@ -86,7 +88,7 @@ class Hub extends Phaser.Scene {
       });
 
       //create the player avatar
-      this.gary = new Gary(this, this.ROOMWIDTH - 20, this.ROOMHEIGHT - 20, "gary_atlas", 'Gary_Idle_0');
+      this.gary = new Gary(this, this.ROOMWIDTH - 48, this.ROOMHEIGHT - 48, "gary_atlas", 'Gary_Idle_0');
 
 
       this.creaks = this.sound.add('creaks', { volume: 0.5 });
@@ -105,7 +107,7 @@ class Hub extends Phaser.Scene {
       });
       //set up the camera  
       this.cameras.main.setBounds(0, 0, this.ROOMWIDTH, this.ROOMHEIGHT);
-      this.cameras.main.setZoom(2);
+      this.cameras.main.setZoom(2.18);
       this.cameras.main.startFollow(this.gary);
 
       //set the world collision
@@ -127,7 +129,8 @@ class Hub extends Phaser.Scene {
 
       //add in physics colliders
       this.physics.add.collider(this.gary, collisionLayer);
-      this.physics.add.overlap(this.gary, this.altar, () => {
+      this.physics.add.collider(this.gary, this.altarGroup);
+      this.physics.add.overlap(this.gary, this.altarGroup, () => {
          if (page1 == 1) {
             page1 = 2;
             clearInterval(this.creaksInter);
