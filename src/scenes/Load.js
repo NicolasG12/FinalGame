@@ -4,10 +4,8 @@ class Load extends Phaser.Scene {
     }
     preload() {
         (this.load.path = "assets/");
-        this.load.image("enemy", "enemy.png");
-        this.load.image('fog', '02_fog.png');
-        this.load.image('burstFog', 'burstFog.png');
         this.load.image('altar', 'temp_altar.png');
+        this.load.image('page', 'tempPage.png');
 
         this.load.audio('creaks', 'Creaks.wav');
         this.load.audio('collect', 'select.wav');
@@ -19,6 +17,6 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start("labScene");
+        this.scene.start("hubScene");
     }
 }

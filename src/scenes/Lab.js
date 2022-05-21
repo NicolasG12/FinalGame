@@ -6,9 +6,19 @@ class Lab extends Phaser.Scene {
         this.load.path = "./assets/";
         this.load.image("1bit_tiles", "tempsheet.png");
         this.load.tilemapTiledJSON("map", "labLevel.json");
-        this.load.spritesheet("spooky_sheet", "tempsheet.png", {
-            frameWidth: 32, 
-            frameHeight: 32
+
+        this.load.spritesheet('fog', 'fog_ani.png', {
+            frameWidth: 700,
+            frameHeight: 700,
+            startFrame: 0,
+            endFrame: 9
+        });
+
+        this.load.spritesheet('enemy', 'enemysheet.png', {
+            frameWidth: 32,
+            frameHeight: 32,
+            startFrame: 0,
+            endFrame: 1
         });
     }
     create() {
@@ -44,30 +54,69 @@ class Lab extends Phaser.Scene {
         );
 
         //set up the phantoms
+        //create animation for the phantoms
+        this.anims.create({
+            key: 'phantom_ani',
+            frames: this.anims.generateFrameNumbers('enemy', {
+                start: 0,
+                end: 1,
+                first: 0,
+            }),
+            frameRate: 5,
+            repeat: -1
+        });
+        //get the phantom objects from tilemap
         let phantomObjects = map.filterObjects("Objects", obj => obj.name === "phantom");
+        //create an array to hold the phantom paths
         let phantomPaths = [];
+        //iterate through each of the phantom objects
         phantomObjects.forEach((phantom) => {
-            let path = this.add.path(phantom.x, phantom.y);
+            //create a path starting at phantom location
+            let path = this.add.path(phantom.x, phantom.y); 
+            //iterate through the phantoms properties and get the path points
             phantom.properties.forEach((location) => {
-                console.log(location.value);
+                //add the line to the path
                 let point = map.findObject("Objects", obj => obj.id === location.value);
                 path.lineTo(point.x, point.y);
             });
-            phantomPaths.push(path);
+            phantomPaths.push(path); //add the path to the list of paths
         });
-        this.phantoms = this.add.group();
+        //create a group for the phantoms
+        this.phantoms = this.physics.add.group();
         let i = 0;
+        //iterate throught the phantom objects to create the phantoms
         phantomObjects.map((object) => {
+            //create a new phantom class and give it the appropriate path
             let phantom = new Phantom(this, phantomPaths[i++], object.x, object.y, 'enemy');
+            phantom.anims.play('phantom_ani');
             this.phantoms.add(phantom);
             phantom.startFollow(enemyConfig);
         });
 
+        this.bigPhantom = this.phantoms.create(-128, this.ROOMHEIGHT/2, 'enemy', 0).setScale(2);
+
+        //create the page
+        this.page = map.createFromObjects("Objects", {
+            name: "page",
+            key: "1bit_tiles",
+            key: "page"
+        });
+        this.physics.world.enable(this.page, Phaser.Physics.Arcade.STATIC_BODY);
         //set up fog for mask
-        this.fog = this.add.sprite(this.gary.x, this.gary.y, "fog").setDepth(1);
-        this.fog.setVisible(false);
-        this.burstFog = this.add.sprite(this.gary.x, this.gary.y, "burstFog").setDepth(1);
-        this.burstFog.setVisible(false);
+        this.fog = this.add.sprite(this.gary.x, this.gary.y, "fog", 0).setDepth(1);
+        // this.fog.setVisible(false);
+        //create an animation for fog
+        this.anims.create({
+            key: 'fog_ani',
+            frames: this.anims.generateFrameNumbers('fog', {
+                start: 0,
+                end: 9,
+                first: 0
+            }),
+            duration: 1000,
+            repeat: 0,
+            yoyo: true,
+        })
 
         // Add Creaks
         this.creaks = this.sound.add('creaks', { volume: 0.5 });
@@ -81,7 +130,7 @@ class Lab extends Phaser.Scene {
         this.whispers.play();
 
         //add large enemy music
-        this.enemyMusic = this.sound.add('largeEnemyNoise', {volume: 0.5});
+        this.largeEnemySound = this.sound.add('largeEnemyNoise', {volume: 0.5});
 
         //handles changing scenes when on the far right of screen
         this.physics.world.on(
@@ -90,7 +139,7 @@ class Lab extends Phaser.Scene {
                 if (blockedRight) {
                     clearInterval(this.creaksInter);
                     this.whispers.stop();
-                    this.enemyMusic.stop();
+                    this.largeEnemySound.stop();
                     this.scene.switch("hubScene");
                     this.gary.x -= 20;
                 }
@@ -99,7 +148,7 @@ class Lab extends Phaser.Scene {
 
         //set up the camera
         this.cameras.main.setBounds(0, 0, this.ROOMWIDTH, this.ROOMWIDTH);
-        this.cameras.main.setZoom(1);
+        this.cameras.main.setZoom(2);
         this.cameras.main.startFollow(this.gary);
 
         this.events.on("wake", () => {
@@ -108,12 +157,9 @@ class Lab extends Phaser.Scene {
 
         //handling for player input
         cursors.space.on("down", () => {
-            if (this.gary.energy == true) {
-                this.fog.setVisible(false);
+            if (this.gary.energy == true) { 
                 this.gary.energy = false;
-                setTimeout(() => {
-                    this.fog.setVisible(true);
-                }, 2000);
+                this.fog.anims.play('fog_ani');
             }
             setTimeout(() => {
                 this.gary.energy = true;
@@ -138,25 +184,25 @@ class Lab extends Phaser.Scene {
         //add in physics colliders
         this.physics.add.collider(this.gary, collisionLayer);
         //checking for page collection
-        this.physics.add.overlap(this.gary, this.page, () => {
-            this.page.destroy();
+        this.physics.add.overlap(this.gary, this.page, (obj1, obj2) => {
+            obj2.destroy();
             this.sound.play('collect');
-            this.enemyMusic.play();
-            this.enemyMusic.setLoop(true);
+            this.largeEnemySound.play();
+            this.largeEnemySound.setLoop(true);
             page1 = 1;
         });
         //checking for phantom collision
-        // this.physics.add.overlap(this.gary, this.phantoms, () => {
-        //     clearInterval(this.creaksInter);
-        //     this.whispers.stop();
-        //     this.enemyMusic.stop();
-        //     this.scene.start("gameOverScene");
-        // });
-        // //checking for large phantom collision
+        this.physics.add.overlap(this.gary, this.phantoms, () => {
+            clearInterval(this.creaksInter);
+            this.whispers.stop();
+            this.largeEnemySound.stop();
+            this.scene.start("gameOverScene");
+        });
+        //checking for large phantom collision
         // this.physics.add.overlap(this.gary, this.bigPhantom, () => {
         //     clearInterval(this.creaksInter);
         //     this.whispers.stop();
-        //     this.enemyMusic.stop();
+        //     this.largeEnemySound.stop();
         //     this.scene.start("gameOverScene");
         // });
     }
@@ -164,15 +210,12 @@ class Lab extends Phaser.Scene {
     update() {
         this.gary.update();
         if(page1 == 1) {
-            // this.bigPhantom.setVisible(true);
-            // this.physics.moveToObject(this.bigPhantom, this.gary, 20);
+            this.physics.moveToObject(this.bigPhantom, this.gary, 20);
         }
         this.phantoms.getChildren().forEach((phantom) => {
             phantom.update();
         });
         this.fog.x = this.gary.x;
         this.fog.y = this.gary.y;
-        this.burstFog.x = this.gary.x;
-        this.burstFog.y = this.gary.y;
     }
 }

@@ -3,9 +3,9 @@ class Phantom extends Phaser.GameObjects.PathFollower {
       super(scene, path, x, y, texture, frame);
       scene.add.existing(this);
       this.path = path;
+      this.setOrigin(0, 1);
    }
 
    update() {
-      console.log(this.path);
    }
 }

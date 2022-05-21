@@ -19,6 +19,7 @@ let game = new Phaser.Game(config);
 
 //object to store the config of the path follower
 let enemyConfig = {
+   
    from: 0,
    to: 1,
    delay: 0,
@@ -26,7 +27,10 @@ let enemyConfig = {
    hold: 0,
    repeat: -1,
    yoyo: true,
-   rotateToPath: false
+   rotateToPath: false,
+   onYoyo: (() => {
+
+   })
 }
 
 // Variables
