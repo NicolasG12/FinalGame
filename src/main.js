@@ -12,7 +12,7 @@ let config = {
          debug: true
       }
    },
-   scene:  [Load, Hub, Lab, GameOver, GameClear]
+   scene:  [Menu, Tutorial, Hub, Lab, GameOver, GameClear]
 }
 
 let game = new Phaser.Game(config);
@@ -28,9 +28,6 @@ let enemyConfig = {
    repeat: -1,
    yoyo: true,
    rotateToPath: false,
-   onYoyo: (() => {
-
-   })
 }
 
 // Variables

@@ -7,19 +7,7 @@ class Lab extends Phaser.Scene {
         this.load.image("labSheet", "labSheet.png");
         this.load.tilemapTiledJSON("lab_map", "labLevel.json");
 
-        this.load.spritesheet('fog', 'fog_ani.png', {
-            frameWidth: 700,
-            frameHeight: 700,
-            startFrame: 0,
-            endFrame: 9
-        });
 
-        this.load.spritesheet('enemy', 'enemysheet.png', {
-            frameWidth: 32,
-            frameHeight: 32,
-            startFrame: 0,
-            endFrame: 1
-        });
     }
     create() {
         //create variables
@@ -54,17 +42,7 @@ class Lab extends Phaser.Scene {
         );
 
         //set up the phantoms
-        //create animation for the phantoms
-        this.anims.create({
-            key: 'phantom_ani',
-            frames: this.anims.generateFrameNumbers('enemy', {
-                start: 0,
-                end: 1,
-                first: 0,
-            }),
-            frameRate: 5,
-            repeat: -1
-        });
+
         //get the phantom objects from tilemap
         let phantomObjects = map.filterObjects("Objects", obj => obj.name === "phantom");
         //create an array to hold the phantom paths
@@ -104,18 +82,6 @@ class Lab extends Phaser.Scene {
         //set up fog for mask
         this.fog = this.add.sprite(this.gary.x, this.gary.y, "fog", 0).setDepth(1);
         // this.fog.setVisible(false);
-        //create an animation for fog
-        this.anims.create({
-            key: 'fog_ani',
-            frames: this.anims.generateFrameNumbers('fog', {
-                start: 0,
-                end: 9,
-                first: 0
-            }),
-            duration: 1000,
-            repeat: 0,
-            yoyo: true,
-        })
 
         // Add Creaks
         this.creaks = this.sound.add('creaks', { volume: 0.5 });
@@ -197,13 +163,6 @@ class Lab extends Phaser.Scene {
             this.largeEnemySound.stop();
             this.scene.start("gameOverScene");
         });
-        //checking for large phantom collision
-        // this.physics.add.overlap(this.gary, this.bigPhantom, () => {
-        //     clearInterval(this.creaksInter);
-        //     this.whispers.stop();
-        //     this.largeEnemySound.stop();
-        //     this.scene.start("gameOverScene");
-        // });
     }
 
     update() {
@@ -211,9 +170,9 @@ class Lab extends Phaser.Scene {
         if(page1 == 1) {
             this.physics.moveToObject(this.bigPhantom, this.gary, 20);
         }
-        this.phantoms.getChildren().forEach((phantom) => {
-            phantom.update();
-        });
+        // this.phantoms.getChildren().forEach((phantom) => {
+        //     phantom.update();
+        // });
         this.fog.x = this.gary.x;
         this.fog.y = this.gary.y;
     }

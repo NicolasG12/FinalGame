@@ -29,6 +29,10 @@ class Hub extends Phaser.Scene {
          collides: true
       });
 
+      //create the player avatar
+      this.gary = new Gary(this, this.ROOMWIDTH - 48, this.ROOMHEIGHT - 48, "gary_atlas", 'Gary_Idle_0');
+
+      //create the altars
       this.altars = map.createFromObjects("Objects", {
          name: "altar",
          key: "altar",
@@ -37,58 +41,6 @@ class Hub extends Phaser.Scene {
       this.altarGroup = this.physics.add.group(this.altars);
       //assign keys for movement
       cursors = this.input.keyboard.createCursorKeys();
-
-      //create the gary animations
-      this.anims.create({
-         key: 'idle',
-         frames: this.anims.generateFrameNames('gary_atlas', {
-            prefix: 'Gary_Idle_',
-            start: 0,
-            end: 5,
-            suffix: ''
-         }),
-         frameRate: 5,
-         repeat: -1
-      });
-
-      this.anims.create({
-         key: 'left',
-         frames: this.anims.generateFrameNames('gary_atlas', {
-            prefix: 'Gary_Left_',
-            start: 0,
-            end: 3,
-            suffix: ''
-         }),
-         frameRate: 15,
-         repeat: -1
-      });
-
-      this.anims.create({
-         key: 'right',
-         frames: this.anims.generateFrameNames('gary_atlas', {
-            prefix: 'Gary_Right_',
-            start: 0,
-            end: 3,
-            suffix: ''
-         }),
-         frameRate: 15,
-         repeat: -1
-      });
-
-      this.anims.create({
-         key: 'up',
-         frames: this.anims.generateFrameNames('gary_atlas', {
-            prefix: 'Gary_Up_',
-            start: 0,
-            end: 3,
-            suffix: ''
-         }),
-         frameRate: 15,
-         repeat: -1
-      });
-
-      //create the player avatar
-      this.gary = new Gary(this, this.ROOMWIDTH - 48, this.ROOMHEIGHT - 48, "gary_atlas", 'Gary_Idle_0');
 
 
       this.creaks = this.sound.add('creaks', { volume: 0.5 });
