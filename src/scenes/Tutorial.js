@@ -36,7 +36,7 @@ class Tutorial extends Phaser.Scene {
          this.sound.play('collect');
          this.largeEnemySound.play();
          this.largeEnemySound.setLoop(true);
-         page1 = 1;
+         page0 = 1;
          this.doors.forEach((door) => {
             door.destroy();
          });
@@ -52,10 +52,6 @@ class Tutorial extends Phaser.Scene {
       this.bigPhantom = this.phantoms.create(this.ROOMWIDTH + 128, this.ROOMHEIGHT / 2, 'enemy', 0).setScale(2).setFlipX(true);
       //create the page
       this.physics.world.enable(this.page, Phaser.Physics.Arcade.STATIC_BODY);
-
-
-
-
 
       this.physics.add.collider(this.gary, this.doorGroup);
 

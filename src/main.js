@@ -31,6 +31,7 @@ let enemyConfig = {
 }
 
 // Variables
+let page0 = 0;
 let page1 = 0;
 
 let cursors;

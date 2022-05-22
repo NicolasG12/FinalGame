@@ -27,6 +27,8 @@ class Menu extends Phaser.Scene {
             startFrame: 0,
             endFrame: 1
         });
+
+
     }
 
     create() {
@@ -107,6 +109,13 @@ class Menu extends Phaser.Scene {
         this.input.keyboard.on('keydown-SPACE', () => {
             this.scene.start("tutorialScene");
          });
+      let rooms = [
+         {
+            "name": "tutorial",
+            "width": 400
+         }
+      ];
+      console.log(rooms[0].name);
 
     }
 }
