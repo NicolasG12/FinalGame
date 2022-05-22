@@ -14,62 +14,11 @@ class Lab extends Phaser.Scene {
         this.ROOMWIDTH = 576;
         this.ROOMHEIGHT = 576;
         
-        //create the tilemap
-        const map = this.add.tilemap("lab_map");
-
-        //add the tileset to the map
-        const tileset = map.addTilesetImage("labSheet", "labSheet");
-
-        //create the layers for the map
-        const backgroundLayer = map.createLayer("Background", tileset, 0, 0);
-        const collisionLayer = map.createLayer("Collision", tileset, 0, 0);
-        
-        //set the collision property
-        collisionLayer.setCollisionByProperty({
-            collides: true
-        });
-
-        //create the cursor keys
-        cursors = this.input.keyboard.createCursorKeys();
-
-        //add in the player on left hand side of screen
-        this.gary = new Gary(
-            this,
-            this.ROOMWIDTH - 20,
-            this.ROOMHEIGHT / 2,
-            "gary_atlas",
-            'Gary_Idle_0'
-        );
+        let tutorialScene = this.scene.get('tutorialScene');
+        const map = tutorialScene.setup(this, 'lab_map', 'labSheet', this.ROOMWIDTH, this.ROOMHEIGHT);
 
         //set up the phantoms
-
-        //get the phantom objects from tilemap
-        let phantomObjects = map.filterObjects("Objects", obj => obj.name === "phantom");
-        //create an array to hold the phantom paths
-        let phantomPaths = [];
-        //iterate through each of the phantom objects
-        phantomObjects.forEach((phantom) => {
-            //create a path starting at phantom location
-            let path = this.add.path(phantom.x, phantom.y); 
-            //iterate through the phantoms properties and get the path points
-            phantom.properties.forEach((location) => {
-                //add the line to the path
-                let point = map.findObject("Objects", obj => obj.id === location.value);
-                path.lineTo(point.x, point.y);
-            });
-            phantomPaths.push(path); //add the path to the list of paths
-        });
-        //create a group for the phantoms
-        this.phantoms = this.physics.add.group();
-        let i = 0;
-        //iterate throught the phantom objects to create the phantoms
-        phantomObjects.map((object) => {
-            //create a new phantom class and give it the appropriate path
-            let phantom = new Phantom(this, phantomPaths[i++], object.x, object.y, 'enemy');
-            phantom.anims.play('phantom_ani');
-            this.phantoms.add(phantom);
-            phantom.startFollow(enemyConfig);
-        });
+        tutorialScene.createPhantoms(this, map);
 
         this.bigPhantom = this.phantoms.create(-128, this.ROOMHEIGHT/2, 'enemy', 0).setScale(2);
 
@@ -80,7 +29,6 @@ class Lab extends Phaser.Scene {
         });
         this.physics.world.enable(this.page, Phaser.Physics.Arcade.STATIC_BODY);
         //set up fog for mask
-        this.fog = this.add.sprite(this.gary.x, this.gary.y, "fog", 0).setDepth(1);
         // this.fog.setVisible(false);
 
         // Add Creaks
@@ -111,43 +59,10 @@ class Lab extends Phaser.Scene {
             }
         );
 
-        //set up the camera
-        this.cameras.main.setBounds(0, 0, this.ROOMWIDTH, this.ROOMWIDTH);
-        this.cameras.main.setZoom(2);
-        this.cameras.main.startFollow(this.gary);
-
         this.events.on("wake", () => {
             cursors = this.input.keyboard.createCursorKeys();
         });
 
-        //handling for player input
-        cursors.space.on("down", () => {
-            if (this.gary.energy == true) { 
-                this.gary.energy = false;
-                this.fog.anims.play('fog_ani');
-            }
-            setTimeout(() => {
-                this.gary.energy = true;
-            }, 10000);
-        });
-
-        cursors.shift.on('down', () => {
-            if(this.gary.sprint == false) {
-               this.gary.body.setMaxVelocity(150, 150);
-               this.gary.sprint = true;
-               setTimeout(() => {
-                  this.gary.sprint = false;
-               }, 3000)
-            }
-         });
-
-        //set the world collision
-        this.physics.world.setBounds(0, 0, this.ROOMWIDTH, this.ROOMHEIGHT);
-        this.gary.body.setCollideWorldBounds(true);
-        this.gary.body.onWorldBounds = true;
-        
-        //add in physics colliders
-        this.physics.add.collider(this.gary, collisionLayer);
         //checking for page collection
         this.physics.add.overlap(this.gary, this.page, (obj1, obj2) => {
             obj2.destroy();

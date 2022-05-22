@@ -15,7 +15,7 @@ class GameOver extends Phaser.Scene {
       this.input.keyboard.on('keydown-SPACE', () => {
          this.background.stop();
          this.scene.stop("gameOverScene");
-         this.scene.start("hubScene");
+         this.scene.start("menuScene");
       });
    }
 }

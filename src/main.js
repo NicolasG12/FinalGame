@@ -12,18 +12,18 @@ let config = {
          debug: true
       }
    },
-   scene:  [Menu, Tutorial, Hub, Lab, GameOver, GameClear]
+   scene: [Menu, Tutorial, Hub, Lab, GameOver, GameClear]
 }
 
 let game = new Phaser.Game(config);
 
 //object to store the config of the path follower
 let enemyConfig = {
-   
+
    from: 0,
    to: 1,
    delay: 0,
-   duration: 10000, 
+   duration: 10000,
    hold: 0,
    repeat: -1,
    yoyo: true,
