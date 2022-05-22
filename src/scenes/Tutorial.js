@@ -102,7 +102,7 @@ class Tutorial extends Phaser.Scene {
          this.sound.play('collect');
          this.largeEnemySound.play();
          this.largeEnemySound.setLoop(true);
-         page1 = 1;
+         page0= 1;
          this.doors.forEach((door) => {
             door.destroy();
          });
@@ -110,7 +110,7 @@ class Tutorial extends Phaser.Scene {
       //checking for phantom collision
       this.physics.add.overlap(this.gary, this.phantoms, () => {
          clearInterval(this.creaksInter);
-         this.whispers.stop();
+         // this.whispers.stop();
          this.largeEnemySound.stop();
          this.scene.start("gameOverScene");
       });

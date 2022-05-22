@@ -7,8 +7,8 @@ class Gary extends Phaser.Physics.Arcade.Sprite {
       this.energy = true;
       this.setMaxVelocity(100, 100);
       this.sprint = false;
-      this.speed = 100;
-      this.sprintSpeed = 150;
+      this.speed = 75;
+      this.sprintSpeed = 100;
    }
 
    update() {
