@@ -15,7 +15,9 @@ class Lab extends Phaser.Scene {
         this.ROOMHEIGHT = 576;
         garyX = this.ROOMWIDTH - 20;
         garyY = this.ROOMHEIGHT /2;
-        
+
+        enemyConfig.duration = 7000;
+
         let tutorialScene = this.scene.get('tutorialScene');
         const map = tutorialScene.setup(this, 'lab_map', 'labSheet', this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
 
@@ -29,8 +31,6 @@ class Lab extends Phaser.Scene {
         this.physics.world.enable(this.page, Phaser.Physics.Arcade.STATIC_BODY);
         //set up fog for mask
         // this.fog.setVisible(false);
-
-
 
         //handles changing scenes when on the far right of screen
         this.physics.world.on(
@@ -72,9 +72,6 @@ class Lab extends Phaser.Scene {
         if(page1 == 1) {
             this.physics.moveToObject(this.bigPhantom, this.gary, 20);
         }
-        // this.phantoms.getChildren().forEach((phantom) => {
-        //     phantom.update();
-        // });
         this.fog.x = this.gary.x;
         this.fog.y = this.gary.y;
     }

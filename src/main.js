@@ -23,7 +23,7 @@ let enemyConfig = {
    from: 0,
    to: 1,
    delay: 0,
-   duration: 10000,
+   duration: 8000,
    hold: 0,
    repeat: -1,
    yoyo: true,
