@@ -13,9 +13,11 @@ class Lab extends Phaser.Scene {
         //create variables
         this.ROOMWIDTH = 576;
         this.ROOMHEIGHT = 576;
+        garyX = this.ROOMWIDTH - 20;
+        garyY = this.ROOMHEIGHT /2;
         
         let tutorialScene = this.scene.get('tutorialScene');
-        const map = tutorialScene.setup(this, 'lab_map', 'labSheet', this.ROOMWIDTH, this.ROOMHEIGHT);
+        const map = tutorialScene.setup(this, 'lab_map', 'labSheet', this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
 
         //set up the phantoms
         tutorialScene.createPhantoms(this, map);

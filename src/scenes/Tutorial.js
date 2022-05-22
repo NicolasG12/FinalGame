@@ -15,8 +15,10 @@ class Tutorial extends Phaser.Scene {
       //define variables
       this.ROOMWIDTH = 448;
       this.ROOMHEIGHT = 256;
+      garyX = 48;
+      garyY = this.ROOMHEIGHT/2
 
-      const map = this.setup(this, 'tutorial_map', 'tutorialSheet', this.ROOMWIDTH, this.ROOMHEIGHT);
+      const map = this.setup(this, 'tutorial_map', 'tutorialSheet', this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
 
       this.doors = map.createFromObjects("Objects", {
          name: 'door',
@@ -95,7 +97,7 @@ class Tutorial extends Phaser.Scene {
       });
    }
 
-   setup(scene, tileMap, sheet, width, height) {
+   setup(scene, tileMap, sheet, width, height, garyX, garyY) {
       //create the tilemap
       const map = scene.add.tilemap(tileMap);
 
@@ -110,7 +112,7 @@ class Tutorial extends Phaser.Scene {
       cursors = scene.input.keyboard.createCursorKeys();
 
       //add in gary
-      scene.gary = new Gary(scene, 48, height / 2, 'gary_atlas', 'Gary_Idle_0');
+      scene.gary = new Gary(scene, garyX, garyY, 'gary_atlas', 'Gary_Idle_0');
 
       //set the collision property
       collisionLayer.setCollisionByProperty({
