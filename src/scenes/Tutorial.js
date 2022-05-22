@@ -147,7 +147,7 @@ class Tutorial extends Phaser.Scene {
    }
    update() {
       this.gary.update();
-      if (page1 == 1) {
+      if (page0 == 1) {
          this.physics.moveToObject(this.bigPhantom, this.gary, 20);
       }
       this.fog.x = this.gary.x;
