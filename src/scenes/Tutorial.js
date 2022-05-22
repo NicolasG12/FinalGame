@@ -16,7 +16,7 @@ class Tutorial extends Phaser.Scene {
       this.ROOMWIDTH = 448;
       this.ROOMHEIGHT = 256;
       garyX = 48;
-      garyY = this.ROOMHEIGHT/2
+      garyY = this.ROOMHEIGHT / 2
 
       const map = this.setup(this, 'tutorial_map', 'tutorialSheet', this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
 
@@ -30,7 +30,6 @@ class Tutorial extends Phaser.Scene {
          name: "page",
          key: "page"
       });
-      this.createPhantoms(this, map);
       this.physics.add.overlap(this.gary, this.page, (obj1, obj2) => {
          obj2.destroy();
          this.sound.play('collect');
@@ -65,32 +64,6 @@ class Tutorial extends Phaser.Scene {
       });
 
 
-   }
-
-   createPhantoms(scene, map) {
-      let phantomObjects = map.filterObjects("Objects", obj => obj.name === "phantom");
-      let phantomPaths = [];
-      //iterate through each of the phantom objects
-      phantomObjects.forEach((phantom) => {
-         //create a path starting at phantom location
-         let path = scene.add.path(phantom.x, phantom.y);
-         //iterate through the phantoms properties and get the path points
-         phantom.properties.forEach((location) => {
-            //add the line to the path
-            let point = map.findObject("Objects", obj => obj.id === location.value);
-            path.lineTo(point.x, point.y);
-         });
-         phantomPaths.push(path); //add the path to the list of paths
-      });
-      scene.phantoms = scene.physics.add.group();
-      let i = 0;
-      //iterate throught the phantom objects to create the phantoms
-      phantomObjects.map((object) => {
-         //create a new phantom class and give it the appropriate path
-         let phantom = new Phantom(scene, phantomPaths[i++], object.x, object.y, 'enemy');
-         scene.phantoms.add(phantom);
-         phantom.startFollow(enemyConfig);
-      });
    }
 
    setup(scene, tileMap, sheet, width, height, garyX, garyY) {
@@ -129,6 +102,29 @@ class Tutorial extends Phaser.Scene {
       //add large enemy music
       scene.largeEnemySound = scene.sound.add('largeEnemyNoise', { volume: 0.5 });
 
+      let phantomObjects = map.filterObjects("Objects", obj => obj.name === "phantom");
+      let phantomPaths = [];
+      //iterate through each of the phantom objects
+      phantomObjects.forEach((phantom) => {
+         //create a path starting at phantom location
+         let path = scene.add.path(phantom.x, phantom.y);
+         //iterate through the phantoms properties and get the path points
+         phantom.properties.forEach((location) => {
+            //add the line to the path
+            let point = map.findObject("Objects", obj => obj.id === location.value);
+            path.lineTo(point.x, point.y);
+         });
+         phantomPaths.push(path); //add the path to the list of paths
+      });
+      scene.phantoms = scene.physics.add.group();
+      let i = 0;
+      //iterate throught the phantom objects to create the phantoms
+      phantomObjects.map((object) => {
+         //create a new phantom class and give it the appropriate path
+         let phantom = new Phantom(scene, phantomPaths[i++], object.x, object.y, 'enemy');
+         scene.phantoms.add(phantom);
+         phantom.startFollow(enemyConfig);
+      });
       //handling for player input
       cursors.space.on("down", () => {
          if (scene.gary.energy == true) {
@@ -149,6 +145,20 @@ class Tutorial extends Phaser.Scene {
             }, 3000)
          }
       });
+
+      // Add Creaks
+      scene.creaks = scene.sound.add('creaks', { volume: 0.5 });
+      scene.creaksInter = setInterval(() => {
+         scene.creaks.play();
+      }, 10000);
+
+      // Add Whispers
+      scene.whispers = scene.sound.add('whispers', { volume: 0.05 });
+      scene.whispers.setLoop(true);
+      scene.whispers.play();
+
+      //add large enemy music
+      scene.largeEnemySound = scene.sound.add('largeEnemyNoise', { volume: 0.5 });
 
       return map;
    }

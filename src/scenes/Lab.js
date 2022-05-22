@@ -19,9 +19,6 @@ class Lab extends Phaser.Scene {
         let tutorialScene = this.scene.get('tutorialScene');
         const map = tutorialScene.setup(this, 'lab_map', 'labSheet', this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
 
-        //set up the phantoms
-        tutorialScene.createPhantoms(this, map);
-
         this.bigPhantom = this.phantoms.create(-128, this.ROOMHEIGHT/2, 'enemy', 0).setScale(2);
 
         //create the page
@@ -33,19 +30,7 @@ class Lab extends Phaser.Scene {
         //set up fog for mask
         // this.fog.setVisible(false);
 
-        // Add Creaks
-        this.creaks = this.sound.add('creaks', { volume: 0.5 });
-        this.creaksInter = setInterval(() => {
-           this.creaks.play();
-        }, 10000);
 
-        // Add Whispers
-        this.whispers = this.sound.add('whispers', { volume: 0.05 });
-        this.whispers.setLoop(true);
-        this.whispers.play();
-
-        //add large enemy music
-        this.largeEnemySound = this.sound.add('largeEnemyNoise', {volume: 0.5});
 
         //handles changing scenes when on the far right of screen
         this.physics.world.on(
