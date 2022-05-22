@@ -38,7 +38,7 @@ class Hub extends Phaser.Scene {
          key: "altar",
       });
 
-      this.altarGroup = this.physics.add.group(this.altars);
+      this.altarGroup = this.physics.add.staticGroup(this.altars);
       //assign keys for movement
       cursors = this.input.keyboard.createCursorKeys();
 

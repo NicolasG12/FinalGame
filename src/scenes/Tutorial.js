@@ -70,6 +70,8 @@ class Tutorial extends Phaser.Scene {
          this.phantoms.add(phantom);
          phantom.startFollow(enemyConfig);
       });
+      //create the big phantom
+      this.bigPhantom = this.phantoms.create(this.ROOMWIDTH + 128, this.ROOMHEIGHT / 2, 'enemy', 0).setScale(2).setFlipX(true);
       //create the page
       this.page = map.createFromObjects("Objects", {
          name: "page",
@@ -105,6 +107,13 @@ class Tutorial extends Phaser.Scene {
             door.destroy();
          });
       });
+      //checking for phantom collision
+      this.physics.add.overlap(this.gary, this.phantoms, () => {
+         clearInterval(this.creaksInter);
+         this.whispers.stop();
+         this.largeEnemySound.stop();
+         this.scene.start("gameOverScene");
+      });
 
       //handling for player input
       cursors.space.on("down", () => {
@@ -130,6 +139,7 @@ class Tutorial extends Phaser.Scene {
       this.physics.world.on('worldbounds', (body, blockedUp, blockedDown, blockedLeft, blockedRight) => {
          if (blockedLeft) {
             // clearInterval(this.creaksInter);
+            this.largeEnemySound.stop();
             this.scene.switch("hubScene");
          }
       });
@@ -137,6 +147,9 @@ class Tutorial extends Phaser.Scene {
    }
    update() {
       this.gary.update();
+      if (page1 == 1) {
+         this.physics.moveToObject(this.bigPhantom, this.gary, 20);
+      }
       this.fog.x = this.gary.x;
       this.fog.y = this.gary.y;
    }
