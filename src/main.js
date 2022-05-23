@@ -37,3 +37,7 @@ let page1 = 0;
 let cursors;
 
 let garyX, garyY;
+
+let lives = 3;
+
+let tutorial = true;

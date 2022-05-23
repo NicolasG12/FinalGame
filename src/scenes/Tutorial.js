@@ -22,7 +22,7 @@ class Tutorial extends Phaser.Scene {
 
       //add the tileset to the map
       const tileset = map.addTilesetImage('tutorialSheet');
-      this.setup(this, map, this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
+      this.setup(this, map, tileset, this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
 
       this.doors = map.createFromObjects("Objects", {
          name: 'door',
@@ -44,13 +44,6 @@ class Tutorial extends Phaser.Scene {
             door.destroy();
          });
       });
-      //checking for phantom collision
-      this.physics.add.overlap(this.gary, this.phantoms, () => {
-         clearInterval(this.creaksInter);
-         // this.whispers.stop();
-         this.largeEnemySound.stop();
-         this.scene.start("gameOverScene");
-      });
       //create the big phantom
       this.bigPhantom = this.phantoms.create(this.ROOMWIDTH + 128, this.ROOMHEIGHT / 2, 'enemy', 0).setScale(2).setFlipX(true);
       //create the page
@@ -64,6 +57,7 @@ class Tutorial extends Phaser.Scene {
             // clearInterval(this.creaksInter);
             this.largeEnemySound.stop();
             this.scene.switch("hubScene");
+            tutorial = false;
          }
       });
 
@@ -71,6 +65,7 @@ class Tutorial extends Phaser.Scene {
    }
 
    setup(scene, map, tileset, width, height, garyX, garyY) {
+      console.log(scene);
       //create the layers for the map
       const backgroundLayer = map.createLayer("Background", tileset, 0, 0);
       const collisionLayer = map.createLayer("Collision", tileset, 0, 0);
@@ -156,7 +151,22 @@ class Tutorial extends Phaser.Scene {
       scene.whispers.play();
 
       //add large enemy music
-      scene.largeEnemySound = scene.sound.add('largeEnemyNoise', { volume: 0.5 });
+      scene.largeEnemySound = scene.sound.add('largeEnemyNoise', { volume: 0.25 });
+
+      //checking for phantom collision
+      scene.physics.add.overlap(scene.gary, scene.phantoms, () => {
+         clearInterval(scene.creaksInter);
+         // this.whispers.stop();
+         scene.largeEnemySound.stop();
+         if (tutorial) {
+            scene.gary.x = garyX;
+            scene.gary.y = garyY;
+         } else if (--lives === 0) {
+            scene.scene.start("gameOverScene");
+         } else {
+            scene.scene.start("hubScene");
+         }
+      });
    }
    update() {
       this.gary.update();

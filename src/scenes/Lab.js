@@ -23,8 +23,8 @@ class Lab extends Phaser.Scene {
         const map = this.add.tilemap('lab_map');
 
         //add the tileset to the map
-        const tileset = map.addTilesetImage('lab_sheet');
-        tutorialScene.setup(this, map, this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
+        const tileset = map.addTilesetImage('labSheet');
+        tutorialScene.setup(this, map, tileset, this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
 
         this.bigPhantom = this.phantoms.create(-128, this.ROOMHEIGHT / 2, 'enemy', 0).setScale(2);
 
