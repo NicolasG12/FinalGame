@@ -14,14 +14,19 @@ class Lab extends Phaser.Scene {
         this.ROOMWIDTH = 576;
         this.ROOMHEIGHT = 576;
         garyX = this.ROOMWIDTH - 20;
-        garyY = this.ROOMHEIGHT /2;
+        garyY = this.ROOMHEIGHT / 2;
 
         enemyConfig.duration = 7000;
 
         let tutorialScene = this.scene.get('tutorialScene');
-        const map = tutorialScene.setup(this, 'lab_map', 'labSheet', this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
+        //create the tilemap
+        const map = this.add.tilemap('lab_map');
 
-        this.bigPhantom = this.phantoms.create(-128, this.ROOMHEIGHT/2, 'enemy', 0).setScale(2);
+        //add the tileset to the map
+        const tileset = map.addTilesetImage('lab_sheet');
+        tutorialScene.setup(this, map, this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
+
+        this.bigPhantom = this.phantoms.create(-128, this.ROOMHEIGHT / 2, 'enemy', 0).setScale(2);
 
         //create the page
         this.page = map.createFromObjects("Objects", {
@@ -69,7 +74,7 @@ class Lab extends Phaser.Scene {
 
     update() {
         this.gary.update();
-        if(page1 == 1) {
+        if (page1 == 1) {
             this.physics.moveToObject(this.bigPhantom, this.gary, 20);
         }
         this.fog.x = this.gary.x;

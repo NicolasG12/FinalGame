@@ -18,10 +18,10 @@ class Tutorial extends Phaser.Scene {
       garyX = 48;
       garyY = this.ROOMHEIGHT / 2
       //create the tilemap
-      const map = scene.add.tilemap(tileMap);
+      const map = this.add.tilemap('tutorial_map');
 
       //add the tileset to the map
-      const tileset = map.addTilesetImage(sheet);
+      const tileset = map.addTilesetImage('tutorialSheet');
       this.setup(this, map, this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
 
       this.doors = map.createFromObjects("Objects", {
@@ -70,7 +70,7 @@ class Tutorial extends Phaser.Scene {
 
    }
 
-   setup(scene, tileMap, sheet, width, height, garyX, garyY) {
+   setup(scene, map, tileset, width, height, garyX, garyY) {
       //create the layers for the map
       const backgroundLayer = map.createLayer("Background", tileset, 0, 0);
       const collisionLayer = map.createLayer("Collision", tileset, 0, 0);
