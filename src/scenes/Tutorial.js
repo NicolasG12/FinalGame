@@ -17,8 +17,12 @@ class Tutorial extends Phaser.Scene {
       this.ROOMHEIGHT = 256;
       garyX = 48;
       garyY = this.ROOMHEIGHT / 2
+      //create the tilemap
+      const map = scene.add.tilemap(tileMap);
 
-      const map = this.setup(this, 'tutorial_map', 'tutorialSheet', this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
+      //add the tileset to the map
+      const tileset = map.addTilesetImage(sheet);
+      this.setup(this, map, this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
 
       this.doors = map.createFromObjects("Objects", {
          name: 'door',
@@ -67,12 +71,6 @@ class Tutorial extends Phaser.Scene {
    }
 
    setup(scene, tileMap, sheet, width, height, garyX, garyY) {
-      //create the tilemap
-      const map = scene.add.tilemap(tileMap);
-
-      //add the tileset to the map
-      const tileset = map.addTilesetImage(sheet);
-
       //create the layers for the map
       const backgroundLayer = map.createLayer("Background", tileset, 0, 0);
       const collisionLayer = map.createLayer("Collision", tileset, 0, 0);
@@ -159,8 +157,6 @@ class Tutorial extends Phaser.Scene {
 
       //add large enemy music
       scene.largeEnemySound = scene.sound.add('largeEnemyNoise', { volume: 0.5 });
-
-      return map;
    }
    update() {
       this.gary.update();
