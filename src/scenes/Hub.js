@@ -81,7 +81,6 @@ class Hub extends Phaser.Scene {
 
       //add in physics colliders
       this.physics.add.collider(this.gary, collisionLayer);
-      this.physics.add.collider(this.gary, this.altarGroup);
       this.physics.add.overlap(this.gary, this.altarGroup, () => {
          if (page1 == 1) {
             page1 = 2;
