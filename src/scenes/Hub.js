@@ -73,6 +73,11 @@ class Hub extends Phaser.Scene {
             this.scene.switch("labScene");
             this.gary.x += 20;
          }
+         if(blockedUp) {
+            clearInterval(this.creaksInter);
+            this.scene.switch("computerLabScene");
+            this.gary.y += 20;
+         }
       });
 
       this.events.on('wake', () => {

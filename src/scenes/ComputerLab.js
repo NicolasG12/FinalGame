@@ -25,12 +25,11 @@ class ComputerLab extends Phaser.Scene {
         const tileset = map.addTilesetImage('computerLabSheet', "computerSheet");
         tutorialScene.setup(this, map, tileset, this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
 
-        this.fog.setVisible(false);
-
-        this.cameras.main.setZoom(1);
     }
 
     update() {
         this.gary.update();
+        this.fog.x = this.gary.x;
+        this.fog.y = this.gary.y;
     }
 }
