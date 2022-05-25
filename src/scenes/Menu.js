@@ -13,29 +13,24 @@ class Menu extends Phaser.Scene {
       this.load.audio('largeEnemyNoise', 'Larger_Enemy_Noise.wav');
       this.load.audio('mainMenu', 'MainMenu.wav');
 
-        this.load.atlas('gary_atlas', 'garysheet.png', 'garymap.json');
-        this.load.spritesheet('fog', 'fog_ani.png', {
-            frameWidth: 700,
-            frameHeight: 700,
-            startFrame: 0,
-            endFrame: 9
-        });
-   
-         this.load.spritesheet('enemy', 'enemysheet.png', {
-            frameWidth: 32,
-            frameHeight: 32,
-            startFrame: 0,
-            endFrame: 1
-        });
-      
-        this.load.spritesheet('enemy', 'enemysheet.png', {
+      this.load.atlas('gary_atlas', 'garysheet.png', 'garymap.json');
+      this.load.atlas('fog_atlas', 'fog_sheet.png', 'fog_map.json');
+
+      this.load.spritesheet('enemy', 'enemysheet.png', {
          frameWidth: 32,
          frameHeight: 32,
          startFrame: 0,
          endFrame: 1
       });
 
-    }
+      this.load.spritesheet('enemy', 'enemysheet.png', {
+         frameWidth: 32,
+         frameHeight: 32,
+         startFrame: 0,
+         endFrame: 1
+      });
+
+   }
 
 
    create() {
@@ -103,18 +98,43 @@ class Menu extends Phaser.Scene {
 
       //create an animation for fog
       this.anims.create({
-         key: 'fog_ani',
-         frames: this.anims.generateFrameNumbers('fog', {
-            start: 0,
-            end: 9,
-            first: 0
-        }),
-        duration: 1000,
-        repeat: 0,
-        yoyo: true,
-     });
-        this.input.keyboard.on('keydown-SPACE', () => {
-            this.scene.start("libraryScene");
-         });
-    }
+         key: '3_lives',
+         frames: this.anims.generateFrameNames('fog_atlas', {
+            prefix: '3_lives_',
+            start: 1,
+            end: 6,
+            suffix: ''
+         }),
+         duration: 1000,
+         repeat: 0,
+         yoyo: true,
+      });
+      this.anims.create({
+         key: '2_lives',
+         frames: this.anims.generateFrameNames('fog_atlas', {
+            prefix: '2_lives_',
+            start: 1,
+            end: 6,
+            suffix: ''
+         }),
+         duration: 1000,
+         repeat: 0,
+         yoyo: true,
+      });
+      this.anims.create({
+         key: '1_live',
+         frames: this.anims.generateFrameNames('fog_atlas', {
+            prefix: '1_live_',
+            start: 1,
+            end: 6,
+            suffix: ''
+         }),
+         duration: 1000,
+         repeat: 0,
+         yoyo: true,
+      });
+      this.input.keyboard.on('keydown-SPACE', () => {
+         this.scene.start("tutorialScene");
+      });
+   }
 }
