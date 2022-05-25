@@ -114,7 +114,7 @@ class Menu extends Phaser.Scene {
         yoyo: true,
      });
         this.input.keyboard.on('keydown-SPACE', () => {
-            this.scene.start("tutorialScene");
+            this.scene.start("libraryScene");
          });
     }
 }
