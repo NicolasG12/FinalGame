@@ -5,43 +5,25 @@ class Gary extends Phaser.Physics.Arcade.Sprite {
       scene.physics.add.existing(this);
       this.setBodySize(24, 24);
       this.energy = true;
-      this.setMaxVelocity(100, 100);
-      this.sprint = false;
-      this.speed = 75;
-      this.sprintSpeed = 100;
+      this.state = garyStates.find(obj => obj.name === 'walk');
    }
 
    update() {
       if(cursors.left.isDown) {
-         if(this.sprint) {
-            this.body.setVelocity(-this.sprintSpeed, 0);
-         } else {
-            this.body.setVelocity(-this.speed, 0);
-         }
+         this.setVelocity(-this.state.speed, 0);
          this.anims.play('left', true);
 
       } else if (cursors.right.isDown) {
-         if(this.sprint) {
-            this.body.setVelocity(this.sprintSpeed, 0);
-         } else {
-            this.body.setVelocity(this.speed, 0);
-         }
+         this.setVelocity(this.state.speed, 0);
          this.anims.play('right', true);
 
       } else if (cursors.up.isDown) {
-         if(this.sprint) {
-            this.body.setVelocity(0, -this.sprintSpeed)
-         } else {
-            this.body.setVelocity(0, -this.speed);
-         }
+         this.setVelocity(0, -this.state.speed)
          this.anims.play('up', true);
 
       } else if (cursors.down.isDown) {
-         if(this.sprint) {
-            this.body.setVelocity(0, this.sprintSpeed)
-         } else {
-            this.body.setVelocity(0, this.speed);
-         }
+         this.setVelocity(0, this.state.speed);
+         this.anims.play('right', true);
 
       } else {
          this.setVelocity(0, 0);

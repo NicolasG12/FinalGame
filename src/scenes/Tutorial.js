@@ -124,7 +124,8 @@ class Tutorial extends Phaser.Scene {
       cursors.space.on("down", () => {
          if (scene.gary.energy == true) {
             scene.gary.energy = false;
-            scene.fog.anims.play('fog_ani');
+            let state = garyStates.find(obj => obj.lives === lives);
+            scene.fog.anims.play(state.fogAni);
          }
          setTimeout(() => {
             scene.gary.energy = true;
@@ -133,7 +134,6 @@ class Tutorial extends Phaser.Scene {
 
       cursors.shift.on('down', () => {
          if (scene.gary.sprint == false) {
-            scene.gary.body.setMaxVelocity(150, 150);
             scene.gary.sprint = true;
             setTimeout(() => {
                scene.gary.sprint = false;

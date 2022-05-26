@@ -128,5 +128,31 @@ class Menu extends Phaser.Scene {
       this.input.keyboard.on('keydown-SPACE', () => {
          this.scene.start("libraryScene");
       });
+
+      let garyStates = [
+         {
+            'state': 'walk',
+            'velocity': 75
+         },
+         {
+            'state': 'sprint',
+            'velocity': 100
+         },
+         {
+            'lives': 3,
+            'fogFrame': '3_lives_1',
+            'fogAni': '3_lives'
+         },
+         {
+            'lives': 2,
+            'fogFrame': '2_lives_1',
+            'fogAni': '2_lives'
+         },
+         {
+            'lives': 1,
+            'fogFrame': '1_live_1',
+            'fogAni': '1_live'
+         },
+      ]
    }
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="18" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="79">
+<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="18" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="79">
  <editorsettings>
   <export target="libraryLevel.json" format="json"/>
  </editorsettings>
- <tileset firstgid="1" name="librarySheet" tilewidth="32" tileheight="32" spacing="1" tilecount="16" columns="4">
-  <image source="librarySheet.png" width="131" height="131"/>
+ <tileset firstgid="1" name="librarySheet" tilewidth="32" tileheight="32" spacing="1" tilecount="20" columns="4">
+  <image source="librarySheet.png" width="131" height="164"/>
   <tile id="0">
    <properties>
     <property name="collides" type="bool" value="true"/>
@@ -80,9 +80,20 @@
     <property name="collides" type="bool" value="true"/>
    </properties>
   </tile>
+  <tile id="16">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
  </tileset>
- <layer id="1" name="Background" width="18" height="24">
+ <layer id="1" name="Background" width="18" height="25">
   <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,
 8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,
 8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,
@@ -109,81 +120,82 @@
 8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8
 </data>
  </layer>
- <layer id="2" name="Collision" width="18" height="24">
+ <layer id="2" name="Collision" width="18" height="25">
   <data encoding="csv">
-3,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,7,
-10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,
-10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,
-10,0,0,4,16,2,0,0,4,2,0,0,4,16,2,0,0,10,
-10,0,0,14,12,1,0,0,14,1,0,0,14,12,1,0,0,10,
-10,0,0,13,13,13,0,0,14,1,0,0,13,13,13,0,0,10,
-10,0,0,0,0,0,0,0,14,1,0,0,0,0,0,0,0,10,
-10,0,0,0,0,0,0,0,14,1,0,0,0,0,0,0,0,10,
-10,0,0,4,16,2,0,0,13,13,0,0,4,16,2,0,0,10,
-10,0,0,14,12,1,0,0,13,13,0,0,14,12,1,0,0,10,
-10,0,0,13,13,13,0,0,13,13,0,0,13,13,13,0,0,10,
-10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,
-10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,
-10,0,0,4,16,2,0,0,4,2,0,0,4,16,2,0,0,10,
-10,0,0,14,12,1,0,0,14,1,0,0,14,12,1,0,0,10,
-10,0,0,13,13,13,0,0,14,1,0,0,13,13,13,0,0,10,
-10,0,0,0,0,0,0,0,14,1,0,0,0,0,0,0,0,10,
-10,0,0,0,0,0,0,0,14,1,0,0,0,0,0,0,0,10,
-10,0,0,4,16,2,0,0,13,13,0,0,4,2,2,0,0,10,
-10,0,0,13,13,13,0,0,13,13,0,0,13,13,13,0,0,10,
-10,0,0,13,13,13,0,0,13,13,0,0,13,13,13,0,0,10,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,
-11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,9
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,6,
+18,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,18,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18,
+18,0,0,11,10,4,0,0,11,4,0,0,11,10,4,0,0,18,
+18,0,0,3,13,14,0,0,3,14,0,0,3,13,14,0,0,18,
+18,0,0,9,9,9,0,0,3,14,0,0,9,9,9,0,0,18,
+18,0,0,0,0,0,0,0,3,14,0,0,0,0,0,0,0,18,
+18,0,0,0,0,0,0,0,3,14,0,0,0,0,0,0,0,18,
+18,0,0,11,10,4,0,0,9,9,0,0,11,10,4,0,0,18,
+18,0,0,3,13,14,0,0,9,9,0,0,9,9,9,0,0,18,
+18,0,0,9,9,9,0,0,9,9,0,0,9,9,9,0,0,18,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18,
+18,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18,
+18,0,0,11,10,4,0,0,11,4,0,0,11,10,4,0,0,18,
+18,0,0,9,9,9,0,0,3,14,0,0,3,13,14,0,0,18,
+18,0,0,9,9,9,0,0,3,14,0,0,9,9,9,0,0,18,
+18,0,0,0,0,0,0,0,3,14,0,0,0,0,0,0,0,18,
+18,0,0,0,0,0,0,0,3,14,0,0,0,0,0,0,0,18,
+18,0,0,11,10,4,0,0,9,9,0,0,11,10,4,0,0,18,
+18,0,0,3,13,14,0,0,9,9,0,0,3,13,14,0,0,18,
+18,0,0,9,9,9,0,0,9,9,0,0,9,9,9,0,0,18,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18,
+12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,17
 </data>
  </layer>
  <objectgroup id="3" name="Objects">
-  <object id="14" x="224" y="64">
+  <object id="14" x="224" y="96">
    <point/>
   </object>
-  <object id="15" x="320" y="736">
+  <object id="15" x="320" y="768">
    <point/>
   </object>
-  <object id="16" x="480" y="576">
+  <object id="16" x="480" y="608">
    <point/>
   </object>
-  <object id="17" x="192" y="704">
+  <object id="17" x="192" y="736">
    <point/>
   </object>
-  <object id="18" x="192" y="416">
+  <object id="18" x="192" y="448">
    <point/>
   </object>
-  <object id="19" x="480" y="544">
+  <object id="19" x="480" y="576">
    <point/>
   </object>
-  <object id="20" x="480" y="256">
+  <object id="20" x="480" y="288">
    <point/>
   </object>
-  <object id="21" x="192" y="384">
+  <object id="21" x="192" y="416">
    <point/>
   </object>
-  <object id="22" x="192" y="96">
+  <object id="22" x="192" y="128">
    <point/>
   </object>
-  <object id="23" x="480" y="224">
+  <object id="23" x="480" y="256">
    <point/>
   </object>
-  <object id="24" x="32" y="672">
+  <object id="24" x="32" y="704">
    <point/>
   </object>
-  <object id="25" x="512" y="64">
+  <object id="25" x="512" y="96">
    <properties>
     <property name="point1" type="object" value="0"/>
    </properties>
    <point/>
   </object>
-  <object id="26" name="phantom" x="320" y="64">
+  <object id="26" name="phantom" x="320" y="96">
    <properties>
     <property name="point1" type="object" value="15"/>
    </properties>
    <point/>
   </object>
-  <object id="27" name="phantom" x="480" y="96">
+  <object id="27" name="phantom" x="480" y="128">
    <properties>
     <property name="point1" type="object" value="23"/>
     <property name="point2" type="object" value="61"/>
@@ -192,13 +204,13 @@
    </properties>
    <point/>
   </object>
-  <object id="29" name="phantom" x="32" y="64">
+  <object id="29" name="phantom" x="32" y="96">
    <properties>
     <property name="point1" type="object" value="24"/>
    </properties>
    <point/>
   </object>
-  <object id="31" name="phantom" x="64" y="416">
+  <object id="31" name="phantom" x="64" y="448">
    <properties>
     <property name="point1" type="object" value="18"/>
     <property name="point2" type="object" value="76"/>
@@ -207,7 +219,7 @@
    </properties>
    <point/>
   </object>
-  <object id="32" name="phantom" x="480" y="416">
+  <object id="32" name="phantom" x="480" y="448">
    <properties>
     <property name="point1" type="object" value="19"/>
     <property name="point2" type="object" value="67"/>
@@ -216,7 +228,7 @@
    </properties>
    <point/>
   </object>
-  <object id="33" name="phantom" x="192" y="256">
+  <object id="33" name="phantom" x="192" y="288">
    <properties>
     <property name="point1" type="object" value="21"/>
     <property name="point2" type="object" value="55"/>
@@ -225,7 +237,7 @@
    </properties>
    <point/>
   </object>
-  <object id="34" name="phantom" x="352" y="256">
+  <object id="34" name="phantom" x="352" y="288">
    <properties>
     <property name="point1" type="object" value="20"/>
     <property name="point2" type="object" value="64"/>
@@ -234,7 +246,7 @@
    </properties>
    <point/>
   </object>
-  <object id="35" name="phantom" x="192" y="576">
+  <object id="35" name="phantom" x="192" y="608">
    <properties>
     <property name="point1" type="object" value="17"/>
     <property name="point2" type="object" value="73"/>
@@ -243,7 +255,7 @@
    </properties>
    <point/>
   </object>
-  <object id="36" name="phantom" x="352" y="576">
+  <object id="36" name="phantom" x="352" y="608">
    <properties>
     <property name="point1" type="object" value="16"/>
     <property name="point2" type="object" value="70"/>
@@ -252,31 +264,31 @@
    </properties>
    <point/>
   </object>
-  <object id="37" name="phantom" x="224" y="736">
+  <object id="37" name="phantom" x="224" y="768">
    <properties>
     <property name="point1" type="object" value="14"/>
    </properties>
    <point/>
   </object>
-  <object id="38" name="phantom" x="512" y="736">
+  <object id="38" name="phantom" x="512" y="768">
    <properties>
     <property name="point1" type="object" value="25"/>
    </properties>
    <point/>
   </object>
-  <object id="55" x="64" y="384">
+  <object id="55" x="64" y="416">
    <point/>
   </object>
-  <object id="56" x="64" y="256">
+  <object id="56" x="64" y="288">
    <point/>
   </object>
-  <object id="58" x="192" y="224">
+  <object id="58" x="192" y="256">
    <point/>
   </object>
-  <object id="59" x="64" y="224">
+  <object id="59" x="64" y="256">
    <point/>
   </object>
-  <object id="60" name="phantom" x="64" y="96">
+  <object id="60" name="phantom" x="64" y="128">
    <properties>
     <property name="point1" type="object" value="22"/>
     <property name="point2" type="object" value="58"/>
@@ -285,40 +297,40 @@
    </properties>
    <point/>
   </object>
-  <object id="61" x="352" y="224">
+  <object id="61" x="352" y="256">
    <point/>
   </object>
-  <object id="62" x="352" y="96">
+  <object id="62" x="352" y="128">
    <point/>
   </object>
-  <object id="64" x="480" y="384">
+  <object id="64" x="480" y="416">
    <point/>
   </object>
-  <object id="65" x="352" y="384">
+  <object id="65" x="352" y="416">
    <point/>
   </object>
-  <object id="67" x="352" y="544">
+  <object id="67" x="352" y="576">
    <point/>
   </object>
-  <object id="68" x="352" y="416">
+  <object id="68" x="352" y="448">
    <point/>
   </object>
-  <object id="70" x="480" y="704">
+  <object id="70" x="480" y="736">
    <point/>
   </object>
-  <object id="71" x="352" y="704">
+  <object id="71" x="352" y="736">
    <point/>
   </object>
-  <object id="73" x="64" y="704">
+  <object id="73" x="64" y="736">
    <point/>
   </object>
-  <object id="74" x="64" y="576">
+  <object id="74" x="64" y="608">
    <point/>
   </object>
-  <object id="76" x="192" y="544">
+  <object id="76" x="192" y="576">
    <point/>
   </object>
-  <object id="77" x="64" y="544">
+  <object id="77" x="64" y="576">
    <point/>
   </object>
  </objectgroup>
