@@ -35,7 +35,18 @@ class Menu extends Phaser.Scene {
          endFrame: 1
       });
 
+<<<<<<< HEAD
     }
+=======
+      this.load.spritesheet('enemy', 'enemysheet.png', {
+         frameWidth: 32,
+         frameHeight: 32,
+         startFrame: 0,
+         endFrame: 1
+      });
+
+   }
+>>>>>>> parent of 2a51fde (Updated the library level with full assets)
 
 
    create() {
@@ -103,18 +114,43 @@ class Menu extends Phaser.Scene {
 
       //create an animation for fog
       this.anims.create({
-         key: 'fog_ani',
-         frames: this.anims.generateFrameNumbers('fog', {
-            start: 0,
-            end: 9,
-            first: 0
-        }),
-        duration: 1000,
-        repeat: 0,
-        yoyo: true,
-     });
-        this.input.keyboard.on('keydown-SPACE', () => {
-            this.scene.start("libraryScene");
-         });
-    }
+         key: '3_lives',
+         frames: this.anims.generateFrameNames('fog_atlas', {
+            prefix: '3_lives_',
+            start: 1,
+            end: 6,
+            suffix: ''
+         }),
+         duration: 1000,
+         repeat: 0,
+         yoyo: true,
+      });
+      this.anims.create({
+         key: '2_lives',
+         frames: this.anims.generateFrameNames('fog_atlas', {
+            prefix: '2_lives_',
+            start: 1,
+            end: 6,
+            suffix: ''
+         }),
+         duration: 1000,
+         repeat: 0,
+         yoyo: true,
+      });
+      this.anims.create({
+         key: '1_live',
+         frames: this.anims.generateFrameNames('fog_atlas', {
+            prefix: '1_live_',
+            start: 1,
+            end: 6,
+            suffix: ''
+         }),
+         duration: 1000,
+         repeat: 0,
+         yoyo: true,
+      });
+      this.input.keyboard.on('keydown-SPACE', () => {
+         this.scene.start("tutorialScene");
+      });
+   }
 }
