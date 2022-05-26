@@ -124,8 +124,6 @@ class Tutorial extends Phaser.Scene {
       cursors.space.on("down", () => {
          if (scene.gary.energy == true) {
             scene.gary.energy = false;
-            let state = garyStates.find(obj => obj.lives === lives);
-            scene.fog.anims.play(state.fogAni);
          }
          setTimeout(() => {
             scene.gary.energy = true;

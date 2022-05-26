@@ -5,7 +5,6 @@ class Gary extends Phaser.Physics.Arcade.Sprite {
       scene.physics.add.existing(this);
       this.setBodySize(24, 24);
       this.energy = true;
-      this.state = garyStates.find(obj => obj.name === 'walk');
    }
 
    update() {
