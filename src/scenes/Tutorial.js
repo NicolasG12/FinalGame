@@ -9,6 +9,7 @@ class Tutorial extends Phaser.Scene {
       this.load.tilemapTiledJSON("tutorial_map", "tutorialLevel.json");
 
 
+
    }
 
    create() {
@@ -39,6 +40,7 @@ class Tutorial extends Phaser.Scene {
          this.sound.play('collect');
          this.largeEnemySound.play();
          this.largeEnemySound.setLoop(true);
+         this.cameras.main.shake(250);
          page0 = 1;
          this.doors.forEach((door) => {
             door.destroy();
@@ -65,7 +67,7 @@ class Tutorial extends Phaser.Scene {
    }
 
    setup(scene, map, tileset, width, height, garyX, garyY) {
-      console.log(scene);
+      let hud = scene.scene.get('HUD');
       //create the layers for the map
       const backgroundLayer = map.createLayer("Background", tileset, 0, 0);
       const collisionLayer = map.createLayer("Collision", tileset, 0, 0);
@@ -81,6 +83,7 @@ class Tutorial extends Phaser.Scene {
          collides: true
       });
       scene.fog = scene.add.sprite(scene.gary.x, scene.gary.y, "fog", 0).setDepth(1);
+      // scene.fog.setVisible(false);
       //set up the camera
       scene.cameras.main.setBounds(0, 0, width, height);
       scene.cameras.main.setZoom(2);
@@ -118,10 +121,12 @@ class Tutorial extends Phaser.Scene {
          scene.phantoms.add(phantom);
          phantom.startFollow(enemyConfig);
       });
+
       //handling for player input
       cursors.space.on("down", () => {
          if (scene.gary.energy == true) {
             scene.gary.energy = false;
+            hud.shineMeter.anims.play('shine_ani');
          }
          setTimeout(() => {
             scene.gary.energy = true;
@@ -129,6 +134,7 @@ class Tutorial extends Phaser.Scene {
       });
 
       cursors.shift.on('down', () => {
+         hud.sprintMeter.anims.play('sprint_ani');
          if (scene.gary.sprint == false) {
             scene.gary.sprint = true;
             setTimeout(() => {
@@ -165,7 +171,10 @@ class Tutorial extends Phaser.Scene {
             scene.scene.start("hubScene");
          }
       });
+      scene.scene.launch("HUD");
+      scene.scene.bringToTop("HUD");
    }
+
    update() {
       this.gary.update();
       if (page0 == 1) {

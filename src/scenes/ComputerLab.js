@@ -5,15 +5,15 @@ class ComputerLab extends Phaser.Scene {
 
     preload() {
         this.load.path = "./assets/";
-        this.load.image("computerSheet", "computerLabSheet.png");
-        this.load.tilemapTiledJSON("computer_map", "computerLabLevel.json");
+        this.load.image("computerSheet", "computer_lab_spritesheet.png");
+        this.load.tilemapTiledJSON("computer_map", "computerLevel.json");
     }
 
     create() {
         this.ROOMWIDTH = 640;
         this.ROOMHEIGHT = 640;
         garyX = this.ROOMWIDTH/2;
-        garyY = this.ROOMHEIGHT-48;
+        garyY = this.ROOMHEIGHT-24;
 
         enemyConfig.duration = 6000;
 
@@ -22,8 +22,13 @@ class ComputerLab extends Phaser.Scene {
         const map = this.add.tilemap('computer_map');
 
         //add the tileset to the map
-        const tileset = map.addTilesetImage('computerLabSheet', "computerSheet");
+        const tileset = map.addTilesetImage('computer_lab_spritesheet', "computerSheet");
         tutorialScene.setup(this, map, tileset, this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
+
+        this.page = map.createFromObjects("Objects", {
+            name: "page",
+            key: "page"
+         });
 
     }
 
