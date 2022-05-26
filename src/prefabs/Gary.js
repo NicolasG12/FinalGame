@@ -9,19 +9,19 @@ class Gary extends Phaser.Physics.Arcade.Sprite {
 
    update() {
       if(cursors.left.isDown) {
-         this.setVelocity(-this.state.speed, 0);
+         this.setVelocity(-75,0);
          this.anims.play('left', true);
 
       } else if (cursors.right.isDown) {
-         this.setVelocity(this.state.speed, 0);
+         this.setVelocity(75, 0);
          this.anims.play('right', true);
 
       } else if (cursors.up.isDown) {
-         this.setVelocity(0, -this.state.speed)
+         this.setVelocity(0, -75)
          this.anims.play('up', true);
 
       } else if (cursors.down.isDown) {
-         this.setVelocity(0, this.state.speed);
+         this.setVelocity(0, 75);
          this.anims.play('right', true);
 
       } else {
