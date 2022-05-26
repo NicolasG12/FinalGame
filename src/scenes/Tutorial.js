@@ -80,7 +80,8 @@ class Tutorial extends Phaser.Scene {
       collisionLayer.setCollisionByProperty({
          collides: true
       });
-      scene.fog = scene.add.sprite(scene.gary.x, scene.gary.y, "fog", 0).setDepth(1);
+      scene.fog = scene.add.sprite(scene.gary.x, scene.gary.y, "fog_atlas", "3_lives_1").setDepth(1);
+      // scene.fog.setVisible(false);
       //set up the camera
       scene.cameras.main.setBounds(0, 0, width, height);
       scene.cameras.main.setZoom(2);
@@ -96,6 +97,7 @@ class Tutorial extends Phaser.Scene {
       scene.largeEnemySound = scene.sound.add('largeEnemyNoise', { volume: 0.5 });
 
       let phantomObjects = map.filterObjects("Objects", obj => obj.name === "phantom");
+      console.log(phantomObjects);
       let phantomPaths = [];
       //iterate through each of the phantom objects
       phantomObjects.forEach((phantom) => {

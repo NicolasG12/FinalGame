@@ -7,5 +7,6 @@ class Phantom extends Phaser.GameObjects.PathFollower {
    }
 
    update() {
+      
    }
 }

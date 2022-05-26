@@ -22,14 +22,6 @@ class Menu extends Phaser.Scene {
          startFrame: 0,
          endFrame: 1
       });
-
-      this.load.spritesheet('enemy', 'enemysheet.png', {
-         frameWidth: 32,
-         frameHeight: 32,
-         startFrame: 0,
-         endFrame: 1
-      });
-
    }
 
 
@@ -134,7 +126,7 @@ class Menu extends Phaser.Scene {
          yoyo: true,
       });
       this.input.keyboard.on('keydown-SPACE', () => {
-         this.scene.start("tutorialScene");
+         this.scene.start("libraryScene");
       });
    }
 }
