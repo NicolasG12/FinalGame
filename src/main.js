@@ -12,7 +12,7 @@ let config = {
          debug: false
       }
    },
-   scene: [Menu, HUD, Tutorial, Hub, Lab, ComputerLab, Library, GameOver, GameClear]
+   scene: [Menu, HUD, Tutorial, Hub, Lab, ComputerLab, Library, GameClear]
 }
 
 let game = new Phaser.Game(config);
@@ -39,7 +39,3 @@ let page3 = 0;
 let cursors;
 
 let garyX, garyY;
-
-let lives = 3;
-
-let tutorial = true;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="20" height="21" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="43">
+<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="20" height="21" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="53">
  <editorsettings>
   <export target="computerLevel.json" format="json"/>
  </editorsettings>
@@ -196,12 +196,13 @@
    <properties>
     <property name="point1" type="object" value="18"/>
     <property name="point2" type="object" value="19"/>
-    <property name="point3" type="object" value="20"/>
-    <property name="point4" type="object" value="21"/>
-    <property name="point5" type="object" value="22"/>
-    <property name="point6" type="object" value="23"/>
-    <property name="point7" type="object" value="24"/>
-    <property name="point8" type="object" value="25"/>
+    <property name="point3" type="object" value="23"/>
+    <property name="point4" type="object" value="22"/>
+    <property name="point5" type="object" value="43"/>
+    <property name="point6" type="object" value="44"/>
+    <property name="point7" type="object" value="45"/>
+    <property name="point8" type="object" value="46"/>
+    <property name="point9" type="object" value="47"/>
    </properties>
    <point/>
   </object>
@@ -215,12 +216,13 @@
    <properties>
     <property name="point1" type="object" value="26"/>
     <property name="point2" type="object" value="28"/>
-    <property name="point3" type="object" value="29"/>
-    <property name="point4" type="object" value="27"/>
-    <property name="point5" type="object" value="30"/>
-    <property name="point6" type="object" value="32"/>
-    <property name="point7" type="object" value="33"/>
-    <property name="point8" type="object" value="31"/>
+    <property name="point3" type="object" value="32"/>
+    <property name="point4" type="object" value="30"/>
+    <property name="point5" type="object" value="48"/>
+    <property name="point6" type="object" value="49"/>
+    <property name="point7" type="object" value="50"/>
+    <property name="point8" type="object" value="51"/>
+    <property name="point9" type="object" value="52"/>
    </properties>
    <point/>
   </object>
@@ -249,46 +251,22 @@
   <object id="19" x="96" y="320">
    <point/>
   </object>
-  <object id="20" x="128" y="320">
-   <point/>
-  </object>
-  <object id="21" x="128" y="480">
-   <point/>
-  </object>
   <object id="22" x="224" y="480">
    <point/>
   </object>
   <object id="23" x="224" y="320">
    <point/>
   </object>
-  <object id="24" x="256" y="320">
-   <point/>
-  </object>
-  <object id="25" x="256" y="480">
-   <point/>
-  </object>
   <object id="26" x="512" y="320">
-   <point/>
-  </object>
-  <object id="27" x="480" y="320">
    <point/>
   </object>
   <object id="28" x="512" y="480">
    <point/>
   </object>
-  <object id="29" x="480" y="480">
-   <point/>
-  </object>
   <object id="30" x="384" y="320">
    <point/>
   </object>
-  <object id="31" x="352" y="320">
-   <point/>
-  </object>
   <object id="32" x="384" y="480">
-   <point/>
-  </object>
-  <object id="33" x="352" y="480">
    <point/>
   </object>
   <object id="34" x="288" y="192">
@@ -311,6 +289,36 @@
   </object>
   <object id="41" name="page" x="64" y="128" width="32" height="32"/>
   <object id="42" name="bigPhantom" x="64" y="-128">
+   <point/>
+  </object>
+  <object id="43" x="352" y="480">
+   <point/>
+  </object>
+  <object id="44" x="352" y="320">
+   <point/>
+  </object>
+  <object id="45" x="480" y="320">
+   <point/>
+  </object>
+  <object id="46" x="480" y="480">
+   <point/>
+  </object>
+  <object id="47" x="576" y="480">
+   <point/>
+  </object>
+  <object id="48" x="256" y="320">
+   <point/>
+  </object>
+  <object id="49" x="256" y="480">
+   <point/>
+  </object>
+  <object id="50" x="128" y="480">
+   <point/>
+  </object>
+  <object id="51" x="128" y="320">
+   <point/>
+  </object>
+  <object id="52" x="32" y="320">
    <point/>
   </object>
  </objectgroup>

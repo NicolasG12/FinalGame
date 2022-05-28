@@ -4,8 +4,8 @@ class Menu extends Phaser.Scene {
    }
    preload() {
       (this.load.path = "assets/");
-      this.load.image('altar', 'temp_altar.png');
-      this.load.image('page', 'tempPage.png');
+      this.load.image('altar', 'altar.png');
+      this.load.image('page', 'page.png');
 
       this.load.audio('creaks', 'Creaks.wav');
       this.load.audio('collect', 'select.wav');

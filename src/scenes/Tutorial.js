@@ -5,17 +5,19 @@ class Tutorial extends Phaser.Scene {
 
    preload() {
       this.load.path = "./assets/";
-      this.load.image("hubSheet", "hub_spritesheet.png");
+
       this.load.tilemapTiledJSON("tutorial_map", "tutorialLevel.json");
+      this.load.image("hubSheet", "hub_spritesheet.png");
 
    }
 
    create() {
       //define variables
       this.ROOMWIDTH = 448;
-      this.ROOMHEIGHT = 256;
-      garyX = 48;
-      garyY = this.ROOMHEIGHT / 2
+      this.ROOMHEIGHT = 320;
+      garyX = 288;
+      garyY = 96;
+
       //create the tilemap
       const map = this.add.tilemap('tutorial_map');
 
@@ -23,16 +25,21 @@ class Tutorial extends Phaser.Scene {
       const tileset = map.addTilesetImage('hub_spritesheet', 'hubSheet');
       this.setup(this, map, tileset, this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
 
+      //create the doors
       this.doors = map.createFromObjects("Objects", {
          name: 'door',
          key: 'altar'
       });
-
       this.doorGroup = this.physics.add.staticGroup(this.doors);
+      this.physics.add.collider(this.gary, this.doorGroup);
+
+      //create the page to collect
       this.page = map.createFromObjects("Objects", {
          name: "page0",
          key: "page"
       });
+      this.physics.world.enable(this.page, Phaser.Physics.Arcade.STATIC_BODY);
+      //add the overlap between the page and player
       this.physics.add.overlap(this.gary, this.page, (obj1, obj2) => {
          obj2.destroy();
          this.sound.play('collect');
@@ -43,37 +50,36 @@ class Tutorial extends Phaser.Scene {
          this.doors.forEach((door) => {
             door.destroy();
          });
+         this.phantoms.getChildren().forEach((phantom) => {
+            phantom.destroy();
+         });
       });
-      //create the page
-      this.physics.world.enable(this.page, Phaser.Physics.Arcade.STATIC_BODY);
 
-      this.physics.add.collider(this.gary, this.doorGroup);
-
-
+      //checking for phantom collision
+      this.physics.add.overlap(this.gary, this.phantoms, () => {
+         page0 = 0;
+         this.scene.start("tutorialScene");
+      });
+      
+      //add worldbound collision to change scenes
       this.physics.world.on('worldbounds', (body, blockedUp, blockedDown, blockedLeft, blockedRight) => {
          if (blockedLeft) {
-            // clearInterval(this.creaksInter);
             this.largeEnemySound.stop();
             this.scene.switch("hubScene");
             this.scene.sleep('HUD');
          }
       });
-
-      //checking for phantom collision
-      this.physics.add.overlap(this.gary, this.phantoms, () => {
-         clearInterval(this.creaksInter);
-         // this.whispers.stop();
-         this.largeEnemySound.stop();
-         page0 = 0;
-         this.scene.start("tutorialScene");
-      });
    }
 
    setup(scene, map, tileset, width, height, garyX, garyY) {
-      let hud = scene.scene.get('HUD');
       //create the layers for the map
       const backgroundLayer = map.createLayer("Background", tileset, 0, 0);
       const collisionLayer = map.createLayer("Collision", tileset, 0, 0);
+
+      //set the collision property
+      collisionLayer.setCollisionByProperty({
+         collides: true
+      });
 
       //add the cursor keys
       cursors = scene.input.keyboard.createCursorKeys();
@@ -81,12 +87,9 @@ class Tutorial extends Phaser.Scene {
       //add in gary
       scene.gary = new Gary(scene, garyX, garyY, 'gary_atlas', 'Gary_Idle_0');
 
-      //set the collision property
-      collisionLayer.setCollisionByProperty({
-         collides: true
-      });
+      //add fog at gary's position
       scene.fog = scene.add.sprite(scene.gary.x, scene.gary.y, "fog", 0).setDepth(1);
-      // scene.fog.setVisible(false);
+
       //set up the camera
       scene.cameras.main.setBounds(0, 0, width, height);
       scene.cameras.main.setZoom(2);
@@ -97,10 +100,10 @@ class Tutorial extends Phaser.Scene {
       scene.gary.body.onWorldBounds = true;
       scene.physics.world.setBounds(0, 0, width, height);
 
+      //set collision with collision layer
       scene.physics.add.collider(scene.gary, collisionLayer);
-      //add large enemy music
-      scene.largeEnemySound = scene.sound.add('largeEnemyNoise', { volume: 0.5 });
-
+      
+      //create the phantoms
       let phantomObjects = map.filterObjects("Objects", obj => obj.name === "phantom");
       let phantomPaths = [];
       //iterate through each of the phantom objects
@@ -128,10 +131,13 @@ class Tutorial extends Phaser.Scene {
 
       //create the big phantom
       let bigPhantomSpawn = map.findObject("Objects", obj => obj.name === 'bigPhantom');
-      scene.bigPhantom = scene.physics.add.sprite(bigPhantomSpawn.x, bigPhantomSpawn.y, 'bigEnemy_atlas', 'Big_Enemy_Left_0'); 
+      scene.bigPhantom = scene.physics.add.sprite(bigPhantomSpawn.x, bigPhantomSpawn.y, 'bigEnemy_atlas', 'Big_Enemy_Left_0');
       scene.phantoms.add(scene.bigPhantom);
 
-      //handling for player input
+
+      //handling for player input and interacts with hud
+      let hud = scene.scene.get('HUD');
+      //input for shine
       cursors.space.on("down", () => {
          if (scene.gary.energy == true) {
             scene.gary.energy = false;
@@ -143,6 +149,7 @@ class Tutorial extends Phaser.Scene {
          }, 5000);
       });
 
+      //input for sprint
       cursors.shift.on('down', () => {
          if (scene.gary.sprint == false && scene.gary.sprintCooldown == false) {
             scene.gary.sprint = true;
@@ -158,6 +165,7 @@ class Tutorial extends Phaser.Scene {
          }
       });
 
+      //Daniel edit sounds
       // Add Creaks
       scene.creaks = scene.sound.add('creaks', { volume: 0.5 });
       scene.creaksInter = setInterval(() => {
@@ -177,14 +185,18 @@ class Tutorial extends Phaser.Scene {
 
    update() {
       this.gary.update();
+      //check if page has been collected
       if (page0 == 1) {
+         //have the large phantom follow gary
          this.physics.moveToObject(this.bigPhantom, this.gary, 20);
-         if(this.bigPhantom.body.velocity.x < 0) {
+         //play the correct animation for the phantom
+         if (this.bigPhantom.body.velocity.x < 0) {
             this.bigPhantom.anims.play('big_phantom_ani_left')
          } else {
             this.bigPhantom.anims.play('big_phantom_ani_right');
          }
       }
+      //make sure the fog is always centered on gary
       this.fog.x = this.gary.x;
       this.fog.y = this.gary.y;
    }
