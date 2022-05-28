@@ -11,11 +11,11 @@ class ComputerLab extends Phaser.Scene {
 
     create() {
         this.ROOMWIDTH = 640;
-        this.ROOMHEIGHT = 640;
-        garyX = this.ROOMWIDTH/2;
-        garyY = this.ROOMHEIGHT-24;
+        this.ROOMHEIGHT = 672;
+        garyX = this.ROOMWIDTH / 2;
+        garyY = this.ROOMHEIGHT - 24;
 
-        enemyConfig.duration = 6000;
+        enemyConfig.duration = 8000;
 
         let tutorialScene = this.scene.get('tutorialScene');
         //create the tilemap
@@ -28,9 +28,46 @@ class ComputerLab extends Phaser.Scene {
         this.page = map.createFromObjects("Objects", {
             name: "page",
             key: "page"
-         });
+        });
+        this.physics.world.enable(this.page, Phaser.Physics.Arcade.STATIC_BODY);
+        //handles changing scenes when on the far right of screen
+        this.physics.world.on(
+            "worldbounds",
+            (body, blockedUp, blockedDown, blockedLeft, blockedRight) => {
+                if (blockedDown) {
+                    clearInterval(this.creaksInter);
+                    this.whispers.stop();
+                    this.largeEnemySound.stop();
+                    this.scene.switch("hubScene");
+                    this.gary.y -= 20;
+                }
+            }
+        );
 
+
+        this.events.on("wake", () => {
+            cursors = this.input.keyboard.createCursorKeys();
+        });
+
+        this.physics.add.overlap(this.gary, this.page, (obj1, obj2) => {
+            obj2.destroy();
+            this.sound.play('collect');
+            this.largeEnemySound.play();
+            this.largeEnemySound.setLoop(true);
+            page2 = 1;
+        });
+        //checking for phantom collision
+        this.physics.add.overlap(this.gary, this.phantoms, () => {
+            clearInterval(this.creaksInter);
+            // this.whispers.stop();
+            this.largeEnemySound.stop();
+            page2 = 0;
+            this.scene.switch("hubScene");
+            this.gary.x = garyX;
+            this.gary.y = garyY;
+        });
     }
+
 
     update() {
         this.gary.update();

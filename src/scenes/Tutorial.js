@@ -40,7 +40,7 @@ class Tutorial extends Phaser.Scene {
          this.sound.play('collect');
          this.largeEnemySound.play();
          this.largeEnemySound.setLoop(true);
-         this.cameras.main.shake(250);
+         this.cameras.main.shake(100, 0.005);
          page0 = 1;
          this.doors.forEach((door) => {
             door.destroy();
@@ -59,11 +59,17 @@ class Tutorial extends Phaser.Scene {
             // clearInterval(this.creaksInter);
             this.largeEnemySound.stop();
             this.scene.switch("hubScene");
-            tutorial = false;
          }
       });
 
-
+      //checking for phantom collision
+      this.physics.add.overlap(this.gary, this.phantoms, () => {
+         clearInterval(this.creaksInter);
+         // this.whispers.stop();
+         this.largeEnemySound.stop();
+         page0 = 0;
+         this.scene.start("tutorialScene");
+      });
    }
 
    setup(scene, map, tileset, width, height, garyX, garyY) {
@@ -127,19 +133,25 @@ class Tutorial extends Phaser.Scene {
          if (scene.gary.energy == true) {
             scene.gary.energy = false;
             hud.shineMeter.anims.play('shine_ani');
+            scene.fog.anims.play('fog_ani');
          }
          setTimeout(() => {
             scene.gary.energy = true;
-         }, 10000);
+         }, 5000);
       });
 
       cursors.shift.on('down', () => {
-         hud.sprintMeter.anims.play('sprint_ani');
-         if (scene.gary.sprint == false) {
+         if (scene.gary.sprint == false && scene.gary.sprintCooldown == false) {
             scene.gary.sprint = true;
+            hud.sprintMeter.anims.play('sprint_ani');
             setTimeout(() => {
                scene.gary.sprint = false;
-            }, 3000)
+               scene.gary.sprintCooldown = true;
+               setTimeout(() => {
+                  hud.sprintMeter.anims.playReverse("sprint_ani");
+                  scene.gary.sprintCooldown = false;
+               }, 3000);
+            }, 2000);
          }
       });
 
@@ -156,21 +168,6 @@ class Tutorial extends Phaser.Scene {
 
       //add large enemy music
       scene.largeEnemySound = scene.sound.add('largeEnemyNoise', { volume: 0.25 });
-
-      //checking for phantom collision
-      scene.physics.add.overlap(scene.gary, scene.phantoms, () => {
-         clearInterval(scene.creaksInter);
-         // this.whispers.stop();
-         scene.largeEnemySound.stop();
-         if (tutorial) {
-            scene.gary.x = garyX;
-            scene.gary.y = garyY;
-         } else if (--lives === 0) {
-            scene.scene.start("gameOverScene");
-         } else {
-            scene.scene.start("hubScene");
-         }
-      });
       scene.scene.launch("HUD");
       scene.scene.bringToTop("HUD");
    }

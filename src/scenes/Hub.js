@@ -78,6 +78,11 @@ class Hub extends Phaser.Scene {
             this.scene.switch("computerLabScene");
             this.gary.y += 20;
          }
+         if(blockedRight) {
+            clearInterval(this.creaksInter);
+            this.scene.switch("libraryScene");
+            this.gary.x -= 20;
+         }
       });
 
       this.events.on('wake', () => {
@@ -87,17 +92,30 @@ class Hub extends Phaser.Scene {
       //add in physics colliders
       this.physics.add.collider(this.gary, collisionLayer);
       this.physics.add.overlap(this.gary, this.altarGroup, () => {
+         if(page0 == 1) {
+            page0 = 2;
+            tutorial = false;
+            this.sound.play('collect');
+         }
          if (page1 == 1) {
             page1 = 2;
-            clearInterval(this.creaksInter);
+            this.sound.play('collect')
+         }
+         if(page2 == 1) {
+            page2 = 2;
             this.sound.play('collect');
-            this.scene.start("gameClearScene");
+         }
+         if(page3 == 1) {
+            page3 = 2;
+            this.sound.play('collect');
          }
       });
-
    }
 
    update() {
       this.gary.update();
+      if(page0 == 2 && page1 == 2 && page2 ==2 && page3 == 2) {
+         this.scene.start("gameClearScene");
+      }
    }
 }

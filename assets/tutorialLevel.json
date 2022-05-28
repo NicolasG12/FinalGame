@@ -60,24 +60,6 @@
                 {
                  "gid":5,
                  "height":32,
-                 "id":2,
-                 "name":"phantom",
-                 "properties":[
-                        {
-                         "name":"path",
-                         "type":"object",
-                         "value":5
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":96,
-                 "y":64
-                }, 
-                {
-                 "gid":5,
-                 "height":32,
                  "id":3,
                  "name":"phantom",
                  "properties":[
@@ -94,36 +76,6 @@
                  "y":224
                 }, 
                 {
-                 "gid":5,
-                 "height":32,
-                 "id":4,
-                 "name":"phantom",
-                 "properties":[
-                        {
-                         "name":"path",
-                         "type":"object",
-                         "value":7
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":288,
-                 "y":64
-                }, 
-                {
-                 "height":0,
-                 "id":5,
-                 "name":"endPoint",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":96,
-                 "y":224
-                }, 
-                {
                  "height":0,
                  "id":6,
                  "name":"endPoint",
@@ -134,18 +86,6 @@
                  "width":0,
                  "x":192,
                  "y":64
-                }, 
-                {
-                 "height":0,
-                 "id":7,
-                 "name":"endPoint",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":288,
-                 "y":224
                 }, 
                 {
                  "gid":1,
@@ -181,7 +121,7 @@
  "nextobjectid":10,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.8.5",
+ "tiledversion":"1.8.4",
  "tileheight":32,
  "tilesets":[
         {

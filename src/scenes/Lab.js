@@ -16,7 +16,7 @@ class Lab extends Phaser.Scene {
         garyX = this.ROOMWIDTH - 20;
         garyY = this.ROOMHEIGHT / 2;
 
-        enemyConfig.duration = 7000;
+        enemyConfig.duration = 8000;
 
         let tutorialScene = this.scene.get('tutorialScene');
         //create the tilemap
@@ -63,13 +63,16 @@ class Lab extends Phaser.Scene {
             this.largeEnemySound.setLoop(true);
             page1 = 1;
         });
-        //checking for phantom collision
-        this.physics.add.overlap(this.gary, this.phantoms, () => {
-            clearInterval(this.creaksInter);
-            this.whispers.stop();
-            this.largeEnemySound.stop();
-            this.scene.start("gameOverScene");
-        });
+      //checking for phantom collision
+      this.physics.add.overlap(this.gary, this.phantoms, () => {
+        clearInterval(this.creaksInter);
+        // this.whispers.stop();
+        this.largeEnemySound.stop();
+        page1 = 0;
+        this.scene.switch("hubScene");
+        this.gary.x = garyX;
+        this.gary.y = garyY;
+     });
     }
 
     update() {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="14" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="10">
+<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="14" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="10">
  <tileset firstgid="1" name="tutorialSheet" tilewidth="32" tileheight="32" tilecount="6" columns="2">
   <image source="tutorialSheet.png" width="64" height="96"/>
   <tile id="1">
@@ -34,28 +34,12 @@
  </layer>
  <objectgroup id="3" name="Objects">
   <object id="1" name="page" gid="3" x="352" y="128" width="32" height="32"/>
-  <object id="2" name="phantom" gid="5" x="96" y="64" width="32" height="32">
-   <properties>
-    <property name="path" type="object" value="5"/>
-   </properties>
-  </object>
   <object id="3" name="phantom" gid="5" x="192" y="224" width="32" height="32">
    <properties>
     <property name="path" type="object" value="6"/>
    </properties>
   </object>
-  <object id="4" name="phantom" gid="5" x="288" y="64" width="32" height="32">
-   <properties>
-    <property name="path" type="object" value="7"/>
-   </properties>
-  </object>
-  <object id="5" name="endPoint" x="96" y="224">
-   <point/>
-  </object>
   <object id="6" name="endPoint" x="192" y="64">
-   <point/>
-  </object>
-  <object id="7" name="endPoint" x="288" y="224">
    <point/>
   </object>
   <object id="8" name="door" gid="1" x="0" y="128" width="32" height="32"/>

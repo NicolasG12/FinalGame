@@ -9,7 +9,7 @@ let config = {
    physics: {
       default: 'arcade',
       arcade: {
-         debug: true
+         debug: false
       }
    },
    scene: [Menu, HUD, Tutorial, Hub, Lab, ComputerLab, Library, GameOver, GameClear]
@@ -33,6 +33,8 @@ let enemyConfig = {
 // Variables
 let page0 = 0;
 let page1 = 0;
+let page2 = 0;
+let page3 = 0;
 
 let cursors;
 

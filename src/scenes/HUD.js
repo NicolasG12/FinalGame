@@ -26,7 +26,7 @@ class HUD extends Phaser.Scene {
             end: 12,
             first: 0,
          }),
-         duration: 5000,
+         duration: 3000,
          repeat: 0,
          yoyo: true
       });
@@ -37,9 +37,8 @@ class HUD extends Phaser.Scene {
             end: 12,
             first: 0,
          }),
-         duration: 5000,
+         duration: 2000,
          repeat: 0,
-         yoyo: true
       });
       this.shineMeter = this.add.sprite(game.config.width - 72, 48, "shine_meter", 0).setScale(2);
       this.sprintMeter = this.add.sprite(game.config.width - 200, 48, "sprint_meter", 0).setScale(2);
