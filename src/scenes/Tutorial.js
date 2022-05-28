@@ -5,10 +5,8 @@ class Tutorial extends Phaser.Scene {
 
    preload() {
       this.load.path = "./assets/";
-      this.load.image("tutorialSheet", "tutorialSheet.png");
+      this.load.image("hubSheet", "hub_spritesheet.png");
       this.load.tilemapTiledJSON("tutorial_map", "tutorialLevel.json");
-
-
 
    }
 
@@ -22,7 +20,7 @@ class Tutorial extends Phaser.Scene {
       const map = this.add.tilemap('tutorial_map');
 
       //add the tileset to the map
-      const tileset = map.addTilesetImage('tutorialSheet');
+      const tileset = map.addTilesetImage('hub_spritesheet', 'hubSheet');
       this.setup(this, map, tileset, this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
 
       this.doors = map.createFromObjects("Objects", {
@@ -32,7 +30,7 @@ class Tutorial extends Phaser.Scene {
 
       this.doorGroup = this.physics.add.staticGroup(this.doors);
       this.page = map.createFromObjects("Objects", {
-         name: "page",
+         name: "page0",
          key: "page"
       });
       this.physics.add.overlap(this.gary, this.page, (obj1, obj2) => {
@@ -57,6 +55,7 @@ class Tutorial extends Phaser.Scene {
             // clearInterval(this.creaksInter);
             this.largeEnemySound.stop();
             this.scene.switch("hubScene");
+            this.scene.sleep('HUD');
          }
       });
 

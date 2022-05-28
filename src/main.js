@@ -1,6 +1,6 @@
 let config = {
    parent: 'phaser-game',
-   type: Phaser.AUTO,
+   type: Phaser.CANVAS,
    render: {
       pixelArt: true
    },

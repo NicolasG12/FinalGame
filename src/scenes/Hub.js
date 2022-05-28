@@ -5,7 +5,6 @@ class Hub extends Phaser.Scene {
 
    preload() {
       this.load.path = "./assets/";
-      this.load.image("hubSheet", "hubSheet.png");
       this.load.tilemapTiledJSON("hub_map", "hubLevel.json");
    }
 
@@ -18,7 +17,7 @@ class Hub extends Phaser.Scene {
       const map = this.add.tilemap("hub_map");
 
       //add the tileset to the map
-      const tileset = map.addTilesetImage("hubSheet", "hubSheet");
+      const tileset = map.addTilesetImage("hub_spritesheet", "hubSheet");
 
       //create the layers for the map
       const backgroundLayer = map.createLayer("Background", tileset, 0, 0);
@@ -32,11 +31,6 @@ class Hub extends Phaser.Scene {
       //create the player avatar
       this.gary = new Gary(this, this.ROOMWIDTH - 48, this.ROOMHEIGHT - 48, "gary_atlas", 'Gary_Idle_0');
 
-      //create the altars
-      this.altars = map.createFromObjects("Objects", {
-         name: "altar",
-         key: "altar",
-      });
 
       this.altarGroup = this.physics.add.staticGroup(this.altars);
       //assign keys for movement
@@ -87,6 +81,7 @@ class Hub extends Phaser.Scene {
 
       this.events.on('wake', () => {
          cursors = this.input.keyboard.createCursorKeys();
+         this.scene.sleep('HUD');
       });
 
       //add in physics colliders
