@@ -47,6 +47,7 @@ class ComputerLab extends Phaser.Scene {
 
         this.events.on("wake", () => {
             cursors = this.input.keyboard.createCursorKeys();
+            this.scene.restart();
         });
 
         this.physics.add.overlap(this.gary, this.page, (obj1, obj2) => {

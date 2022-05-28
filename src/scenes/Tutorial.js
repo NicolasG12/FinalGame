@@ -46,8 +46,6 @@ class Tutorial extends Phaser.Scene {
             door.destroy();
          });
       });
-      //create the big phantom
-      this.bigPhantom = this.phantoms.create(this.ROOMWIDTH + 128, this.ROOMHEIGHT / 2, 'enemy', 0).setScale(2).setFlipX(true);
       //create the page
       this.physics.world.enable(this.page, Phaser.Physics.Arcade.STATIC_BODY);
 
@@ -126,7 +124,13 @@ class Tutorial extends Phaser.Scene {
          let phantom = new Phantom(scene, phantomPaths[i++], object.x, object.y, 'enemy');
          scene.phantoms.add(phantom);
          phantom.startFollow(enemyConfig);
+         phantom.anims.play('phantom_ani');
       });
+
+      //create the big phantom
+      let bigPhantomSpawn = map.findObject("Objects", obj => obj.name === 'bigPhantom');
+      scene.bigPhantom = scene.physics.add.sprite(bigPhantomSpawn.x, bigPhantomSpawn.y, 'bigEnemy_atlas', 'Big_Enemy_Left_0'); 
+      scene.phantoms.add(scene.bigPhantom);
 
       //handling for player input
       cursors.space.on("down", () => {
@@ -176,6 +180,11 @@ class Tutorial extends Phaser.Scene {
       this.gary.update();
       if (page0 == 1) {
          this.physics.moveToObject(this.bigPhantom, this.gary, 20);
+         if(this.bigPhantom.body.velocity.x < 0) {
+            this.bigPhantom.anims.play('big_phantom_ani_left')
+         } else {
+            this.bigPhantom.anims.play('big_phantom_ani_right');
+         }
       }
       this.fog.x = this.gary.x;
       this.fog.y = this.gary.y;

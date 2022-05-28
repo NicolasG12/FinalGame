@@ -13,21 +13,22 @@ class Menu extends Phaser.Scene {
       this.load.audio('largeEnemyNoise', 'Larger_Enemy_Noise.wav');
       this.load.audio('mainMenu', 'MainMenu.wav');
 
-        this.load.atlas('gary_atlas', 'garysheet.png', 'garymap.json');
-        this.load.spritesheet('fog', 'fog_ani.png', {
-            frameWidth: 700,
-            frameHeight: 700,
-            startFrame: 0,
-            endFrame: 9
-        });
-   
-         this.load.spritesheet('enemy', 'enemysheet.png', {
-            frameWidth: 32,
-            frameHeight: 32,
-            startFrame: 0,
-            endFrame: 1
-        });
-      
+      this.load.atlas('gary_atlas', 'garysheet.png', 'garymap.json');
+      this.load.atlas('bigEnemy_atlas', 'bigEnemySheet.png', 'bigEnemyMap.json');
+      this.load.spritesheet('fog', 'fog_ani.png', {
+         frameWidth: 700,
+         frameHeight: 700,
+         startFrame: 0,
+         endFrame: 9
+      });
+
+      this.load.spritesheet('enemy', 'enemysheet.png', {
+         frameWidth: 32,
+         frameHeight: 32,
+         startFrame: 0,
+         endFrame: 1
+      });
+
    }
 
 
@@ -94,6 +95,30 @@ class Menu extends Phaser.Scene {
          repeat: -1
       });
 
+      //create animation for large phantoms
+      this.anims.create({
+         key: 'big_phantom_ani_left',
+         frames: this.anims.generateFrameNames('bigEnemy_atlas', {
+            prefix: 'Big_Enemy_Left_',
+            start: 0,
+            end: 1,
+            suffix: ''
+         }),
+         frameRate: 15,
+         repeat: -1
+      });
+
+      this.anims.create({
+         key: 'big_phantom_ani_right',
+         frames: this.anims.generateFrameNames('bigEnemy_atlas', {
+            prefix: 'Big_Enemy_Right_',
+            start: 0,
+            end: 1,
+            suffix: ''
+         }),
+         frameRate: 15,
+         repeat: -1
+      });
       //create an animation for fog
       this.anims.create({
          key: 'fog_ani',
@@ -101,13 +126,13 @@ class Menu extends Phaser.Scene {
             start: 0,
             end: 9,
             first: 0
-        }),
-        duration: 1000,
-        repeat: 0,
-        yoyo: true,
-     });
-        this.input.keyboard.on('keydown-SPACE', () => {
+         }),
+         duration: 1000,
+         repeat: 0,
+         yoyo: true,
+      });
+      this.input.keyboard.on('keydown-SPACE', () => {
          this.scene.start("tutorialScene");
-         });
-    }
+      });
+   }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="14" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="10">
+<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="14" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="12">
  <tileset firstgid="1" name="tutorialSheet" tilewidth="32" tileheight="32" tilecount="6" columns="2">
   <image source="tutorialSheet.png" width="64" height="96"/>
   <tile id="1">
@@ -44,5 +44,8 @@
   </object>
   <object id="8" name="door" gid="1" x="0" y="128" width="32" height="32"/>
   <object id="9" name="door" gid="1" x="0" y="160" width="32" height="32"/>
+  <object id="11" name="bigPhantom" x="544" y="128">
+   <point/>
+  </object>
  </objectgroup>
 </map>

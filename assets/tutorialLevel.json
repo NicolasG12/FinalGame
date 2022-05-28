@@ -110,6 +110,18 @@
                  "width":32,
                  "x":0,
                  "y":160
+                }, 
+                {
+                 "height":0,
+                 "id":11,
+                 "name":"bigPhantom",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":544,
+                 "y":128
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -118,10 +130,10 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":10,
+ "nextobjectid":12,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.8.4",
+ "tiledversion":"1.8.5",
  "tileheight":32,
  "tilesets":[
         {

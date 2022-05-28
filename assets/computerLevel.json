@@ -538,6 +538,18 @@
                  "width":32,
                  "x":64,
                  "y":128
+                }, 
+                {
+                 "height":0,
+                 "id":42,
+                 "name":"bigPhantom",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":64,
+                 "y":-128
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -546,7 +558,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":42,
+ "nextobjectid":43,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.5",

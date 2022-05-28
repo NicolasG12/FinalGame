@@ -26,16 +26,12 @@ class Lab extends Phaser.Scene {
         const tileset = map.addTilesetImage('labSheet');
         tutorialScene.setup(this, map, tileset, this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
 
-        this.bigPhantom = this.phantoms.create(-128, this.ROOMHEIGHT / 2, 'enemy', 0).setScale(2);
-
         //create the page
         this.page = map.createFromObjects("Objects", {
             name: "page",
             key: "page"
         });
         this.physics.world.enable(this.page, Phaser.Physics.Arcade.STATIC_BODY);
-        //set up fog for mask
-        // this.fog.setVisible(false);
 
         //handles changing scenes when on the far right of screen
         this.physics.world.on(
@@ -53,6 +49,7 @@ class Lab extends Phaser.Scene {
 
         this.events.on("wake", () => {
             cursors = this.input.keyboard.createCursorKeys();
+            this.scene.restart();
         });
 
         //checking for page collection
