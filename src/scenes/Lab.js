@@ -17,7 +17,7 @@ class Lab extends Phaser.Scene {
         garyY = this.ROOMHEIGHT / 2;
         phantomSpeed = 30;
 
-
+        let stopped = this.sound.stopByKey('whispers');
         let tutorialScene = this.scene.get('tutorialScene');
         //create the tilemap
         const map = this.add.tilemap('lab_map');
@@ -52,7 +52,7 @@ class Lab extends Phaser.Scene {
         this.physics.add.overlap(this.gary, this.phantoms, () => {
             page1 = 0;
             clearInterval(this.creaksInter);
-            this.whispers.stop();
+            this.sound.stopByKey('whispers');
             this.largeEnemySound.stop();
             this.sound.play('hurt', { volume: 0.15 });
             this.scene.switch("hubScene");
@@ -66,7 +66,7 @@ class Lab extends Phaser.Scene {
             (body, blockedUp, blockedDown, blockedLeft, blockedRight) => {
                 if (blockedRight) {
                     clearInterval(this.creaksInter);
-                    this.whispers.stop();
+                    this.sound.stopByKey('whispers');
                     this.largeEnemySound.stop();
                     this.sound.play('door', { volume: 0.10 });
                     this.scene.switch("hubScene");
@@ -74,6 +74,7 @@ class Lab extends Phaser.Scene {
                 }
             }
         );
+        console.log(stopped);
         this.scene.wake('HUD');
     }
 

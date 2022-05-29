@@ -100,19 +100,22 @@ class Hub extends Phaser.Scene {
             clearInterval(this.creaksInter);
             this.sound.play('door', { volume: 0.5 });
             this.scene.switch("labScene");
-            this.gary.x += 20;
+            this.gary.x = 160;
+            this.gary.y = 200;
          }
          if(blockedUp) {
             clearInterval(this.creaksInter);
             this.sound.play('door', { volume: 0.5 });
             this.scene.switch("computerLabScene");
-            this.gary.y += 20;
+            this.gary.x = 160;
+            this.gary.y = 200;
          }
          if(blockedRight) {
             clearInterval(this.creaksInter);
             this.sound.play('door', { volume: 0.5 });
             this.scene.switch("libraryScene");
-            this.gary.x -= 20;
+            this.gary.x = 160;
+            this.gary.y = 200;
          }
       });
 
@@ -172,7 +175,8 @@ class Hub extends Phaser.Scene {
                emitter.start();
             });
          }
-
+         let stopped = this.sound.stopByKey('whispers');
+         // console.log(stopped);
       });
    }
 

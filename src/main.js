@@ -4,12 +4,12 @@ let config = {
    render: {
       pixelArt: true
    },
-   width: 700,
-   height: 700,
+   width: 704,
+   height: 704,
    physics: {
       default: 'arcade',
       arcade: {
-         debug: true
+         debug: false
       }
    },
    scene: [Menu, HUD, Tutorial, Hub, Lab, ComputerLab, Library, GameClear]
