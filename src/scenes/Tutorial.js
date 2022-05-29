@@ -140,7 +140,6 @@ class Tutorial extends Phaser.Scene {
       });
       scene.phantoms = scene.physics.add.group();
       let i = 0;
-      console.log(phantomTimes);
       //iterate throught the phantom objects to create the phantoms
       phantomObjects.map((object) => {
          //create a new phantom class and give it the appropriate path
@@ -165,13 +164,13 @@ class Tutorial extends Phaser.Scene {
             scene.gary.energy = false;
             hud.shineMeter.anims.play('shine_ani');
             scene.fog.anims.play('fog_ani');
+            setTimeout(() => {
+               scene.fog.anims.playReverse('fog_ani');
+               setTimeout(() => {
+                  scene.gary.energy = true;
+               }, 5000);
+            },4000)
          }
-         setTimeout(() => {
-            scene.fog.anims.playReverse({key: 'fog_ani', duration: 8000});
-            scene.fog.on('animationComplete', () => {
-               scene.gary.energy = true;
-            })
-         },4000)
       });
 
       //input for sprint
@@ -182,8 +181,8 @@ class Tutorial extends Phaser.Scene {
             setTimeout(() => {
                scene.gary.sprint = false;
                scene.gary.sprintCooldown = true;
+               hud.sprintMeter.anims.playReverse("sprint_ani");
                setTimeout(() => {
-                  hud.sprintMeter.anims.playReverse("sprint_ani");
                   scene.gary.sprintCooldown = false;
                }, 3000);
             }, 2000);
@@ -224,5 +223,6 @@ class Tutorial extends Phaser.Scene {
       //make sure the fog is always centered on gary
       this.fog.x = this.gary.x;
       this.fog.y = this.gary.y;
+      console.log(this.gary.sprint, this.gary.sprintCooldown);
    }
 }
