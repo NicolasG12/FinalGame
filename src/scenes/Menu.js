@@ -7,11 +7,15 @@ class Menu extends Phaser.Scene {
       this.load.image('altar', 'altar.png');
       this.load.image('page', 'page.png');
 
-      this.load.audio('creaks', 'Creaks.wav');
-      this.load.audio('collect', 'select.wav');
-      this.load.audio('whispers', 'Ghost_Whisper.wav');
-      this.load.audio('largeEnemyNoise', 'Larger_Enemy_Noise.wav');
-      this.load.audio('mainMenu', 'MainMenu.wav');
+      this.load.audio('creaks', 'Ambient_Creaks.wav');
+      this.load.audio('collect', 'Place_Page.wav');
+      this.load.audio('menu_select', 'Select.wav')
+      this.load.audio('whispers', 'Enemy_Sound.wav');
+      this.load.audio('largeEnemyNoise', 'Larger_Enemy_Sound.wav');
+      this.load.audio('mainMenu', 'Main_Menu.wav');
+      this.load.audio('shine', 'Shine.wav');
+      this.load.audio('hurt', 'Hurt.wav');
+      this.load.audio('door', 'Door_Sound.wav')
 
       this.load.atlas('gary_atlas', 'garysheet.png', 'garymap.json');
       this.load.atlas('bigEnemy_atlas', 'bigEnemySheet.png', 'bigEnemyMap.json');
@@ -131,6 +135,9 @@ class Menu extends Phaser.Scene {
          repeat: 0,
          yoyo: true,
       });
+
+      
+
       this.input.keyboard.on('keydown-SPACE', () => {
          this.scene.start("tutorialScene");
       });
