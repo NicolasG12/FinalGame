@@ -53,6 +53,7 @@ class ComputerLab extends Phaser.Scene {
             clearInterval(this.creaksInter);
             this.whispers.stop();
             this.largeEnemySound.stop();
+            this.sound.play('hurt', { volume: 0.15 });
             this.scene.switch("hubScene");
             this.gary.x = garyX;
             this.gary.y = garyY;
@@ -66,6 +67,7 @@ class ComputerLab extends Phaser.Scene {
                     clearInterval(this.creaksInter);
                     this.whispers.stop();
                     this.largeEnemySound.stop();
+                    this.sound.play('door', { volume: 0.10 });
                     this.scene.switch("hubScene");
                     this.gary.y -= 20;
                 }
