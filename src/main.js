@@ -23,7 +23,7 @@ let enemyConfig = {
    from: 0,
    to: 1,
    delay: 0,
-   duration: 8000, 
+   duration: 0, 
    hold: 0,
    repeat: -1,
    yoyo: true,
@@ -39,3 +39,4 @@ let page3 = 0;
 let cursors;
 
 let garyX, garyY;
+let phantomSpeed;

@@ -17,6 +17,8 @@ class Tutorial extends Phaser.Scene {
       this.ROOMHEIGHT = 320;
       garyX = 288;
       garyY = 96;
+      //speed in pixel/sec
+      phantomSpeed = 32;
 
       //create the tilemap
       const map = this.add.tilemap('tutorial_map');
@@ -89,10 +91,11 @@ class Tutorial extends Phaser.Scene {
 
       //add fog at gary's position
       scene.fog = scene.add.sprite(scene.gary.x, scene.gary.y, "fog", 0).setDepth(1);
+      scene.fog.setVisible(false);
 
       //set up the camera
       scene.cameras.main.setBounds(0, 0, width, height);
-      scene.cameras.main.setZoom(2);
+      scene.cameras.main.setZoom(1);
       scene.cameras.main.startFollow(scene.gary);
 
       //set the world collision
@@ -106,23 +109,35 @@ class Tutorial extends Phaser.Scene {
       //create the phantoms
       let phantomObjects = map.filterObjects("Objects", obj => obj.name === "phantom");
       let phantomPaths = [];
+      let phantomTimes = [];
       //iterate through each of the phantom objects
       phantomObjects.forEach((phantom) => {
+         let prevPoint = phantom;
+         let distance = 0;
          //create a path starting at phantom location
          let path = scene.add.path(phantom.x, phantom.y);
          //iterate through the phantoms properties and get the path points
          phantom.properties.forEach((location) => {
             //add the line to the path
             let point = map.findObject("Objects", obj => obj.id === location.value);
+            if(point.x == prevPoint.x) {
+               distance += Math.abs(point.y - prevPoint.y);
+            } else {
+               distance += Math.abs(point.x - prevPoint.x);
+            }
+            prevPoint = point;
             path.lineTo(point.x, point.y);
          });
+         phantomTimes.push(distance / phantomSpeed);
          phantomPaths.push(path); //add the path to the list of paths
       });
       scene.phantoms = scene.physics.add.group();
       let i = 0;
+      console.log(phantomTimes);
       //iterate throught the phantom objects to create the phantoms
       phantomObjects.map((object) => {
          //create a new phantom class and give it the appropriate path
+         enemyConfig.duration = phantomTimes[i] * 1000;
          let phantom = new Phantom(scene, phantomPaths[i++], object.x, object.y, 'enemy');
          scene.phantoms.add(phantom);
          phantom.startFollow(enemyConfig);

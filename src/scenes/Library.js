@@ -15,7 +15,7 @@ class Library extends Phaser.Scene {
         garyX = 48;
         garyY = this.ROOMHEIGHT - 48;
 
-        enemyConfig.duration = 10000;
+        phantomSpeed = 56;
 
         let tutorialScene = this.scene.get('tutorialScene');
         //create the tilemap

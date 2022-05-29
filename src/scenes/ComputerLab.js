@@ -14,8 +14,8 @@ class ComputerLab extends Phaser.Scene {
         this.ROOMHEIGHT = 672;
         garyX = this.ROOMWIDTH / 2;
         garyY = this.ROOMHEIGHT - 24;
+        phantomSpeed = 48;
 
-        enemyConfig.duration = 10000;
 
         let tutorialScene = this.scene.get('tutorialScene');
         //create the tilemap

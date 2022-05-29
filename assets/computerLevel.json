@@ -225,6 +225,11 @@
                          "name":"point3",
                          "type":"object",
                          "value":39
+                        }, 
+                        {
+                         "name":"point4",
+                         "type":"object",
+                         "value":9
                         }],
                  "rotation":0,
                  "type":"",
@@ -253,6 +258,11 @@
                          "name":"point3",
                          "type":"object",
                          "value":34
+                        }, 
+                        {
+                         "name":"point4",
+                         "type":"object",
+                         "value":11
                         }],
                  "rotation":0,
                  "type":"",

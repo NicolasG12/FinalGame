@@ -231,6 +231,7 @@
     <property name="point1" type="object" value="35"/>
     <property name="point2" type="object" value="36"/>
     <property name="point3" type="object" value="39"/>
+    <property name="point4" type="object" value="9"/>
    </properties>
    <point/>
   </object>
@@ -239,6 +240,7 @@
     <property name="point1" type="object" value="38"/>
     <property name="point2" type="object" value="37"/>
     <property name="point3" type="object" value="34"/>
+    <property name="point4" type="object" value="11"/>
    </properties>
    <point/>
   </object>
