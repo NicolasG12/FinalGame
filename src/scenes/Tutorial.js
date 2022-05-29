@@ -160,8 +160,11 @@ class Tutorial extends Phaser.Scene {
             scene.fog.anims.play('fog_ani');
          }
          setTimeout(() => {
-            scene.gary.energy = true;
-         }, 5000);
+            scene.fog.anims.playReverse({key: 'fog_ani', duration: 8000});
+            scene.fog.on('animationComplete', () => {
+               scene.gary.energy = true;
+            })
+         },4000)
       });
 
       //input for sprint

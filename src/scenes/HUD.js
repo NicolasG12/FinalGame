@@ -26,7 +26,7 @@ class HUD extends Phaser.Scene {
             end: 12,
             first: 0,
          }),
-         duration: 3000,
+         duration: 5000,
          repeat: 0,
          yoyo: true
       });
