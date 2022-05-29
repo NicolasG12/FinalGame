@@ -11,7 +11,7 @@ class Menu extends Phaser.Scene {
       this.load.audio('collect', 'Place_Page.wav');
       this.load.audio('menu_select', 'Select.wav')
       this.load.audio('whispers', 'Enemy_Sound.wav');
-      this.load.audio('largeEnemyNoise', 'Larger_Enemy_Sound.wav');
+      this.load.audio('largeEnemyNoise', 'Large_Enemy_Sound.wav');
       this.load.audio('mainMenu', 'Main_Menu.wav');
       this.load.audio('shine', 'Shine.wav');
       this.load.audio('hurt', 'Hurt.wav');
@@ -37,7 +37,6 @@ class Menu extends Phaser.Scene {
 
 
    create() {
-      this.add.text(20, 20, "Demons 101\nPress Space to start");
       //create the gary animations
       this.anims.create({
          key: 'idle',
@@ -136,9 +135,15 @@ class Menu extends Phaser.Scene {
          yoyo: true,
       });
 
-      
+      //Menu Items
+      this.add.text(20, 20, "Demons 101\nPress Space to start");
+
+      this.scene.mainMenuMusic = this.sound.add('mainMenu', { volume: 0.5 });
+      this.scene.mainMenuMusic.setLoop(true);
+      this.scene.mainMenuMusic.play();
 
       this.input.keyboard.on('keydown-SPACE', () => {
+         this.scene.mainMenuMusic.stop();
          this.scene.start("tutorialScene");
       });
    }

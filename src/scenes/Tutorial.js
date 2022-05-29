@@ -8,7 +8,6 @@ class Tutorial extends Phaser.Scene {
 
       this.load.tilemapTiledJSON("tutorial_map", "tutorialLevel.json");
       this.load.image("hubSheet", "hub_spritesheet.png");
-
    }
 
    create() {
@@ -44,7 +43,7 @@ class Tutorial extends Phaser.Scene {
       //add the overlap between the page and player
       this.physics.add.overlap(this.gary, this.page, (obj1, obj2) => {
          obj2.destroy();
-         this.sound.play('collect');
+         this.sound.play('collect', { volume: 0.5 });
          this.largeEnemySound.play();
          this.largeEnemySound.setLoop(true);
          this.cameras.main.shake(100, 0.005);
@@ -54,18 +53,24 @@ class Tutorial extends Phaser.Scene {
          });
          this.phantoms.getChildren().forEach((phantom) => {
             phantom.destroy();
+            this.whispers.stop();
          });
       });
 
       //checking for phantom collision
       this.physics.add.overlap(this.gary, this.phantoms, () => {
          page0 = 0;
+         clearInterval(this.creaksInter);
+         this.whispers.stop();
+         this.largeEnemySound.stop();
          this.scene.start("tutorialScene");
       });
       
       //add worldbound collision to change scenes
       this.physics.world.on('worldbounds', (body, blockedUp, blockedDown, blockedLeft, blockedRight) => {
          if (blockedLeft) {
+            clearInterval(this.creaksInter);
+            this.whispers.stop();
             this.largeEnemySound.stop();
             this.scene.switch("hubScene");
             this.scene.sleep('HUD');
@@ -91,11 +96,11 @@ class Tutorial extends Phaser.Scene {
 
       //add fog at gary's position
       scene.fog = scene.add.sprite(scene.gary.x, scene.gary.y, "fog", 0).setDepth(1);
-      scene.fog.setVisible(false);
+      scene.fog.setVisible(true);
 
       //set up the camera
       scene.cameras.main.setBounds(0, 0, width, height);
-      scene.cameras.main.setZoom(1);
+      scene.cameras.main.setZoom(2);
       scene.cameras.main.startFollow(scene.gary);
 
       //set the world collision
@@ -149,12 +154,12 @@ class Tutorial extends Phaser.Scene {
       scene.bigPhantom = scene.physics.add.sprite(bigPhantomSpawn.x, bigPhantomSpawn.y, 'bigEnemy_atlas', 'Big_Enemy_Left_0');
       scene.phantoms.add(scene.bigPhantom);
 
-
       //handling for player input and interacts with hud
       let hud = scene.scene.get('HUD');
       //input for shine
       cursors.space.on("down", () => {
          if (scene.gary.energy == true) {
+            this.sound.play('shine', { volume: 0.2 })
             scene.gary.energy = false;
             hud.shineMeter.anims.play('shine_ani');
             scene.fog.anims.play('fog_ani');
@@ -180,7 +185,6 @@ class Tutorial extends Phaser.Scene {
          }
       });
 
-      //Daniel edit sounds
       // Add Creaks
       scene.creaks = scene.sound.add('creaks', { volume: 0.5 });
       scene.creaksInter = setInterval(() => {
@@ -194,6 +198,7 @@ class Tutorial extends Phaser.Scene {
 
       //add large enemy music
       scene.largeEnemySound = scene.sound.add('largeEnemyNoise', { volume: 0.25 });
+
       scene.scene.launch("HUD");
       scene.scene.bringToTop("HUD");
    }

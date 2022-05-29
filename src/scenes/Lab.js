@@ -42,7 +42,7 @@ class Lab extends Phaser.Scene {
         //checking for page collection
         this.physics.add.overlap(this.gary, this.page, (obj1, obj2) => {
             obj2.destroy();
-            this.sound.play('collect');
+            this.sound.play('collect', { volume: 0.5 });
             this.largeEnemySound.play();
             this.largeEnemySound.setLoop(true);
             page1 = 1;
@@ -50,10 +50,10 @@ class Lab extends Phaser.Scene {
         });
         //checking for phantom collision
         this.physics.add.overlap(this.gary, this.phantoms, () => {
-            clearInterval(this.creaksInter);
-            // this.whispers.stop();
-            this.largeEnemySound.stop();
             page1 = 0;
+            clearInterval(this.creaksInter);
+            this.whispers.stop();
+            this.largeEnemySound.stop();
             this.scene.switch("hubScene");
             this.gary.x = garyX;
             this.gary.y = garyY;
