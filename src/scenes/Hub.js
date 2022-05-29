@@ -58,16 +58,19 @@ class Hub extends Phaser.Scene {
       this.physics.world.on('worldbounds', (body, blockedUp, blockedDown, blockedLeft, blockedRight) => {
          if (blockedLeft) {
             clearInterval(this.creaksInter);
+            this.sound.play('door', { volume: 0.5 });
             this.scene.switch("labScene");
             this.gary.x += 20;
          }
          if(blockedUp) {
             clearInterval(this.creaksInter);
+            this.sound.play('door', { volume: 0.5 });
             this.scene.switch("computerLabScene");
             this.gary.y += 20;
          }
          if(blockedRight) {
             clearInterval(this.creaksInter);
+            this.sound.play('door', { volume: 0.5 });
             this.scene.switch("libraryScene");
             this.gary.x -= 20;
          }
