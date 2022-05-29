@@ -49,7 +49,7 @@ class Tutorial extends Phaser.Scene {
             });
       });
 
-      this.physics.add.collider(this.gary, this.doorGroup);
+      this.physics.add.collider(this.gary, this.doors);
 
       //create the page to collect
       this.page = map.createFromObjects("Objects", {

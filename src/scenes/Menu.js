@@ -27,7 +27,7 @@ class Menu extends Phaser.Scene {
       });
 
       this.load.spritesheet('enemy', 'enemysheet.png', {
-         frameWidth: 32,
+         frameWidth: 26,
          frameHeight: 32,
          startFrame: 0,
          endFrame: 1

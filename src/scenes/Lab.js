@@ -74,6 +74,7 @@ class Lab extends Phaser.Scene {
                 }
             }
         );
+        this.scene.wake('HUD');
     }
 
     update() {

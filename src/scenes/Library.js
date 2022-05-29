@@ -71,6 +71,7 @@ class Library extends Phaser.Scene {
                 }
             }
         );
+        this.scene.wake('HUD');
     }
 
     update() {

@@ -73,6 +73,7 @@ class ComputerLab extends Phaser.Scene {
                 }
             }
         );
+        this.scene.wake('HUD');
     }
 
 
