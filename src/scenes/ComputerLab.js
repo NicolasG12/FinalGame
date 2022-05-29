@@ -16,7 +16,7 @@ class ComputerLab extends Phaser.Scene {
         garyY = this.ROOMHEIGHT - 24;
         phantomSpeed = 48;
 
-
+        let stopped = this.sound.stopByKey('whispers');
         let tutorialScene = this.scene.get('tutorialScene');
         //create the tilemap
         const map = this.add.tilemap('computer_map');
