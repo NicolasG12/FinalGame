@@ -8,6 +8,8 @@ class Tutorial extends Phaser.Scene {
 
       this.load.tilemapTiledJSON("tutorial_map", "tutorialLevel.json");
       this.load.image("hubSheet", "hub_spritesheet.png");
+      this.load.image('door', 'door.png');
+      this.load.image('door_particle', 'door_particle.png');
    }
 
    create() {
@@ -29,9 +31,24 @@ class Tutorial extends Phaser.Scene {
       //create the doors
       this.doors = map.createFromObjects("Objects", {
          name: 'door',
-         key: 'altar'
+         key: 'door'
       });
-      this.doorGroup = this.physics.add.staticGroup(this.doors);
+      this.physics.world.enable(this.doors, Phaser.Physics.Arcade.STATIC_BODY);
+
+      this.particles = this.add.particles('door_particle');
+
+      this.doors.forEach((door) => {
+            let deathZone = new Phaser.Geom.Rectangle(door.x - 16, door.y - 16, 32, 32);
+            this.particles.createEmitter({
+               x: door.x,
+               y: door.y,
+               speed: { min: 10, max: 500, steps: 5000 },
+               lifespan: 4000,
+               quantity: 10,
+               deathZone: {type: 'onLeave', source: deathZone}
+            });
+      });
+
       this.physics.add.collider(this.gary, this.doorGroup);
 
       //create the page to collect
@@ -48,9 +65,10 @@ class Tutorial extends Phaser.Scene {
          this.largeEnemySound.setLoop(true);
          this.cameras.main.shake(100, 0.005);
          page0 = 1;
-         this.doors.forEach((door) => {
-            door.destroy();
-         });
+         this.physics.world.disable(this.doors);
+         this.particles.emitters.list.forEach((emitter) => {
+            emitter.stop();
+         })
          this.phantoms.getChildren().forEach((phantom) => {
             phantom.destroy();
             this.whispers.stop();
@@ -222,7 +240,5 @@ class Tutorial extends Phaser.Scene {
       }
       //make sure the fog is always centered on gary
       this.fog.x = this.gary.x;
-      this.fog.y = this.gary.y;
-      console.log(this.gary.sprint, this.gary.sprintCooldown);
-   }
+      this.fog.y = this.gary.y;   }
 }

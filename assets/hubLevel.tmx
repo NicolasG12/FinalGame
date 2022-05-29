@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="10" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
+<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="10" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="25">
  <editorsettings>
   <export target="hubLevel.json" format="json"/>
  </editorsettings>
@@ -136,4 +136,12 @@
 19,14,14,14,14,14,14,14,14,21
 </data>
  </layer>
+ <objectgroup id="3" name="Objects">
+  <object id="19" name="labDoor" gid="10" x="0" y="192" width="32" height="32"/>
+  <object id="20" name="labDoor" gid="10" x="0" y="224" width="32" height="32"/>
+  <object id="21" name="computerDoor" gid="10" x="128" y="32" width="32" height="32"/>
+  <object id="22" name="computerDoor" gid="10" x="160" y="32" width="32" height="32"/>
+  <object id="23" name="libraryDoor" gid="10" x="288" y="192" width="32" height="32"/>
+  <object id="24" name="libraryDoor" gid="10" x="288" y="224" width="32" height="32"/>
+ </objectgroup>
 </map>

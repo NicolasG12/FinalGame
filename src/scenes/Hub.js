@@ -6,6 +6,8 @@ class Hub extends Phaser.Scene {
    preload() {
       this.load.path = "./assets/";
       this.load.tilemapTiledJSON("hub_map", "hubLevel.json");
+      this.load.image("hubSheet", "hub_spritesheet.png");
+
 
    }
 
@@ -28,9 +30,47 @@ class Hub extends Phaser.Scene {
       collisionLayer.setCollisionByProperty({
          collides: true
       });
-      
+
+      this.labDoor = map.createFromObjects("Objects", {
+         name: 'labDoor',
+         key: 'door'
+      });
+      this.physics.world.enable(this.labDoor, Phaser.Physics.Arcade.STATIC_BODY);
+      // this.labDoors = this.physics.add.staticGroup(this.labDoor);
+      this.computerDoor = map.createFromObjects("Objects", {
+         name: 'computerDoor',
+         key: 'door'
+      });
+      this.physics.world.enable(this.computerDoor, Phaser.Physics.Arcade.STATIC_BODY);
+      this.libraryDoor = map.createFromObjects("Objects", {
+         name: 'libraryDoor',
+         key: 'door'
+      });
+      this.physics.world.enable(this.libraryDoor, Phaser.Physics.Arcade.STATIC_BODY);
+      let doors = [this.labDoor, this.computerDoor, this.libraryDoor];
       //create the altar
       this.altar = this.physics.add.image(160, 192, 'altar');
+
+
+      this.particles = this.add.particles('door_particle');
+
+      doors.forEach((child) => {
+         child.forEach((door) => {
+            let deathZone = new Phaser.Geom.Rectangle(door.x - 16, door.y - 16, 32, 32);
+            this.particles.createEmitter({
+               x: door.x,
+               y: door.y,
+               speed: { min: 10, max: 500, steps: 5000 },
+               lifespan: 4000,
+               quantity: 10,
+               deathZone: {type: 'onLeave', source: deathZone}
+            });
+         });
+      });
+
+      this.labDoorEmitters = [this.particles.emitters.list[0], this.particles.emitters.list[1]];
+      this.computerDoorEmitters = [this.particles.emitters.list[2], this.particles.emitters.list[3]];
+      this.libraryDoorEmitters = [this.particles.emitters.list[4], this.particles.emitters.list[5]];
 
       //create the player avatar
       this.gary = new Gary(this, this.ROOMWIDTH - 48, this.ROOMHEIGHT - 48, "gary_atlas", 'Gary_Idle_0');
@@ -84,26 +124,53 @@ class Hub extends Phaser.Scene {
 
       //add in physics colliders
       this.physics.add.collider(this.gary, collisionLayer);
+      this.physics.add.collider(this.gary, this.labDoor);
+      this.physics.add.collider(this.gary, this.computerDoor);
+      this.physics.add.collider(this.gary, this.libraryDoor);
       this.physics.add.overlap(this.gary, this.altar, () => {
          if(page0 == 1) {
             page0 = 2;
             this.sound.play('collect');
             this.cameras.main.shake(100, 0.005);
+            this.physics.world.disable(this.labDoor);
+            this.labDoorEmitters.forEach((emitter) => {
+               emitter.stop();
+            });
          }
          if (page1 == 1) {
             page1 = 2;
             this.sound.play('collect');
             this.cameras.main.shake(100, 0.005);
+            this.physics.world.enable(this.labDoor);
+            this.physics.world.disable(this.computerDoor);
+            this.labDoorEmitters.forEach((emitter) => {
+               emitter.start();
+            });
+            this.computerDoorEmitters.forEach((emitter) => {
+               emitter.stop();
+            });
          }
          if(page2 == 1) {
             page2 = 2;
             this.sound.play('collect');
             this.cameras.main.shake(100, 0.005);
+            this.physics.world.enable(this.computerDoor);
+            this.physics.world.disable(this.libraryDoor);
+            this.computerDoorEmitters.forEach((emitter) => {
+               emitter.start();
+            });
+            this.libraryDoorEmitters.forEach((emitter) => {
+               emitter.stop();
+            });
          }
          if(page3 == 1) {
             page3 = 2;
             this.sound.play('collect');
             this.cameras.main.shake(100, 0.005);
+            this.physics.world.enable(this.computerDoor);
+            this.libraryDoorEmitters.forEach((emitter) => {
+               emitter.start();
+            });
          }
 
       });
