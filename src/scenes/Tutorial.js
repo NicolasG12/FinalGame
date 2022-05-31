@@ -61,6 +61,7 @@ class Tutorial extends Phaser.Scene {
             phantom.destroy();
             this.whispers.stop();
          });
+         this.garyParticles.start();
       });
 
       //checking for phantom collision
@@ -101,7 +102,7 @@ class Tutorial extends Phaser.Scene {
       cursors = scene.input.keyboard.createCursorKeys();
 
       //add in gary
-      scene.gary = new Gary(scene, garyX, garyY, 'gary_atlas', 'Gary_Idle_0').setDepth(1);
+      scene.gary = new Gary(scene, garyX, garyY, 'gary_atlas', 'Gary_Idle_0');
 
       //add fog at gary's position
       scene.fog = scene.add.sprite(scene.gary.x, scene.gary.y, "fog", 0).setDepth(1);
@@ -182,16 +183,15 @@ class Tutorial extends Phaser.Scene {
          });
       });
 
-      scene.particles.createEmitter({
-         name: 'gary_particles',
+      scene.garyParticles = scene.particles.createEmitter({
          frame: 0,
-         // active: false,
          follow: scene.gary,
-         speed: {min: 10, max: 100, steps: 5000},
-         lifespan: 200,
-         quantity: 10,
+         speed: 100,
+         lifespan: 300,
+         gravity: {x: 0, y: 200},
+         scale: {start: 0.1, end: 1}
       });
-
+      scene.garyParticles.stop();
       //handling for player input and interacts with hud
       let hud = scene.scene.get('HUD');
       //input for shine
@@ -260,5 +260,6 @@ class Tutorial extends Phaser.Scene {
       //make sure the fog is always centered on gary
       this.fog.x = this.gary.x;
       this.fog.y = this.gary.y;
+
    }
 }

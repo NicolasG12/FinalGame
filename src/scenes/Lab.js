@@ -47,6 +47,7 @@ class Lab extends Phaser.Scene {
             this.largeEnemySound.setLoop(true);
             page1 = 1;
             this.cameras.main.shake(100, 0.005);
+            this.garyParticles.start();
         });
         //checking for phantom collision
         this.physics.add.overlap(this.gary, this.phantoms, () => {

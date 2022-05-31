@@ -52,12 +52,13 @@ class Hub extends Phaser.Scene {
       this.altar = this.physics.add.image(160, 192, 'altar');
 
 
-      this.particles = this.add.particles('door_particle');
+      this.particles = this.add.particles('particles');
 
       doors.forEach((child) => {
          child.forEach((door) => {
             let deathZone = new Phaser.Geom.Rectangle(door.x - 16, door.y - 16, 32, 32);
             this.particles.createEmitter({
+               frame: 1,
                x: door.x,
                y: door.y,
                speed: { min: 10, max: 500, steps: 5000 },
@@ -123,6 +124,7 @@ class Hub extends Phaser.Scene {
       this.events.on('wake', () => {
          cursors = this.input.keyboard.createCursorKeys();
          this.scene.sleep('HUD');
+         this.sound.stopByKey('whispers');
       });
 
       //add in physics colliders
@@ -175,8 +177,15 @@ class Hub extends Phaser.Scene {
                emitter.start();
             });
          }
-         let stopped = this.sound.stopByKey('whispers');
-         // console.log(stopped);
+         this.garyParticles.stop();
+      });
+
+      this.garyParticles = this.particles.createEmitter({
+         frame: 0,
+         follow: this.gary,
+         speed: {min: 10, max: 100, steps: 5000},
+         lifespan: 200,
+         quantity: 10,
       });
    }
 
