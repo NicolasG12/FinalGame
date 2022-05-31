@@ -9,7 +9,12 @@ class Tutorial extends Phaser.Scene {
       this.load.tilemapTiledJSON("tutorial_map", "tutorialLevel.json");
       this.load.image("hubSheet", "hub_spritesheet.png");
       this.load.image('door', 'door.png');
-      this.load.image('door_particle', 'door_particle.png');
+      this.load.spritesheet('particles', 'particlesheet.png', {
+         frameWidth: 5,
+         frameHeight: 5,
+         startFrame: 0,
+         endFrame: 1
+      });
    }
 
    create() {
@@ -28,26 +33,9 @@ class Tutorial extends Phaser.Scene {
       const tileset = map.addTilesetImage('hub_spritesheet', 'hubSheet');
       this.setup(this, map, tileset, this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
 
-      //create the doors
-      this.doors = map.createFromObjects("Objects", {
-         name: 'door',
-         key: 'door'
-      });
+
       this.physics.world.enable(this.doors, Phaser.Physics.Arcade.STATIC_BODY);
 
-      this.particles = this.add.particles('door_particle');
-
-      this.doors.forEach((door) => {
-            let deathZone = new Phaser.Geom.Rectangle(door.x - 16, door.y - 16, 32, 32);
-            this.particles.createEmitter({
-               x: door.x,
-               y: door.y,
-               speed: { min: 10, max: 500, steps: 5000 },
-               lifespan: 4000,
-               quantity: 10,
-               deathZone: {type: 'onLeave', source: deathZone}
-            });
-      });
 
       this.physics.add.collider(this.gary, this.doors);
 
@@ -84,7 +72,7 @@ class Tutorial extends Phaser.Scene {
          this.sound.play('hurt', { volume: 0.15 });
          this.scene.start("tutorialScene");
       });
-      
+
       //add worldbound collision to change scenes
       this.physics.world.on('worldbounds', (body, blockedUp, blockedDown, blockedLeft, blockedRight) => {
          if (blockedLeft) {
@@ -96,6 +84,7 @@ class Tutorial extends Phaser.Scene {
             this.scene.sleep('HUD');
          }
       });
+
    }
 
    setup(scene, map, tileset, width, height, garyX, garyY) {
@@ -112,7 +101,7 @@ class Tutorial extends Phaser.Scene {
       cursors = scene.input.keyboard.createCursorKeys();
 
       //add in gary
-      scene.gary = new Gary(scene, garyX, garyY, 'gary_atlas', 'Gary_Idle_0');
+      scene.gary = new Gary(scene, garyX, garyY, 'gary_atlas', 'Gary_Idle_0').setDepth(1);
 
       //add fog at gary's position
       scene.fog = scene.add.sprite(scene.gary.x, scene.gary.y, "fog", 0).setDepth(1);
@@ -130,7 +119,7 @@ class Tutorial extends Phaser.Scene {
 
       //set collision with collision layer
       scene.physics.add.collider(scene.gary, collisionLayer);
-      
+
       //create the phantoms
       let phantomObjects = map.filterObjects("Objects", obj => obj.name === "phantom");
       let phantomPaths = [];
@@ -145,7 +134,7 @@ class Tutorial extends Phaser.Scene {
          phantom.properties.forEach((location) => {
             //add the line to the path
             let point = map.findObject("Objects", obj => obj.id === location.value);
-            if(point.x == prevPoint.x) {
+            if (point.x == prevPoint.x) {
                distance += Math.abs(point.y - prevPoint.y);
             } else {
                distance += Math.abs(point.x - prevPoint.x);
@@ -173,6 +162,36 @@ class Tutorial extends Phaser.Scene {
       scene.bigPhantom = scene.physics.add.sprite(bigPhantomSpawn.x, bigPhantomSpawn.y, 'bigEnemy_atlas', 'Big_Enemy_Left_0');
       scene.phantoms.add(scene.bigPhantom);
 
+      //create the doors
+      scene.doors = map.createFromObjects("Objects", {
+         name: 'door',
+         key: 'door'
+      });
+      scene.particles = scene.add.particles('particles');
+
+      scene.doors.forEach((door) => {
+         let deathZone = new Phaser.Geom.Rectangle(door.x - 16, door.y - 16, 32, 32);
+         scene.particles.createEmitter({
+            frame: 1,
+            x: door.x,
+            y: door.y,
+            speed: { min: 10, max: 500, steps: 5000 },
+            lifespan: 4000,
+            quantity: 10,
+            deathZone: { type: 'onLeave', source: deathZone }
+         });
+      });
+
+      scene.particles.createEmitter({
+         name: 'gary_particles',
+         frame: 0,
+         // active: false,
+         follow: scene.gary,
+         speed: {min: 10, max: 100, steps: 5000},
+         lifespan: 200,
+         quantity: 10,
+      });
+
       //handling for player input and interacts with hud
       let hud = scene.scene.get('HUD');
       //input for shine
@@ -187,7 +206,7 @@ class Tutorial extends Phaser.Scene {
                setTimeout(() => {
                   scene.gary.energy = true;
                }, 5000);
-            },4000)
+            }, 4000)
          }
       });
 
@@ -240,5 +259,6 @@ class Tutorial extends Phaser.Scene {
       }
       //make sure the fog is always centered on gary
       this.fog.x = this.gary.x;
-      this.fog.y = this.gary.y;   }
+      this.fog.y = this.gary.y;
+   }
 }
