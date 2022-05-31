@@ -6,8 +6,13 @@ class Menu extends Phaser.Scene {
       (this.load.path = "assets/");
       this.load.image('altar', 'altar.png');
       this.load.image('page', 'page.png');
-
-
+      this.load.image('door', 'door.png');
+      this.load.spritesheet('particles', 'particlesheet.png', {
+         frameWidth: 5,
+         frameHeight: 5,
+         startFrame: 0,
+         endFrame: 1
+      });
       this.load.atlas('gary_atlas', 'garysheet.png', 'garymap.json');
       this.load.atlas('bigEnemy_atlas', 'bigEnemySheet.png', 'bigEnemyMap.json');
       this.load.spritesheet('fog', 'fog_ani.png', {
@@ -148,5 +153,11 @@ class Menu extends Phaser.Scene {
          this.scene.mainMenuMusic.stop();
          this.scene.start("tutorialScene");
       });
+
+      this.input.keyboard.on('keydown-SHIFT', () => {
+         this.scene.mainMenuMusic.stop();
+         this.scene.start('hubScene');
+         page0 =1;
+      })
    }
 }

@@ -3,9 +3,9 @@ class Lab extends Phaser.Scene {
         super("labScene");
     }
     preload() {
-        this.load.path = "./assets/";
+        this.load.path = "./assets/tilemaps/";
         this.load.image("labSheet", "labSheet.png");
-        this.load.tilemapTiledJSON("lab_map", "./tilemaps/labLevel.json");
+        this.load.tilemapTiledJSON("lab_map", "labLevel.json");
 
 
     }
@@ -13,7 +13,7 @@ class Lab extends Phaser.Scene {
         //create variables
         this.ROOMWIDTH = 576;
         this.ROOMHEIGHT = 576;
-        garyX = this.ROOMWIDTH - 20;
+        garyX = this.ROOMWIDTH - 48;
         garyY = this.ROOMHEIGHT / 2;
         phantomSpeed = 30;
 

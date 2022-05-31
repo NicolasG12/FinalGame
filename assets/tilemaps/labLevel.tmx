@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="18" height="18" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="36">
+<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="18" height="18" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="39">
  <editorsettings>
   <export target="labLevel.json" format="json"/>
  </editorsettings>
@@ -233,5 +233,7 @@
   <object id="35" name="bigPhantom" x="-128" y="288">
    <point/>
   </object>
+  <object id="36" name="door" gid="1" x="544" y="288" width="32" height="32"/>
+  <object id="37" name="door" gid="1" x="544" y="320" width="32" height="32"/>
  </objectgroup>
 </map>

@@ -7,14 +7,10 @@ class Tutorial extends Phaser.Scene {
       this.load.path = "./assets/";
 
       this.load.tilemapTiledJSON("tutorial_map", "./tilemaps/tutorialLevel.json");
-      this.load.image("hubSheet", "hub_spritesheet.png");
-      this.load.image('door', 'door.png');
-      this.load.spritesheet('particles', 'particlesheet.png', {
-         frameWidth: 5,
-         frameHeight: 5,
-         startFrame: 0,
-         endFrame: 1
-      });
+      this.load.image("hubSheet", "./tilemaps/hub_spritesheet.png");
+
+
+      // this.load.json('dialog', 'tutorialDialog.json');
    }
 
    create() {
@@ -36,8 +32,6 @@ class Tutorial extends Phaser.Scene {
 
       this.physics.world.enable(this.doors, Phaser.Physics.Arcade.STATIC_BODY);
 
-
-      this.physics.add.collider(this.gary, this.doors);
 
       //create the page to collect
       this.page = map.createFromObjects("Objects", {
@@ -87,6 +81,7 @@ class Tutorial extends Phaser.Scene {
       });
 
       //creating the dialog for the tutorial
+      this.dialog = this.cache.json.get('dialog');
       
    }
 
@@ -170,6 +165,8 @@ class Tutorial extends Phaser.Scene {
          name: 'door',
          key: 'door'
       });
+
+      scene.physics.add.collider(scene.gary, scene.doors);
       scene.particles = scene.add.particles('particles');
 
       scene.doors.forEach((door) => {
