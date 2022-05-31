@@ -165,7 +165,7 @@ class Tutorial extends Phaser.Scene {
          name: 'door',
          key: 'door'
       });
-
+      scene.physics.world.enable(scene.doors, Phaser.Physics.Arcade.STATIC_BODY);
       scene.physics.add.collider(scene.gary, scene.doors);
       scene.particles = scene.add.particles('particles');
 
