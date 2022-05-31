@@ -6,7 +6,7 @@ class ComputerLab extends Phaser.Scene {
     preload() {
         this.load.path = "./assets/";
         this.load.image("computerSheet", "computer_lab_spritesheet.png");
-        this.load.tilemapTiledJSON("computer_map", "computerLevel.json");
+        this.load.tilemapTiledJSON("computer_map", "./tilemaps/computerLevel.json");
     }
 
     create() {

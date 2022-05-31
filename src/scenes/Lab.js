@@ -5,7 +5,7 @@ class Lab extends Phaser.Scene {
     preload() {
         this.load.path = "./assets/";
         this.load.image("labSheet", "labSheet.png");
-        this.load.tilemapTiledJSON("lab_map", "labLevel.json");
+        this.load.tilemapTiledJSON("lab_map", "./tilemaps/labLevel.json");
 
 
     }

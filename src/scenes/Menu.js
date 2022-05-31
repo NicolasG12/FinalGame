@@ -7,15 +7,6 @@ class Menu extends Phaser.Scene {
       this.load.image('altar', 'altar.png');
       this.load.image('page', 'page.png');
 
-      this.load.audio('creaks', 'Ambient_Creaks.wav');
-      this.load.audio('collect', 'Place_Page.wav');
-      this.load.audio('menu_select', 'Select.wav')
-      this.load.audio('whispers', 'Enemy_Sound.wav');
-      this.load.audio('largeEnemyNoise', 'Large_Enemy_Sound.wav');
-      this.load.audio('mainMenu', 'Main_Menu.wav');
-      this.load.audio('shine', 'Shine.wav');
-      this.load.audio('hurt', 'Hurt.wav');
-      this.load.audio('door', 'Door_Sound.wav')
 
       this.load.atlas('gary_atlas', 'garysheet.png', 'garymap.json');
       this.load.atlas('bigEnemy_atlas', 'bigEnemySheet.png', 'bigEnemyMap.json');
@@ -31,7 +22,18 @@ class Menu extends Phaser.Scene {
          frameHeight: 32,
          startFrame: 0,
          endFrame: 1
-      });
+      });  
+      
+      this.load.path = "assets/sounds/"
+      this.load.audio('creaks', 'Ambient_Creaks.wav');
+      this.load.audio('collect', 'Place_Page.wav');
+      this.load.audio('menu_select', 'Select.wav')
+      this.load.audio('whispers', 'Enemy_Sound.wav');
+      this.load.audio('largeEnemyNoise', 'Large_Enemy_Sound.wav');
+      this.load.audio('mainMenu', 'Main_Menu.wav');
+      this.load.audio('shine', 'Shine.wav');
+      this.load.audio('hurt', 'Hurt.wav');
+      this.load.audio('door', 'Door_Sound.wav');
 
    }
 

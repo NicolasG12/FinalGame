@@ -5,7 +5,7 @@ class Hub extends Phaser.Scene {
 
    preload() {
       this.load.path = "./assets/";
-      this.load.tilemapTiledJSON("hub_map", "hubLevel.json");
+      this.load.tilemapTiledJSON("hub_map", "./tilemaps/hubLevel.json");
       this.load.image("hubSheet", "hub_spritesheet.png");
 
 

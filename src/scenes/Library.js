@@ -6,7 +6,7 @@ class Library extends Phaser.Scene {
     preload() {
         this.load.path = "./assets/";
         this.load.image("librarySheet", "librarySheet.png");
-        this.load.tilemapTiledJSON("library_map", "libraryLevel.json ");
+        this.load.tilemapTiledJSON("library_map", "./tilemaps/libraryLevel.json ");
     }
 
     create() {
