@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="20" height="21" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="55">
+<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="20" height="21" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="55">
  <editorsettings>
   <export target="computerLevel.json" format="json"/>
  </editorsettings>
- <tileset firstgid="1" name="computer_lab_spritesheet" tilewidth="32" tileheight="32" tilecount="30" columns="5">
-  <image source="computer_lab_spritesheet.png" trans="ff00ff" width="160" height="192"/>
+ <tileset firstgid="1" name="computer_lab_spritesheet" tilewidth="32" tileheight="32" spacing="2" margin="1" tilecount="30" columns="5">
+  <image source="computer_lab_spritesheet_extruded.png" trans="ff00ff" width="170" height="204"/>
   <tile id="1">
    <properties>
     <property name="collides" type="bool" value="true"/>

@@ -7,7 +7,7 @@ class Tutorial extends Phaser.Scene {
       this.load.path = "./assets/";
 
       this.load.tilemapTiledJSON("tutorial_map", "./tilemaps/tutorialLevel.json");
-      this.load.image("hubSheet", "./tilemaps/hub_spritesheet.png");
+      this.load.image("hubSheet", "./tilemaps/hub_spritesheet_extruded.png");
 
 
       // this.load.json('dialog', 'tutorialDialog.json');

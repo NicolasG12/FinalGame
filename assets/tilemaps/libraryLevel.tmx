@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="18" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="85">
+<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="18" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="85">
  <editorsettings>
   <export target="libraryLevel.json" format="json"/>
  </editorsettings>
- <tileset firstgid="1" name="librarySheet" tilewidth="32" tileheight="32" spacing="1" tilecount="20" columns="4">
-  <image source="librarySheet.png" width="131" height="164"/>
+ <tileset firstgid="1" name="librarySheet" tilewidth="32" tileheight="32" spacing="3" margin="1" tilecount="20" columns="4">
+  <image source="librarySheet_extruded.png" width="139" height="174"/>
   <tile id="0">
    <properties>
     <property name="collides" type="bool" value="true"/>
