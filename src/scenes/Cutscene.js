@@ -46,16 +46,16 @@ class Cutscene extends Phaser.Scene {
         this.Virgil = this.add.sprite(this.OFFSCREEN_X, this.OFFSCREEN_Y, 'virgil').setOrigin(0, 1).setScale(10);
         this.Gary = this.add.sprite(this.OFFSCREEN_X, this.OFFSCREEN_Y, 'gary_cutscene').setOrigin(0, 1).setScale(10);
 
+        //ready the character dialog images offscreen
+        this.lantern_gary = this.add.sprite(this.OFFSCREEN_X, this.OFFSCREEN_Y, 'lantern_gary').setOrigin(0, 1).setScale(10);
+        this.lantern_virgil = this.add.sprite(this.OFFSCREEN_X, this.OFFSCREEN_Y, 'lantern_virgil').setOrigin(0, 1).setScale(10);
+
+
         this.dialogBox = this.add.sprite(this.DBOX_X, this.DBOX_Y, 'dialogbox').setOrigin(0);
 
         //initialize dialog text objects
         this.dialogText = this.add.bitmapText(this.TEXT_X, this.TEXT_Y, this.DBOX_FONT, '', this.TEXT_SIZE);
         this.nextText = this.add.bitmapText(this.NEXT_X, this.NEXT_Y, this.DBOX_FONT, '', this.TEXT_SIZE);
-
-        //ready the character dialog images offscreen
-
-        this.lantern_gary = this.add.sprite(this.OFFSCREEN_X, this.OFFSCREEN_Y, 'lantern_gary').setOrigin(0, 1).setScale(10);
-        this.lantern_virgil = this.add.sprite(this.OFFSCREEN_X, this.OFFSCREEN_Y, 'lantern_virgil').setOrigin(0, 1).setScale(10);
 
         //input
         cursors = this.input.keyboard.createCursorKeys();
@@ -76,7 +76,7 @@ class Cutscene extends Phaser.Scene {
     typeText() {
         //lock the player from moving on
         this.dialogTyping = true;
-        
+
         //clear the text
         this.dialogText.text = '';
         this.nextText.text = '';
@@ -105,7 +105,7 @@ class Cutscene extends Phaser.Scene {
                 });
             }
 
-            this.dialogLines = this.dialog[this.dialogLine]['speaker'] + ': ' + this.dialog[this.dialogLine]['dialog'];
+            this.dialogLines = this.dialog[this.dialogLine]['name'] + ': ' + this.dialog[this.dialogLine]['dialog'];
 
             let currentChar = 0;
             this.textTimer = this.time.addEvent({
