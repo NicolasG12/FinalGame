@@ -155,7 +155,7 @@ class Menu extends Phaser.Scene {
 
       this.input.keyboard.on('keydown-SPACE', () => {
          this.scene.mainMenuMusic.stop();
-         this.scene.start("gameClearScene");
+         this.scene.start("cutscene");
       });
 
       this.input.keyboard.on('keydown-SHIFT', () => {
