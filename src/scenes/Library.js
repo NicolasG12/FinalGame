@@ -16,7 +16,7 @@ class Library extends Phaser.Scene {
         garyY = this.ROOMHEIGHT - 48;
 
         phantomSpeed = 48;
-        let stopped = this.sound.stopByKey('whispers');
+        this.sound.stopByKey('whispers');
         let tutorialScene = this.scene.get('tutorialScene');
         //create the tilemap
         const map = this.add.tilemap('library_map');

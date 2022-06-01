@@ -21,7 +21,14 @@ class Menu extends Phaser.Scene {
          endFrame: 9
       });
 
-      this.load.spritesheet('enemy', 'enemysheet.png', {
+      this.load.spritesheet('enemy_left', 'enemysheet_left.png', {
+         frameWidth: 26,
+         frameHeight: 32,
+         startFrame: 0,
+         endFrame: 1
+      });
+
+      this.load.spritesheet('enemy_right', 'enemysheet_right.png', {
          frameWidth: 26,
          frameHeight: 32,
          startFrame: 0,
@@ -111,8 +118,19 @@ class Menu extends Phaser.Scene {
 
       //create the animation for the phantoms
       this.anims.create({
-         key: 'phantom_ani',
-         frames: this.anims.generateFrameNumbers('enemy', {
+         key: 'phantom_ani_left',
+         frames: this.anims.generateFrameNumbers('enemy_left', {
+            start: 0,
+            end: 1,
+            first: 0,
+         }),
+         frameRate: 5,
+         repeat: -1
+      });
+
+      this.anims.create({
+         key: 'phantom_ani_right',
+         frames: this.anims.generateFrameNumbers('enemy_right', {
             start: 0,
             end: 1,
             first: 0,

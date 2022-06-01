@@ -143,10 +143,9 @@ class Tutorial extends Phaser.Scene {
       phantomObjects.map((object) => {
          //create a new phantom class and give it the appropriate path
          enemyConfig.duration = phantomTimes[i] * 1000;
-         let phantom = new Phantom(scene, phantomPaths[i++], object.x, object.y, 'enemy');
+         let phantom = new Phantom(scene, phantomPaths[i++], object.x, object.y, 'enemy_left');
          scene.phantoms.add(phantom);
          phantom.startFollow(enemyConfig);
-         phantom.anims.play('phantom_ani');
       });
 
       //create the big phantom
@@ -258,6 +257,8 @@ class Tutorial extends Phaser.Scene {
       //make sure the fog is always centered on gary
       this.fog.x = this.gary.x;
       this.fog.y = this.gary.y;
-
+      this.phantoms.getChildren().forEach((phantom) => {
+         phantom.update();
+      })
    }
 }
