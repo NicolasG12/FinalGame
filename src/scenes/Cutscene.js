@@ -60,6 +60,10 @@ class Cutscene extends Phaser.Scene {
         //input
         cursors = this.input.keyboard.createCursorKeys();
 
+        cursors.shift.on('down', () => {
+            this.scene.start('tutorialScene');
+        });
+
         this.typeText();
     }
 

@@ -33,12 +33,6 @@ class Tutorial extends Phaser.Scene {
       this.physics.world.enable(this.doors, Phaser.Physics.Arcade.STATIC_BODY);
 
 
-      //create the page to collect
-      this.page = map.createFromObjects("Objects", {
-         name: "page0",
-         key: "page"
-      });
-      this.physics.world.enable(this.page, Phaser.Physics.Arcade.STATIC_BODY);
       //add the overlap between the page and player
       this.physics.add.overlap(this.gary, this.page, (obj1, obj2) => {
          obj2.destroy();
@@ -83,7 +77,7 @@ class Tutorial extends Phaser.Scene {
 
       //creating the dialog for the tutorial
       this.dialog = this.cache.json.get('dialog');
-      
+
    }
 
    setup(scene, map, tileset, width, height, garyX, garyY) {
@@ -161,6 +155,10 @@ class Tutorial extends Phaser.Scene {
       scene.bigPhantom = scene.physics.add.sprite(bigPhantomSpawn.x, bigPhantomSpawn.y, 'bigEnemy_atlas', 'Big_Enemy_Left_0');
       scene.phantoms.add(scene.bigPhantom);
 
+      //create the page to collect
+      scene.pageLocation = map.findObject("Objects", obj => obj.name == 'page0');
+      scene.page = scene.physics.add.sprite(scene.pageLocation.x, scene.pageLocation.y, 'page', 0);
+      scene.page.anims.play('page_ani');
       //create the doors
       scene.doors = map.createFromObjects("Objects", {
          name: 'door',
@@ -188,8 +186,8 @@ class Tutorial extends Phaser.Scene {
          follow: scene.gary,
          speed: 100,
          lifespan: 300,
-         gravity: {x: 0, y: 200},
-         scale: {start: 0.1, end: 1}
+         gravity: { x: 0, y: 200 },
+         scale: { start: 0.1, end: 1 }
       });
       scene.garyParticles.stop();
       //handling for player input and interacts with hud

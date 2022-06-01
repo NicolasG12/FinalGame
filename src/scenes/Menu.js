@@ -5,7 +5,6 @@ class Menu extends Phaser.Scene {
    preload() {
       (this.load.path = "assets/");
       this.load.image('altar', 'altar.png');
-      this.load.image('page', 'page.png');
       this.load.image('door', 'door.png');
       this.load.spritesheet('particles', 'particlesheet.png', {
          frameWidth: 5,
@@ -27,6 +26,13 @@ class Menu extends Phaser.Scene {
          frameHeight: 32,
          startFrame: 0,
          endFrame: 1
+      });
+
+      this.load.spritesheet('page', 'page_animation.png', {
+         frameWidth: 32,
+         frameHeight: 32,
+         startFrame: 0,
+         endFrame: 4
       });
 
       // load bitmap font
@@ -143,7 +149,17 @@ class Menu extends Phaser.Scene {
          }),
          duration: 1000,
          repeat: 0,
-         // yoyo: true,
+      });
+
+      this.anims.create({
+         key: 'page_ani',
+         frames: this.anims.generateFrameNumbers('page', {
+            start: 0,
+            end: 4,
+            first: 0
+         }),
+         frameRate: 7,
+         repeat: -1
       });
 
       //Menu Items
