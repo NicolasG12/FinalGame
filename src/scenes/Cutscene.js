@@ -9,7 +9,7 @@ class Cutscene extends Phaser.Scene {
         this.TEXT_X = 50;			// text w/in dialog box x-position
         this.TEXT_Y = 450;			// text w/in dialog box y-position
         this.TEXT_SIZE = 24;		// text font size (in pixels)
-        this.TEXT_MAX_WIDTH = 715;	// max width of text within box
+        this.TEXT_MAX_WIDTH = 625;	// max width of text within box
 
         this.NEXT_TEXT = '[SPACE]';	// text to display for next prompt
         this.NEXT_X = 675;			// next text prompt x-position
@@ -43,8 +43,8 @@ class Cutscene extends Phaser.Scene {
 
     create() {
         this.dialog = this.cache.json.get('cutsceneDialog');
-        this.virgil = this.add.sprite(this.OFFSCREEN_X, this.OFFSCREEN_Y, 'virgil').setOrigin(0, 1).setScale(10);
-        this.gary = this.add.sprite(this.OFFSCREEN_X, this.OFFSCREEN_Y, 'gary_cutscene').setOrigin(0, 1).setScale(10);
+        this.Virgil = this.add.sprite(this.OFFSCREEN_X, this.OFFSCREEN_Y, 'virgil').setOrigin(0, 1).setScale(10);
+        this.Gary = this.add.sprite(this.OFFSCREEN_X, this.OFFSCREEN_Y, 'gary_cutscene').setOrigin(0, 1).setScale(10);
 
         this.dialogBox = this.add.sprite(this.DBOX_X, this.DBOX_Y, 'dialogbox').setOrigin(0);
 
@@ -90,14 +90,14 @@ class Cutscene extends Phaser.Scene {
                         targets: this[this.dialogLastSpeaker],
                         x: this.OFFSCREEN_X,
                         duration: 500,
-                        ease: 'Bounce'
+                        ease: 'Linear'
                     });
                 }
                 this.tweens.add({
                     targets: this[this.dialogSpeaker],
                     x: this.DBOX_X + 36,
                     duration: 500,
-                    ease: 'Bounce'
+                    ease: 'Linear'
                 });
             }
 
