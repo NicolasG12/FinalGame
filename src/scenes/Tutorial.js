@@ -187,6 +187,7 @@ class Tutorial extends Phaser.Scene {
          frame: 0,
          follow: scene.gary,
          speed: 100,
+         lifespan: 300,
          gravity: {x: 0, y: 200},
          scale: {start: 0.1, end: 1}
       });

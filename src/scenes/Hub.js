@@ -183,9 +183,10 @@ class Hub extends Phaser.Scene {
       this.garyParticles = this.particles.createEmitter({
          frame: 0,
          follow: this.gary,
-         speed: {min: 10, max: 100, steps: 5000},
-         lifespan: 200,
-         quantity: 10,
+         speed: 100,
+         lifespan: 300,
+         gravity: {x: 0, y: 200},
+         scale: {start: 0.1, end: 1}
       });
    }
 
