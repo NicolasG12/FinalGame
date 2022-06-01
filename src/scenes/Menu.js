@@ -34,6 +34,12 @@ class Menu extends Phaser.Scene {
          startFrame: 0,
          endFrame: 4
       });
+      this.load.spritesheet('menu', 'menusheet.png', {
+         frameWidth: 700,
+         frameHeight: 700,
+         startFrame: 0,
+         endFrame: 10
+      });
 
       // load bitmap font
       this.load.bitmapFont('gem_font', 'gem.png', 'gem.xml');
@@ -162,8 +168,19 @@ class Menu extends Phaser.Scene {
          repeat: -1
       });
 
-      //Menu Items
-      this.add.text(20, 20, "Demons 101\nPress Space to start");
+      this.anims.create({
+         key: 'menu_ani',
+         frames: this.anims.generateFrameNumbers('menu', {
+            start: 0,
+            end: 10,
+            first: 0
+         }),
+         frameRate: 5,
+         repeat: -1
+      });
+
+      this.background = this.add.sprite(0, 0, 'menu', 0).setOrigin(0);
+      this.background.anims.play('menu_ani');
 
       this.scene.mainMenuMusic = this.sound.add('mainMenu', { volume: 0.5 });
       this.scene.mainMenuMusic.setLoop(true);
