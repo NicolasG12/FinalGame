@@ -12,7 +12,7 @@ let config = {
          debug: true
       }
    },
-   scene: [Menu, HUD, Tutorial, Hub, Lab, ComputerLab, Library, GameClear]
+   scene: [Menu, Cutscene, HUD, Tutorial, Hub, Lab, ComputerLab, Library, GameClear]
 }
 
 let game = new Phaser.Game(config);

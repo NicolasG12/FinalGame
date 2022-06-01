@@ -1,5 +1,12 @@
 [
     {
-        
+        "speaker": "virgil",
+        "dialog": "test1",
+        "newSpeaker": "true"
+    },
+    {
+        "speaker": "gary",
+        "dialog": "test2",
+        "newSpeaker": "true"
     }
 ]

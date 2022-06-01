@@ -27,8 +27,11 @@ class Menu extends Phaser.Scene {
          frameHeight: 32,
          startFrame: 0,
          endFrame: 1
-      });  
-      
+      });
+
+      // load bitmap font
+      this.load.bitmapFont('gem_font', 'gem.png', 'gem.xml');
+
       this.load.path = "assets/sounds/"
       this.load.audio('creaks', 'Ambient_Creaks.wav');
       this.load.audio('collect', 'Place_Page.wav');
@@ -39,6 +42,7 @@ class Menu extends Phaser.Scene {
       this.load.audio('shine', 'Shine.wav');
       this.load.audio('hurt', 'Hurt.wav');
       this.load.audio('door', 'Door_Sound.wav');
+
 
    }
 
@@ -151,13 +155,13 @@ class Menu extends Phaser.Scene {
 
       this.input.keyboard.on('keydown-SPACE', () => {
          this.scene.mainMenuMusic.stop();
-         this.scene.start("tutorialScene");
+         this.scene.start("cutscene");
       });
 
       this.input.keyboard.on('keydown-SHIFT', () => {
          this.scene.mainMenuMusic.stop();
          this.scene.start('hubScene');
-         page0 =1;
+         page0 = 1;
       })
    }
 }
