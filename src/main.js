@@ -9,7 +9,7 @@ let config = {
    physics: {
       default: 'arcade',
       arcade: {
-         debug: false
+         debug: true
       }
    },
    scene: [Menu, HUD, Tutorial, Hub, Lab, ComputerLab, Library, GameClear]
@@ -40,3 +40,5 @@ let cursors;
 
 let garyX, garyY;
 let phantomSpeed;
+
+let deaths = 0;

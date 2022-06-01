@@ -10,7 +10,7 @@ class Tutorial extends Phaser.Scene {
       this.load.image("hubSheet", "./tilemaps/hub_spritesheet_extruded.png");
 
 
-      // this.load.json('dialog', 'tutorialDialog.json');
+      // this.load.json('tutorialDialog', 'tutorialDialog.json');
    }
 
    create() {
@@ -66,6 +66,7 @@ class Tutorial extends Phaser.Scene {
          this.largeEnemySound.stop();
          this.sound.play('hurt', { volume: 0.15 });
          this.scene.start("tutorialScene");
+         deaths++;
       });
 
       //add worldbound collision to change scenes
@@ -186,7 +187,6 @@ class Tutorial extends Phaser.Scene {
          frame: 0,
          follow: scene.gary,
          speed: 100,
-         lifespan: 300,
          gravity: {x: 0, y: 200},
          scale: {start: 0.1, end: 1}
       });
@@ -213,14 +213,14 @@ class Tutorial extends Phaser.Scene {
       cursors.shift.on('down', () => {
          if (scene.gary.sprint == false && scene.gary.sprintCooldown == false) {
             scene.gary.sprint = true;
-            hud.sprintMeter.anims.play('sprint_ani');
+            hud.sprintMeter.anims.play('sprint_ani_forward');
             setTimeout(() => {
                scene.gary.sprint = false;
                scene.gary.sprintCooldown = true;
-               hud.sprintMeter.anims.playReverse("sprint_ani");
+               hud.sprintMeter.anims.play("sprint_ani_reverse");
                setTimeout(() => {
                   scene.gary.sprintCooldown = false;
-               }, 3000);
+               }, 5000);
             }, 2000);
          }
       });
@@ -248,7 +248,7 @@ class Tutorial extends Phaser.Scene {
       //check if page has been collected
       if (page0 == 1) {
          //have the large phantom follow gary
-         this.physics.moveToObject(this.bigPhantom, this.gary, 20);
+         this.physics.moveToObject(this.bigPhantom, this.gary, phantomSpeed);
          //play the correct animation for the phantom
          if (this.bigPhantom.body.velocity.x < 0) {
             this.bigPhantom.anims.play('big_phantom_ani_left')

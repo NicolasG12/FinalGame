@@ -56,6 +56,7 @@ class Library extends Phaser.Scene {
             this.scene.switch("hubScene");
             this.gary.x = garyX;
             this.gary.y = garyY;
+            deaths++;
         });
 
         //handles changing scenes when on the far right of screen
@@ -78,7 +79,7 @@ class Library extends Phaser.Scene {
     update() {
         this.gary.update();
         if (page3 == 1) {
-            this.physics.moveToObject(this.bigPhantom, this.gary, 20);
+            this.physics.moveToObject(this.bigPhantom, this.gary, phantomSpeed);
             //play the correct animation for the phantom
             if (this.bigPhantom.body.velocity.x < 0) {
                 this.bigPhantom.anims.play('big_phantom_ani_left')

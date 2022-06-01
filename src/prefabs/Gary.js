@@ -4,7 +4,7 @@ class Gary extends Phaser.Physics.Arcade.Sprite {
       scene.add.existing(this);
       scene.physics.add.existing(this);
       this.setBodySize(20, 24);
-      this.setOffset(3, 3);
+      this.setOffset(3,4);
       this.energy = true;
       this.sprint = false;
       this.sprintCooldown = false;

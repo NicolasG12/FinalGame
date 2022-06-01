@@ -16,7 +16,7 @@ class ComputerLab extends Phaser.Scene {
         garyY = this.ROOMHEIGHT - 24;
         phantomSpeed = 48;
 
-        let stopped = this.sound.stopByKey('whispers');
+        this.sound.stopByKey('whispers');
         let tutorialScene = this.scene.get('tutorialScene');
         //create the tilemap
         const map = this.add.tilemap('computer_map');
@@ -58,6 +58,7 @@ class ComputerLab extends Phaser.Scene {
             this.scene.switch("hubScene");
             this.gary.x = garyX;
             this.gary.y = garyY;
+            deaths++;
         });
 
         //handles changing scenes when on the far right of screen
@@ -81,7 +82,7 @@ class ComputerLab extends Phaser.Scene {
     update() {
         this.gary.update();
         if (page2 == 1) {
-            this.physics.moveToObject(this.bigPhantom, this.gary, 20);
+            this.physics.moveToObject(this.bigPhantom, this.gary, phantomSpeed);
             //play the correct animation for the phantom
             if (this.bigPhantom.body.velocity.x < 0) {
                 this.bigPhantom.anims.play('big_phantom_ani_left')
