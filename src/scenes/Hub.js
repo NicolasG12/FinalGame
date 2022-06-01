@@ -101,29 +101,25 @@ class Hub extends Phaser.Scene {
             clearInterval(this.creaksInter);
             this.sound.play('door', { volume: 0.5 });
             this.scene.switch("labScene");
-            this.gary.x = 160;
-            this.gary.y = 200;
+            this.gary.x += 50;
          }
          if(blockedUp) {
             clearInterval(this.creaksInter);
             this.sound.play('door', { volume: 0.5 });
             this.scene.switch("computerLabScene");
-            this.gary.x = 160;
-            this.gary.y = 200;
+            this.gary.y += 75;
          }
          if(blockedRight) {
             clearInterval(this.creaksInter);
             this.sound.play('door', { volume: 0.5 });
             this.scene.switch("libraryScene");
-            this.gary.x = 160;
-            this.gary.y = 200;
+            this.gary.x -= 50;
          }
       });
 
       //when the player returns to the scene recreate the cursor keys
       this.events.on('wake', () => {
          cursors = this.input.keyboard.createCursorKeys();
-         this.scene.sleep('HUD');
          this.sound.stopByKey('whispers');
       });
 

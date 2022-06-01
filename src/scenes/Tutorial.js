@@ -71,7 +71,6 @@ class Tutorial extends Phaser.Scene {
             this.largeEnemySound.stop();
             this.sound.play('door', { volume: 0.10 });
             this.scene.switch("hubScene");
-            this.scene.sleep('HUD');
          }
       });
 
@@ -156,7 +155,7 @@ class Tutorial extends Phaser.Scene {
       scene.phantoms.add(scene.bigPhantom);
 
       //create the page to collect
-      scene.pageLocation = map.findObject("Objects", obj => obj.name == 'page0');
+      scene.pageLocation = map.findObject("Objects", obj => obj.name == 'page');
       scene.page = scene.physics.add.sprite(scene.pageLocation.x, scene.pageLocation.y, 'page', 0);
       scene.page.anims.play('page_ani');
       //create the doors
@@ -191,6 +190,7 @@ class Tutorial extends Phaser.Scene {
       });
       scene.garyParticles.stop();
       //handling for player input and interacts with hud
+      // scene.scene.launch('HUD');
       let hud = scene.scene.get('HUD');
       //input for shine
       cursors.space.on("down", () => {

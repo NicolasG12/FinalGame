@@ -13,8 +13,8 @@ class ComputerLab extends Phaser.Scene {
         this.ROOMWIDTH = 640;
         this.ROOMHEIGHT = 672;
         garyX = this.ROOMWIDTH / 2;
-        garyY = this.ROOMHEIGHT - 24;
-        phantomSpeed = 48;
+        garyY = this.ROOMHEIGHT - 48;
+        phantomSpeed = 40;
 
         this.sound.stopByKey('whispers');
         let tutorialScene = this.scene.get('tutorialScene');
@@ -25,12 +25,6 @@ class ComputerLab extends Phaser.Scene {
         const tileset = map.addTilesetImage('computer_lab_spritesheet', "computerSheet");
         tutorialScene.setup(this, map, tileset, this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
 
-        //set up the page
-        this.page = map.createFromObjects("Objects", {
-            name: "page",
-            key: "page"
-        });
-        this.physics.world.enable(this.page, Phaser.Physics.Arcade.STATIC_BODY);
 
         //handles when switching to this scene
         this.events.on("wake", () => {
@@ -47,6 +41,11 @@ class ComputerLab extends Phaser.Scene {
             page2 = 1;
             this.cameras.main.shake(100, 0.005);
             this.garyParticles.start();
+            this.physics.world.disable(this.doors);
+            this.particles.emitters.list.forEach((emitter) => {
+               emitter.stop();
+            });
+            this.garyParticles.start();
         });
         //checking for phantom collision
         this.physics.add.overlap(this.gary, this.phantoms, () => {
@@ -55,7 +54,9 @@ class ComputerLab extends Phaser.Scene {
             this.whispers.stop();
             this.largeEnemySound.stop();
             this.sound.play('hurt', { volume: 0.15 });
+            this.scene.stop('computerScene');
             this.scene.switch("hubScene");
+            this.scene.stop('HUD')
             this.gary.x = garyX;
             this.gary.y = garyY;
             deaths++;
@@ -71,11 +72,12 @@ class ComputerLab extends Phaser.Scene {
                     this.largeEnemySound.stop();
                     this.sound.play('door', { volume: 0.10 });
                     this.scene.switch("hubScene");
+                    this.scene.stop('HUD');
                     this.gary.y -= 20;
                 }
             }
         );
-        this.scene.wake('HUD');
+        // this.scene.launch('HUD');
     }
 
 

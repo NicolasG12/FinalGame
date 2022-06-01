@@ -9,7 +9,7 @@ let config = {
    physics: {
       default: 'arcade',
       arcade: {
-         debug: true
+         debug: false
       }
    },
    scene: [Menu, Cutscene, HUD, Tutorial, Hub, Lab, ComputerLab, Library, GameClear]

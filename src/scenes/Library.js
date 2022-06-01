@@ -12,10 +12,10 @@ class Library extends Phaser.Scene {
     create() {
         this.ROOMWIDTH = 576;
         this.ROOMHEIGHT = 800;
-        garyX = 48;
+        garyX = 56;
         garyY = this.ROOMHEIGHT - 48;
 
-        phantomSpeed = 56;
+        phantomSpeed = 48;
         let stopped = this.sound.stopByKey('whispers');
         let tutorialScene = this.scene.get('tutorialScene');
         //create the tilemap
@@ -25,11 +25,6 @@ class Library extends Phaser.Scene {
         const tileset = map.addTilesetImage('librarySheet');
         tutorialScene.setup(this, map, tileset, this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
 
-        //create the page object
-        this.page = map.createFromObjects("Objects", {
-            name: "page",
-            key: "page"
-        });
         this.physics.world.enable(this.page, Phaser.Physics.Arcade.STATIC_BODY);
         //handles when switching to this scene
         this.events.on("wake", () => {
@@ -45,6 +40,11 @@ class Library extends Phaser.Scene {
             page3 = 1;
             this.cameras.main.shake(100, 0.005);
             this.garyParticles.start();
+            this.physics.world.disable(this.doors);
+            this.particles.emitters.list.forEach((emitter) => {
+               emitter.stop();
+            });
+            this.garyParticles.start();
         });
         //checking for phantom collision
         this.physics.add.overlap(this.gary, this.phantoms, () => {
@@ -53,7 +53,9 @@ class Library extends Phaser.Scene {
             this.whispers.stop();
             this.largeEnemySound.stop();
             this.sound.play('hurt', { volume: 0.15 });
+            this.scene.stop('libraryScene');
             this.scene.switch("hubScene");
+            this.scene.stop('HUD');
             this.gary.x = garyX;
             this.gary.y = garyY;
             deaths++;
@@ -69,11 +71,12 @@ class Library extends Phaser.Scene {
                     this.largeEnemySound.stop();
                     this.sound.play('door', { volume: 0.10 });
                     this.scene.switch("hubScene");
+                    this.scene.stop('HUD');
                     this.gary.x += 20;
                 }
             }
         );
-        this.scene.wake('HUD');
+        // this.scene.launch('HUD');
     }
 
     update() {
