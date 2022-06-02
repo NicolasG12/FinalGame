@@ -6,6 +6,7 @@ class Menu extends Phaser.Scene {
       (this.load.path = "assets/");
       this.load.image('altar', 'altar.png');
       this.load.image('door', 'door.png');
+      this.load.image('book', 'book.png');
       this.load.spritesheet('particles', 'particlesheet.png', {
          frameWidth: 5,
          frameHeight: 5,
@@ -126,18 +127,7 @@ class Menu extends Phaser.Scene {
       });
       //create the animation for the phantoms
       this.anims.create({
-         key: 'phantom_ani_left',
-         frames: this.anims.generateFrameNumbers('enemy_left', {
-            start: 0,
-            end: 1,
-            first: 0,
-         }),
-         frameRate: 5,
-         repeat: -1
-      });
-
-      this.anims.create({
-         key: 'phantom_ani_right',
+         key: 'phantom_ani',
          frames: this.anims.generateFrameNumbers('enemy_right', {
             start: 0,
             end: 1,
@@ -222,6 +212,7 @@ class Menu extends Phaser.Scene {
          this.scene.mainMenuMusic.stop();
          this.scene.start('hubScene');
          page0 = 1;
+         page1 = 1;
          page2 = 1;
       })
    }

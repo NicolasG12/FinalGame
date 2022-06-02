@@ -145,6 +145,7 @@ class Tutorial extends Phaser.Scene {
          enemyConfig.duration = phantomTimes[i] * 1000;
          let phantom = new Phantom(scene, phantomPaths[i++], object.x, object.y, 'enemy_left');
          scene.phantoms.add(phantom);
+         phantom.anims.play('phantom_ani');
          phantom.startFollow(enemyConfig);
       });
 

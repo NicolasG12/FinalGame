@@ -50,6 +50,11 @@ class Hub extends Phaser.Scene {
       let doors = [this.labDoor, this.computerDoor, this.libraryDoor];
       //create the altar
       this.altar = this.physics.add.image(160, 192, 'altar');
+      this.book = this.add.image(this.altar.x, this.altar.y, 'book');
+      this.page0 = this.add.sprite(160, 232, 'page').setScale(.5).setVisible(false); //bottom
+      this.page1 = this.add.sprite(120, 192, 'page').setScale(.5).setVisible(false); //left
+      this.page2 = this.add.sprite(160, 152, 'page').setScale(.5).setVisible(false); //top
+      this.page3 = this.add.sprite(200, 192, 'page').setScale(.5).setVisible(false); //right
 
 
       this.particles = this.add.particles('particles');
@@ -137,6 +142,8 @@ class Hub extends Phaser.Scene {
             this.labDoorEmitters.forEach((emitter) => {
                emitter.stop();
             });
+            this.page0.setVisible(true);
+            this.page0.anims.play('page_ani');
          }
          if (page1 == 1) {
             page1 = 2;
@@ -150,6 +157,8 @@ class Hub extends Phaser.Scene {
             this.computerDoorEmitters.forEach((emitter) => {
                emitter.stop();
             });
+            this.page1.setVisible(true);
+            this.page1.anims.play('page_ani');
          }
          if(page2 == 1) {
             page2 = 2;
@@ -163,6 +172,8 @@ class Hub extends Phaser.Scene {
             this.libraryDoorEmitters.forEach((emitter) => {
                emitter.stop();
             });
+            this.page2.setVisible(true);
+            this.page2.anims.play('page_ani');
          }
          if(page3 == 1) {
             page3 = 2;
@@ -172,6 +183,8 @@ class Hub extends Phaser.Scene {
             this.libraryDoorEmitters.forEach((emitter) => {
                emitter.start();
             });
+            this.page3.setVisible(true);
+            this.page3.anims.play('page_ani');
          }
          this.garyParticles.stop();
       });

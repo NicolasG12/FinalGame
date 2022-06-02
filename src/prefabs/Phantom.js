@@ -7,9 +7,9 @@ class Phantom extends Phaser.GameObjects.PathFollower {
 
    update() {
       if(this.pathDelta.x < 0) {
-         this.anims.play('phantom_ani_left');
+         this.setFlipX(true);
       } else {
-         this.anims.play('phantom_ani_right');
+         this.resetFlip();
       }
    }
 }
