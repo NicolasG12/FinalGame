@@ -215,12 +215,14 @@ class Menu extends Phaser.Scene {
       this.input.keyboard.on('keydown-SPACE', () => {
          this.scene.mainMenuMusic.stop();
          this.scene.start("cutscene");
+
       });
 
       this.input.keyboard.on('keydown-SHIFT', () => {
          this.scene.mainMenuMusic.stop();
          this.scene.start('hubScene');
          page0 = 1;
+         page2 = 1;
       })
    }
 }

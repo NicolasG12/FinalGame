@@ -53,8 +53,8 @@ class Library extends Phaser.Scene {
             this.whispers.stop();
             this.largeEnemySound.stop();
             this.sound.play('hurt', { volume: 0.15 });
-            this.scene.stop('libraryScene');
             this.scene.switch("hubScene");
+            this.scene.stop('libraryScene');
             this.scene.stop('HUD');
             this.gary.x = garyX;
             this.gary.y = garyY;

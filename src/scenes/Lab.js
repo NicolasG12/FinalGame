@@ -54,8 +54,8 @@ class Lab extends Phaser.Scene {
             this.sound.stopByKey('whispers');
             this.largeEnemySound.stop();
             this.sound.play('hurt', { volume: 0.15 });
-            this.scene.stop('labScene');
             this.scene.switch("hubScene");
+            this.scene.stop('labScene');
             this.scene.stop('HUD')
             this.gary.x = garyX;
             this.gary.y = garyY;
