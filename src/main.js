@@ -24,10 +24,12 @@ let enemyConfig = {
    to: 1,
    delay: 0,
    duration: 0, 
-   hold: 0,
+   // ease: 'Quint.easeInOut',
+   hold: 500,
    repeat: -1,
    yoyo: true,
    rotateToPath: false,
+   repeatDelay: 500
 }
 
 // Variables

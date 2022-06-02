@@ -97,11 +97,11 @@ class Tutorial extends Phaser.Scene {
 
       //add fog at gary's position
       scene.fog = scene.add.sprite(scene.gary.x, scene.gary.y, "fog", 0).setDepth(1);
-      scene.fog.setVisible(true);
+      scene.fog.setVisible(false);
 
       //set up the camera
       scene.cameras.main.setBounds(0, 0, width, height);
-      scene.cameras.main.setZoom(2);
+      scene.cameras.main.setZoom(1);
       scene.cameras.main.startFollow(scene.gary);
 
       //set the world collision

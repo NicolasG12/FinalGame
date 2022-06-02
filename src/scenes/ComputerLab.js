@@ -92,6 +92,9 @@ class ComputerLab extends Phaser.Scene {
                 this.bigPhantom.anims.play('big_phantom_ani_right');
             }
         }
+        this.phantoms.getChildren().forEach((phantom) => {
+            phantom.update();
+        });
         this.fog.x = this.gary.x;
         this.fog.y = this.gary.y;
     }
