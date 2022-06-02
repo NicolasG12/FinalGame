@@ -20,6 +20,7 @@ class Gary extends Phaser.Physics.Arcade.Sprite {
             this.body.setVelocity(-this.speed, 0);
          }
          this.anims.play('left', true);
+         this.resetFlip();
 
       } else if (cursors.right.isDown) {
          if(this.sprint) {
@@ -28,6 +29,7 @@ class Gary extends Phaser.Physics.Arcade.Sprite {
             this.body.setVelocity(this.speed, 0);
          }
          this.anims.play('right', true);
+         this.resetFlip();
 
       } else if (cursors.up.isDown) {
          if(this.sprint) {
@@ -45,9 +47,18 @@ class Gary extends Phaser.Physics.Arcade.Sprite {
          }
          this.anims.play('right', true);
 
-      } else {
+      } else if(!cursors.right.isDown && !cursors.left.isDown && !cursors.up.isDown && !cursors.down.isDown){
          this.setVelocity(0, 0);
-         this.anims.play('idle', true);
+         if(this.anims.isPlaying && this.anims.currentAnim.key == 'left') {
+            this.setFlipX(true);
+            this.anims.play('idle', true);
+         }
+         if(this.anims.isPlaying && this.anims.currentAnim.key == 'right') {
+            this.anims.play('idle', true);
+         }
+         if(this.anims.isPlaying && this.anims.currentAnim.key == 'up') {-
+            this.anims.play('idle_up', true);
+         } 
       }
    }
 }

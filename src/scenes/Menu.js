@@ -116,6 +116,14 @@ class Menu extends Phaser.Scene {
          repeat: -1
       });
 
+      this.anims.create({
+         key: 'idle_up',
+         defaultTextureKey: 'gary_atlas',
+         frames: [
+            {frame: 'Gary_Up_0'}
+         ],
+         repeat: -1
+      });
       //create the animation for the phantoms
       this.anims.create({
          key: 'phantom_ani_left',
