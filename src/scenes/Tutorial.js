@@ -252,7 +252,7 @@ class Tutorial extends Phaser.Scene {
          if (scene.gary.sprint == false && scene.gary.sprintCooldown == false) {
             scene.gary.sprint = true;
             hud.sprintMeter.anims.play('sprint_ani_forward');
-            setTimeout(() => {
+            scene.sprintTimeout = setTimeout(() => {
                scene.gary.sprint = false;
                scene.gary.sprintCooldown = true;
                hud.sprintMeter.anims.play("sprint_ani_reverse");

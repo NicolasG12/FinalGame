@@ -40,12 +40,11 @@ class Lab extends Phaser.Scene {
             this.largeEnemySound.setLoop(true);
             page1 = 1;
             this.cameras.main.shake(100, 0.005);
-            this.garyParticles.start();
+            this.garyParticle.start();
             this.physics.world.disable(this.doors);
             this.particles.emitters.list.forEach((emitter) => {
                emitter.stop();
             });
-            this.garyParticles.start();
         });
         //checking for phantom collision
         this.physics.add.overlap(this.gary, this.phantoms, () => {
@@ -61,6 +60,7 @@ class Lab extends Phaser.Scene {
             this.physics.world.disable(this.gary);
             this.gary.setVisible(false);
             this.scene.stop('HUD');
+            clearTimeout(this.sprintTimeout);
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                 this.scene.switch("hubScene");
                 this.scene.stop('labScene');

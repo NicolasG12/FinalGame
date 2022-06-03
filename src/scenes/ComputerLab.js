@@ -40,12 +40,11 @@ class ComputerLab extends Phaser.Scene {
             this.largeEnemySound.setLoop(true);
             page2 = 1;
             this.cameras.main.shake(100, 0.005);
-            this.garyParticles.start();
             this.physics.world.disable(this.doors);
             this.particles.emitters.list.forEach((emitter) => {
                emitter.stop();
             });
-            this.garyParticles.start();
+            this.garyParticle.start();
         });
         //checking for phantom collision
         this.physics.add.overlap(this.gary, this.phantoms, () => {
