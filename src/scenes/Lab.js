@@ -54,12 +54,17 @@ class Lab extends Phaser.Scene {
             this.sound.stopByKey('whispers');
             this.largeEnemySound.stop();
             this.sound.play('hurt', { volume: 0.15 });
-            this.scene.switch("hubScene");
-            this.scene.stop('labScene');
-            this.scene.stop('HUD')
-            this.gary.x = garyX;
-            this.gary.y = garyY;
+ 
             deaths++;
+            this.garyDeath.explode(20, this.gary.x, this.gary.y);
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
+            this.physics.world.disable(this.gary);
+            this.gary.setVisible(false);
+            this.scene.stop('HUD');
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.switch("hubScene");
+                this.scene.stop('labScene');
+            });
         });
 
         //handles changing scenes when on the far right of screen

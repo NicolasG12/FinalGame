@@ -53,11 +53,15 @@ class Library extends Phaser.Scene {
             this.whispers.stop();
             this.largeEnemySound.stop();
             this.sound.play('hurt', { volume: 0.15 });
-            this.scene.switch("hubScene");
-            this.scene.stop('libraryScene');
-            this.scene.stop('HUD');
-            this.gary.x = garyX;
-            this.gary.y = garyY;
+            this.garyDeath.explode(20, this.gary.x, this.gary.y);
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
+            this.physics.world.disable(this.gary);
+            this.gary.setVisible(false);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                this.scene.switch("hubScene");
+                this.scene.stop('libraryScene');
+                this.scene.stop('HUD');
+            });
             deaths++;
         });
 

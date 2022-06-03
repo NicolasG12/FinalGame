@@ -7,13 +7,9 @@ class Menu extends Phaser.Scene {
       this.load.image('altar', 'altar.png');
       this.load.image('door', 'door.png');
       this.load.image('book', 'book.png');
-      this.load.spritesheet('particles', 'particlesheet.png', {
-         frameWidth: 5,
-         frameHeight: 5,
-         startFrame: 0,
-         endFrame: 1
-      });
       this.load.image('door_particle', 'door_particle.png');
+      this.load.image('gary_death', 'blood.png');
+      this.load.image('gary_page', 'page_part.png');
       this.load.atlas('gary_atlas', 'garysheet.png', 'garymap.json');
       this.load.atlas('bigEnemy_atlas', 'bigEnemySheet.png', 'bigEnemyMap.json');
       this.load.spritesheet('fog', 'fog_ani.png', {

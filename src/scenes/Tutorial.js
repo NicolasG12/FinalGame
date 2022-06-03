@@ -54,12 +54,12 @@ class Tutorial extends Phaser.Scene {
          this.physics.world.disable(this.doors);
          this.particles.emitters.list.forEach((emitter) => {
             emitter.stop();
-         })
+         });
          this.phantoms.getChildren().forEach((phantom) => {
             phantom.destroy();
             this.whispers.stop();
          });
-         this.garyParticles.start();
+         this.garyParticle.start();
          this.virgil2.setVisible(true);
          this.dbox2.setVisible(true);
          this.instructions2.setVisible(true);
@@ -72,8 +72,14 @@ class Tutorial extends Phaser.Scene {
          this.whispers.stop();
          this.largeEnemySound.stop();
          this.sound.play('hurt', { volume: 0.15 });
-         this.scene.start("tutorialScene");
          deaths++;
+         this.garyDeath.explode(20, this.gary.x, this.gary.y);
+         this.cameras.main.fadeOut(1000, 0, 0, 0);
+         this.physics.world.disable(this.gary);
+         this.gary.setVisible(false);
+         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+            this.scene.restart();
+         });
       });
 
       //add worldbound collision to change scenes
@@ -190,32 +196,40 @@ class Tutorial extends Phaser.Scene {
       });
       scene.physics.world.enable(scene.doors, Phaser.Physics.Arcade.STATIC_BODY);
       scene.physics.add.collider(scene.gary, scene.doors);
-      scene.particles = scene.add.particles('particles');
+
+      scene.particles = scene.add.particles('door_particle');
 
       scene.doors.forEach((door) => {
          let deathZone = new Phaser.Geom.Rectangle(door.x - 16, door.y - 16, 32, 32);
          scene.particles.createEmitter({
-            frame: 1,
+            // frame: 1,
             x: door.x,
             y: door.y,
             speed: { min: 10, max: 500, steps: 5000 },
+            scale: 0.25,
             lifespan: 4000,
             quantity: 10,
             deathZone: { type: 'onLeave', source: deathZone }
          });
       });
-
-      scene.garyParticles = scene.particles.createEmitter({
-         frame: 0,
+      scene.garyPage = scene.add.particles('gary_page')
+      scene.garyParticle = scene.garyPage.createEmitter({
+         // frame: 0,
          follow: scene.gary,
          speed: 100,
          lifespan: 300,
          gravity: { x: 0, y: 200 },
          scale: { start: 0.1, end: 1 }
       });
-      scene.garyParticles.stop();
+
+      scene.deathParticles = scene.add.particles('gary_death');
+      scene.garyDeath = scene.deathParticles.createEmitter({
+         speed: {min: -100, max: 100},
+         lifespan: {min: 10, max: 500, steps: 100},
+         frequency: -1
+      });
+      scene.garyParticle.stop();
       //handling for player input and interacts with hud
-      // scene.scene.launch('HUD');
       let hud = scene.scene.get('HUD');
       //input for shine
       cursors.space.on("down", () => {

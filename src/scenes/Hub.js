@@ -57,13 +57,12 @@ class Hub extends Phaser.Scene {
       this.page3 = this.add.sprite(200, 192, 'page').setScale(.5).setVisible(false); //right
 
 
-      this.particles = this.add.particles('door_particle');
+      this.doorParticles = this.add.particles('door_particle');
 
       doors.forEach((child) => {
          child.forEach((door) => {
             let deathZone = new Phaser.Geom.Rectangle(door.x - 16, door.y - 16, 32, 32);
-            this.particles.createEmitter({
-               // key: 'door_particle',
+            this.doorParticles.createEmitter({
                x: door.x,
                y: door.y,
                speed: { min: 10, max: 500, steps: 5000 },
@@ -75,9 +74,9 @@ class Hub extends Phaser.Scene {
          });
       });
 
-      this.labDoorEmitters = [this.particles.emitters.list[0], this.particles.emitters.list[1]];
-      this.computerDoorEmitters = [this.particles.emitters.list[2], this.particles.emitters.list[3]];
-      this.libraryDoorEmitters = [this.particles.emitters.list[4], this.particles.emitters.list[5]];
+      this.labDoorEmitters = [this.doorParticles.emitters.list[0], this.doorParticles.emitters.list[1]];
+      this.computerDoorEmitters = [this.doorParticles.emitters.list[2], this.doorParticles.emitters.list[3]];
+      this.libraryDoorEmitters = [this.doorParticles.emitters.list[4], this.doorParticles.emitters.list[5]];
 
       //create the player avatar
       this.gary = new Gary(this, this.ROOMWIDTH - 48, this.ROOMHEIGHT - 48, "gary_atlas", 'Gary_Idle_0');
@@ -85,6 +84,15 @@ class Hub extends Phaser.Scene {
       this.dbox = this.add.image(this.virgil.x + 10, this.virgil.y - 10, 'dialogbox').setScale(0.11).setOrigin(0, 0);
       this.instructions = this.add.bitmapText(this.dbox.x + 2, this.dbox.y + 2, 'gem_font', 'Return the page to the Necronomicon', 8);
       this.instructions.maxWidth = 75;
+
+      this.garyParticles = this.add.particles('gary_page');
+      this.garyParticle = this.garyParticles.createEmitter({
+         follow: this.gary,
+         speed: 100,
+         lifespan: 300,
+         gravity: { x: 0, y: 200 },
+         scale: { start: 0.1, end: 1 }
+      });
 
       //assign keys for movement
       cursors = this.input.keyboard.createCursorKeys();
@@ -209,17 +217,9 @@ class Hub extends Phaser.Scene {
             this.page3.setVisible(true);
             this.page3.anims.play('page_ani');
          }
-         // this.garyParticles.stop();
+         this.garyParticle.stop();
       });
 
-      // this.garyParticles = this.particles.createEmitter({
-      //    frame: 0,
-      //    follow: this.gary,
-      //    speed: 100,
-      //    lifespan: 300,
-      //    gravity: { x: 0, y: 200 },
-      //    scale: { start: 0.1, end: 1 }
-      // });
    }
 
    update() {
