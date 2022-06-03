@@ -32,7 +32,17 @@ class Tutorial extends Phaser.Scene {
 
       this.physics.world.enable(this.doors, Phaser.Physics.Arcade.STATIC_BODY);
 
-
+      this.virgil = this.add.sprite(this.gary.x - 35, this.gary.y - 30, 'virgil').setScale(0.75);
+      this.dbox = this.add.image(this.virgil.x + 10, this.virgil.y - 10, 'dialogbox').setScale(0.11).setOrigin(0, 0);
+      this.instructions = this.add.bitmapText(this.dbox.x + 2, this.dbox.y + 2, 'gem_font', 'Press [SPACE] to shine', 8);
+      this.instructions.maxWidth = 75;
+      this.virgil2 = this.add.sprite(this.page.x - 35, this.page.y - 30, 'virgil').setScale(0.75);
+      this.virgil2.setVisible(false);
+      this.dbox2 = this.add.image(this.virgil2.x + 10, this.virgil.y - 10, 'dialogbox').setScale(0.11).setOrigin(0, 0);
+      this.dbox2.setVisible(false);
+      this.instructions2 = this.add.bitmapText(this.dbox2.x + 2, this.dbox2.y + 2, 'gem_font', 'RUN with [SHIFT]', 8);
+      this.instructions2.setVisible(false);
+      this.instructions2.maxWidth = 75;
       //add the overlap between the page and player
       this.physics.add.overlap(this.gary, this.page, (obj1, obj2) => {
          obj2.destroy();
@@ -50,6 +60,9 @@ class Tutorial extends Phaser.Scene {
             this.whispers.stop();
          });
          this.garyParticles.start();
+         this.virgil2.setVisible(true);
+         this.dbox2.setVisible(true);
+         this.instructions2.setVisible(true);
       });
 
       //checking for phantom collision
@@ -76,6 +89,17 @@ class Tutorial extends Phaser.Scene {
 
       //creating the dialog for the tutorial
       this.dialog = this.cache.json.get('dialog');
+      cursors.space.on('down', () => {
+         this.instructions.text = 'Use the arrow keys to move around.'
+         tutorialLock = false;
+      });
+      cursors.left.on('down', () => {
+         if (!tutorialLock) {
+            this.virgil.setVisible(false);
+            this.dbox.setVisible(false);
+            this.instructions.setVisible(false);
+         }
+      });
 
    }
 
@@ -97,11 +121,11 @@ class Tutorial extends Phaser.Scene {
 
       //add fog at gary's position
       scene.fog = scene.add.sprite(scene.gary.x, scene.gary.y, "fog", 0).setDepth(1);
-      scene.fog.setVisible(false);
+      // scene.fog.setVisible(false);
 
       //set up the camera
       scene.cameras.main.setBounds(0, 0, width, height);
-      scene.cameras.main.setZoom(1);
+      scene.cameras.main.setZoom(2);
       scene.cameras.main.startFollow(scene.gary);
       scene.cameras.main.fadeIn(1000, 0, 0, 0);
 
@@ -244,7 +268,9 @@ class Tutorial extends Phaser.Scene {
    }
 
    update() {
-      this.gary.update();
+      if (!tutorialLock) {
+         this.gary.update();
+      }
       //check if page has been collected
       if (page0 == 1) {
          //have the large phantom follow gary

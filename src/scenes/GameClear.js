@@ -33,11 +33,20 @@ class GameClear extends Phaser.Scene {
         this.background = this.sound.add('mainMenu', { volume: 0.5 });
         this.background.setLoop(true);
         this.background.play();
-
+        this.add.bitmapText(game.config.width - 300, game.config.height/2, 'gem_font', 'Deaths: ' + deaths, 50);
+        this.restartText = this.add.bitmapText(50, game.config.height - 100, 'gem_font', 'Press [SPACE] to return to Menu', 30);
+        this.credits = this.add.bitmapText(350, game.config.height - 100, 'gem_font', 'Press [SHIFT] to go to Credits', 30);
+        this.restartText.maxWidth = 300;
+        this.credits.maxWidth = 300;
         this.input.keyboard.on('keydown-SPACE', () => {
             this.background.stop();
             this.scene.stop("gameClearScene");
             this.scene.start("menuScene");
         });
+        this.input.keyboard.on('keydown-SHIFT', () => {
+            this.background.stop();
+            this.scene.stop('gameClearScene');
+            this.scene.start('credits');
+        })
     }
 }

@@ -13,6 +13,7 @@ class Menu extends Phaser.Scene {
          startFrame: 0,
          endFrame: 1
       });
+      this.load.image('door_particle', 'door_particle.png');
       this.load.atlas('gary_atlas', 'garysheet.png', 'garymap.json');
       this.load.atlas('bigEnemy_atlas', 'bigEnemySheet.png', 'bigEnemyMap.json');
       this.load.spritesheet('fog', 'fog_ani.png', {

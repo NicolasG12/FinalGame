@@ -57,18 +57,19 @@ class Hub extends Phaser.Scene {
       this.page3 = this.add.sprite(200, 192, 'page').setScale(.5).setVisible(false); //right
 
 
-      this.particles = this.add.particles('particles');
+      this.particles = this.add.particles('door_particle');
 
       doors.forEach((child) => {
          child.forEach((door) => {
             let deathZone = new Phaser.Geom.Rectangle(door.x - 16, door.y - 16, 32, 32);
             this.particles.createEmitter({
-               frame: 1,
+               // key: 'door_particle',
                x: door.x,
                y: door.y,
                speed: { min: 10, max: 500, steps: 5000 },
-               lifespan: 4000,
-               quantity: 10,
+               scale: 0.25,
+               lifespan: 5000,
+               quantity: 15,
                deathZone: { type: 'onLeave', source: deathZone }
             });
          });
@@ -80,6 +81,10 @@ class Hub extends Phaser.Scene {
 
       //create the player avatar
       this.gary = new Gary(this, this.ROOMWIDTH - 48, this.ROOMHEIGHT - 48, "gary_atlas", 'Gary_Idle_0');
+      this.virgil = this.add.sprite(this.gary.x - 35, this.gary.y - 30, 'virgil').setScale(0.75);
+      this.dbox = this.add.image(this.virgil.x + 10, this.virgil.y - 10, 'dialogbox').setScale(0.11).setOrigin(0, 0);
+      this.instructions = this.add.bitmapText(this.dbox.x + 2, this.dbox.y + 2, 'gem_font', 'Return the page to the Necronomicon', 8);
+      this.instructions.maxWidth = 75;
 
       //assign keys for movement
       cursors = this.input.keyboard.createCursorKeys();
@@ -159,6 +164,9 @@ class Hub extends Phaser.Scene {
             });
             this.page0.setVisible(true);
             this.page0.anims.play('page_ani');
+            this.virgil.destroy();
+            this.dbox.destroy();
+            this.instructions.destroy();
          }
          if (page1 == 1) {
             page1 = 2;
@@ -201,17 +209,17 @@ class Hub extends Phaser.Scene {
             this.page3.setVisible(true);
             this.page3.anims.play('page_ani');
          }
-         this.garyParticles.stop();
+         // this.garyParticles.stop();
       });
 
-      this.garyParticles = this.particles.createEmitter({
-         frame: 0,
-         follow: this.gary,
-         speed: 100,
-         lifespan: 300,
-         gravity: { x: 0, y: 200 },
-         scale: { start: 0.1, end: 1 }
-      });
+      // this.garyParticles = this.particles.createEmitter({
+      //    frame: 0,
+      //    follow: this.gary,
+      //    speed: 100,
+      //    lifespan: 300,
+      //    gravity: { x: 0, y: 200 },
+      //    scale: { start: 0.1, end: 1 }
+      // });
    }
 
    update() {
