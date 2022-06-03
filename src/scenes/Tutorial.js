@@ -103,6 +103,7 @@ class Tutorial extends Phaser.Scene {
       scene.cameras.main.setBounds(0, 0, width, height);
       scene.cameras.main.setZoom(1);
       scene.cameras.main.startFollow(scene.gary);
+      scene.cameras.main.fadeIn(1000, 0, 0, 0);
 
       //set the world collision
       scene.gary.body.setCollideWorldBounds(true);

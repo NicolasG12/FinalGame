@@ -8,7 +8,7 @@ class Phantom extends Phaser.GameObjects.PathFollower {
    update() {
       if(this.pathDelta.x < 0) {
          this.setFlipX(true);
-      } else {
+      } else if(this.pathDelta.x > 0) {
          this.resetFlip();
       }
    }

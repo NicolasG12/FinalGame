@@ -212,8 +212,6 @@ class Menu extends Phaser.Scene {
          this.scene.mainMenuMusic.stop();
          this.scene.start('hubScene');
          page0 = 1;
-         page1 = 1;
-         page2 = 1;
       })
    }
 }

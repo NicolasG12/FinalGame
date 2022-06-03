@@ -15,7 +15,7 @@ class Hub extends Phaser.Scene {
       //define the variables
       this.ROOMWIDTH = 320;
       this.ROOMHEIGHT = 352;
-
+      
       //create the tilemap
       const map = this.add.tilemap("hub_map");
 
@@ -69,7 +69,7 @@ class Hub extends Phaser.Scene {
                speed: { min: 10, max: 500, steps: 5000 },
                lifespan: 4000,
                quantity: 10,
-               deathZone: {type: 'onLeave', source: deathZone}
+               deathZone: { type: 'onLeave', source: deathZone }
             });
          });
       });
@@ -94,6 +94,7 @@ class Hub extends Phaser.Scene {
       this.cameras.main.setBounds(0, 0, this.ROOMWIDTH, this.ROOMHEIGHT);
       this.cameras.main.setZoom(2);
       this.cameras.main.startFollow(this.gary);
+      this.cameras.main.fadeIn(1000, 0, 0, 0);
 
       //set the world collision
       this.gary.body.setCollideWorldBounds(true);
@@ -105,19 +106,31 @@ class Hub extends Phaser.Scene {
          if (blockedLeft) {
             clearInterval(this.creaksInter);
             this.sound.play('door', { volume: 0.5 });
-            this.scene.switch("labScene");
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
+            this.gary.setVisible(false);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+               this.scene.switch("labScene");
+            });
             this.gary.x += 50;
          }
-         if(blockedUp) {
+         if (blockedUp) {
             clearInterval(this.creaksInter);
             this.sound.play('door', { volume: 0.5 });
-            this.scene.switch("computerLabScene");
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
+            this.gary.setVisible(false);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+               this.scene.switch("computerLabScene");
+            });
             this.gary.y += 75;
          }
-         if(blockedRight) {
+         if (blockedRight) {
             clearInterval(this.creaksInter);
             this.sound.play('door', { volume: 0.5 });
-            this.scene.switch("libraryScene");
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
+            this.gary.setVisible(false);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+               this.scene.switch("libraryScene");
+            });
             this.gary.x -= 50;
          }
       });
@@ -126,6 +139,8 @@ class Hub extends Phaser.Scene {
       this.events.on('wake', () => {
          cursors = this.input.keyboard.createCursorKeys();
          this.sound.stopByKey('whispers');
+         this.cameras.main.fadeIn(1000, 0, 0, 0);
+         this.gary.setVisible(true);
       });
 
       //add in physics colliders
@@ -134,7 +149,7 @@ class Hub extends Phaser.Scene {
       this.physics.add.collider(this.gary, this.computerDoor);
       this.physics.add.collider(this.gary, this.libraryDoor);
       this.physics.add.overlap(this.gary, this.altar, () => {
-         if(page0 == 1) {
+         if (page0 == 1) {
             page0 = 2;
             this.sound.play('collect');
             this.cameras.main.shake(100, 0.005);
@@ -160,7 +175,7 @@ class Hub extends Phaser.Scene {
             this.page1.setVisible(true);
             this.page1.anims.play('page_ani');
          }
-         if(page2 == 1) {
+         if (page2 == 1) {
             page2 = 2;
             this.sound.play('collect');
             this.cameras.main.shake(100, 0.005);
@@ -175,7 +190,7 @@ class Hub extends Phaser.Scene {
             this.page2.setVisible(true);
             this.page2.anims.play('page_ani');
          }
-         if(page3 == 1) {
+         if (page3 == 1) {
             page3 = 2;
             this.sound.play('collect');
             this.cameras.main.shake(100, 0.005);
@@ -194,15 +209,15 @@ class Hub extends Phaser.Scene {
          follow: this.gary,
          speed: 100,
          lifespan: 300,
-         gravity: {x: 0, y: 200},
-         scale: {start: 0.1, end: 1}
+         gravity: { x: 0, y: 200 },
+         scale: { start: 0.1, end: 1 }
       });
    }
 
    update() {
       this.gary.update();
       //check for end of game scenario
-      if(page0 == 2 && page1 == 2 && page2 ==2 && page3 == 2) {
+      if (page0 == 2 && page1 == 2 && page2 == 2 && page3 == 2) {
          this.scene.start("gameClearScene");
       }
    }
