@@ -7,33 +7,14 @@
     },
     {
         "speaker": "Virgil",
-        "name": "Virgil",
-        "dialog": "Quiet, my child. Be not afraid.",
-        "newSpeaker": "true"
-    },
-    {
-        "speaker": "Gary",
-        "name": "Gary",
-        "dialog": "Who the freak are you?!",
+        "name": "???",
+        "dialog": "Quiet, my child. Be not afraid. I am Virgil.",
         "newSpeaker": "true"
     },
     {
         "speaker": "Virgil",
         "name": "Virgil",
-        "dialog": "I SAID SHUT UP, MAN!",
-        "newSpeaker": "true"
-    },
-    {
-        "speaker": "Gary",
-        "name": "Gary",
-        "dialog": "...",
-        "newSpeaker": "true"
-    },
-    {
-        "speaker": "Virgil",
-        "name": "Virgil",
-        "dialog": "*sigh* Ok, so. A student here has made a dire mistake. The Book of the Dead, the Necronomicon, has been left unsealed!",
-        "newSpeaker": "true"
+        "dialog": "A student here has made a dire mistake. The Book of the Dead, the Necronomicon, has been left unsealed!",
     },
     {
         "speaker": "Virgil",
@@ -41,14 +22,9 @@
         "dialog": "Demons have lept from its pages and are rampaging throughout the school. Luckily, they are contained within the university for now, but we don't have much time."
     },
     {
-        "speaker": "Virgil",
-        "name": "Virgil",
-        "dialog": "Dearest Gary. I need your help to banish this evil back to the depths of Hell."
-    },
-    {
         "speaker": "Gary",
         "name": "Gary",
-        "dialog": "ME! How can I even help?! I'm just a student here.",
+        "dialog": "WE! How can I even help?! I'm just a student here.",
         "newSpeaker": "true"
     },
     {
@@ -67,11 +43,6 @@
         "name": "Virgil",
         "dialog": "Take this holy lantern to light your path through the darkness. Use its light to outsmart those dreadful demon, find the missing ritual pages to send those bastards back to Hell.",
         "newSpeaker": "true"
-    },
-    {
-        "speaker": "lantern_virgil",
-        "name": "Virgil",
-        "dialog": "Please help me, Dearest Gary, You're my only hope."
     },
     {
         "speaker": "lantern_gary",
