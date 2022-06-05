@@ -15,6 +15,7 @@ class Hub extends Phaser.Scene {
       //define the variables
       this.ROOMWIDTH = 320;
       this.ROOMHEIGHT = 352;
+      this.movement = true;
       
       //create the tilemap
       const map = this.add.tilemap("hub_map");
@@ -138,6 +139,7 @@ class Hub extends Phaser.Scene {
                this.scene.switch("labScene");
             });
             this.backgroundMusic.stop();
+            this.movement = false;
             this.gary.x += 50;
          }
          if (blockedUp) {
@@ -149,6 +151,7 @@ class Hub extends Phaser.Scene {
                this.scene.switch("computerLabScene");
             });
             this.backgroundMusic.stop();
+            this.movement = false;
             this.gary.y += 75;
          }
          if (blockedRight) {
@@ -160,6 +163,7 @@ class Hub extends Phaser.Scene {
                this.scene.switch("libraryScene");
             });
             this.backgroundMusic.stop();
+            this.movement = false;
             this.gary.x -= 50;
          }
       });
@@ -171,6 +175,7 @@ class Hub extends Phaser.Scene {
          this.cameras.main.fadeIn(1000, 0, 0, 0);
          this.gary.setVisible(true);
          this.backgroundMusic.play();
+         this.movement = true;
       });
 
       //add in physics colliders
@@ -197,11 +202,7 @@ class Hub extends Phaser.Scene {
             page1 = 2;
             this.sound.play('collect');
             this.cameras.main.shake(100, 0.005);
-            this.physics.world.enable(this.labDoor);
             this.physics.world.disable(this.computerDoor);
-            this.labDoorEmitters.forEach((emitter) => {
-               emitter.start();
-            });
             this.computerDoorEmitters.forEach((emitter) => {
                emitter.stop();
             });
@@ -212,11 +213,9 @@ class Hub extends Phaser.Scene {
             page2 = 2;
             this.sound.play('collect');
             this.cameras.main.shake(100, 0.005);
-            this.physics.world.enable(this.computerDoor);
+
             this.physics.world.disable(this.libraryDoor);
-            this.computerDoorEmitters.forEach((emitter) => {
-               emitter.start();
-            });
+
             this.libraryDoorEmitters.forEach((emitter) => {
                emitter.stop();
             });
@@ -227,10 +226,6 @@ class Hub extends Phaser.Scene {
             page3 = 2;
             this.sound.play('collect');
             this.cameras.main.shake(100, 0.005);
-            this.physics.world.enable(this.computerDoor);
-            this.libraryDoorEmitters.forEach((emitter) => {
-               emitter.start();
-            });
             this.page3.setVisible(true);
             this.page3.anims.play('page_ani');
             this.cameras.main.fadeOut(3000, 255, 244, 209);
@@ -246,6 +241,26 @@ class Hub extends Phaser.Scene {
    }
 
    update() {
-      this.gary.update();
+      if(page1 == 1) {
+         this.labDoorEmitters.forEach((emitter) => {
+            emitter.start();
+         });
+         this.physics.world.enable(this.labDoor);
+      }
+      if(page2 == 1) {
+         this.computerDoorEmitters.forEach((emitter) => {
+            emitter.start();
+         });
+         this.physics.world.enable(this.computerDoor);
+      }
+      if(page3 == 1) {
+         this.physics.world.enable(this.libraryDoor);
+         this.libraryDoorEmitters.forEach((emitter) => {
+            emitter.start();
+         });
+      }
+      if(this.movement) {
+         this.gary.update();
+      }
    }
 }

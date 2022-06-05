@@ -68,20 +68,32 @@
                 {
                  "height":0,
                  "id":25,
-                 "name":"",
+                 "name":"phantom",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"point1",
+                         "type":"object",
+                         "value":30
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":480,
+                 "x":64,
                  "y":192
                 }, 
                 {
                  "height":0,
                  "id":26,
-                 "name":"",
+                 "name":"phantom",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"point1",
+                         "type":"object",
+                         "value":31
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -92,20 +104,32 @@
                 {
                  "height":0,
                  "id":28,
-                 "name":"",
+                 "name":"phantom",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"point1",
+                         "type":"object",
+                         "value":33
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":64,
+                 "x":480,
                  "y":416
                 }, 
                 {
                  "height":0,
                  "id":29,
-                 "name":"",
+                 "name":"phantom",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"point1",
+                         "type":"object",
+                         "value":32
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -128,7 +152,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":64,
+                 "x":480,
                  "y":192
                 }, 
                 {
@@ -182,7 +206,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":480,
+                 "x":64,
                  "y":416
                 }, 
                 {
@@ -243,7 +267,7 @@
  "nextobjectid":39,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.8.4",
+ "tiledversion":"1.8.5",
  "tileheight":32,
  "tilesets":[
         {

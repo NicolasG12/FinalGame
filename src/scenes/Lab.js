@@ -15,7 +15,7 @@ class Lab extends Phaser.Scene {
         this.ROOMHEIGHT = 576;
         garyX = this.ROOMWIDTH - 48;
         garyY = this.ROOMHEIGHT / 2;
-        phantomSpeed = 30;
+        phantomSpeed = 36;
 
         this.sound.stopByKey('whispers');
         let tutorialScene = this.scene.get('tutorialScene');

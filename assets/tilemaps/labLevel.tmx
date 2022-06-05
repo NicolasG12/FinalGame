@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="18" height="18" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="39">
+<map version="1.8" tiledversion="1.8.5" orientation="orthogonal" renderorder="right-down" width="18" height="18" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="39">
  <editorsettings>
   <export target="labLevel.json" format="json"/>
  </editorsettings>
@@ -191,19 +191,31 @@
 </data>
  </layer>
  <objectgroup id="2" name="Objects">
-  <object id="25" x="480" y="192">
+  <object id="25" name="phantom" x="64" y="192">
+   <properties>
+    <property name="point1" type="object" value="30"/>
+   </properties>
    <point/>
   </object>
-  <object id="26" x="64" y="160">
+  <object id="26" name="phantom" x="64" y="160">
+   <properties>
+    <property name="point1" type="object" value="31"/>
+   </properties>
    <point/>
   </object>
-  <object id="28" x="64" y="416">
+  <object id="28" name="phantom" x="480" y="416">
+   <properties>
+    <property name="point1" type="object" value="33"/>
+   </properties>
    <point/>
   </object>
-  <object id="29" x="480" y="448">
+  <object id="29" name="phantom" x="480" y="448">
+   <properties>
+    <property name="point1" type="object" value="32"/>
+   </properties>
    <point/>
   </object>
-  <object id="30" name="phantom" x="64" y="192">
+  <object id="30" name="phantom" x="480" y="192">
    <properties>
     <property name="point1" type="object" value="25"/>
    </properties>
@@ -221,7 +233,7 @@
    </properties>
    <point/>
   </object>
-  <object id="33" name="phantom" x="480" y="416">
+  <object id="33" name="phantom" x="64" y="416">
    <properties>
     <property name="point1" type="object" value="28"/>
    </properties>
