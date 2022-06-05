@@ -123,7 +123,7 @@ class Hub extends Phaser.Scene {
       this.backgroundMusic.play();
       //set up the camera  
       this.cameras.main.setBounds(0, 0, this.ROOMWIDTH, this.ROOMHEIGHT);
-      this.cameras.main.setZoom(2);
+      this.cameras.main.setZoom(2.3);
       this.cameras.main.startFollow(this.gary);
       this.cameras.main.fadeIn(1000, 0, 0, 0);
 
