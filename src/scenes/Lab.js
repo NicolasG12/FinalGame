@@ -17,7 +17,7 @@ class Lab extends Phaser.Scene {
         garyY = this.ROOMHEIGHT / 2;
         phantomSpeed = 30;
 
-        let stopped = this.sound.stopByKey('whispers');
+        this.sound.stopByKey('whispers');
         let tutorialScene = this.scene.get('tutorialScene');
         //create the tilemap
         const map = this.add.tilemap('lab_map');
@@ -53,7 +53,6 @@ class Lab extends Phaser.Scene {
             this.sound.stopByKey('whispers');
             this.largeEnemySound.stop();
             this.sound.play('hurt', { volume: 0.15 });
- 
             deaths++;
             this.garyDeath.explode(20, this.gary.x, this.gary.y);
             this.cameras.main.fadeOut(1000, 0, 0, 0);
@@ -82,7 +81,6 @@ class Lab extends Phaser.Scene {
                 }
             }
         );
-        // this.scene.launch('HUD');
     }
 
     update() {

@@ -204,14 +204,5 @@ class Menu extends Phaser.Scene {
          this.scene.start("cutscene");
 
       });
-
-      this.input.keyboard.on('keydown-SHIFT', () => {
-         this.scene.mainMenuMusic.stop();
-         this.scene.start('gameClearScene');
-         page0 = 1;
-         page1 = 1;
-         page2 = 1;
-         page3 = 1;
-      });
    }
 }

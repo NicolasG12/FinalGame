@@ -29,9 +29,8 @@ class Tutorial extends Phaser.Scene {
       const tileset = map.addTilesetImage('hub_spritesheet', 'hubSheet');
       this.setup(this, map, tileset, this.ROOMWIDTH, this.ROOMHEIGHT, garyX, garyY);
 
-
-      this.physics.world.enable(this.doors, Phaser.Physics.Arcade.STATIC_BODY);
-
+      
+      //create the sprite and dialog for instructions
       this.virgil = this.add.sprite(this.gary.x - 35, this.gary.y - 30, 'virgil').setScale(0.75);
       this.dbox = this.add.image(this.virgil.x + 10, this.virgil.y - 10, 'dialogbox').setScale(0.11).setOrigin(0, 0);
       this.instructions = this.add.bitmapText(this.dbox.x + 2, this.dbox.y + 2, 'gem_font', 'Press [SPACE] to shine', 8);
@@ -127,7 +126,6 @@ class Tutorial extends Phaser.Scene {
 
       //add fog at gary's position
       scene.fog = scene.add.sprite(scene.gary.x, scene.gary.y, "fog", 0).setDepth(1);
-      // scene.fog.setVisible(false);
 
       //set up the camera
       scene.cameras.main.setBounds(0, 0, width, height);

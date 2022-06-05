@@ -81,7 +81,6 @@ class ComputerLab extends Phaser.Scene {
                 }
             }
         );
-        // this.scene.launch('HUD');
     }
 
 
