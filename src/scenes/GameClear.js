@@ -9,8 +9,10 @@ class GameClear extends Phaser.Scene {
             frameWidth: 700,
             frameHeight: 700,
             startFrame: 0,
-            endFrame: 6
+            endFrame: 5
         });
+
+        this.load.audio('music', './sounds/End_Screen_Song.wav');
     }
     create() {
         page1 = 0;
@@ -22,7 +24,7 @@ class GameClear extends Phaser.Scene {
             key: 'end',
             frames: this.anims.generateFrameNumbers('endScreen', {
                 start: 0, 
-                end: 6,
+                end: 5,
                 first: 0
             }),
             frameRate: 3,
@@ -30,7 +32,7 @@ class GameClear extends Phaser.Scene {
         })
         this.backgroundSprite = this.add.sprite(0, 0, 'endscreen', 0).setOrigin(0);
         this.backgroundSprite.anims.play('end');
-        this.background = this.sound.add('mainMenu', { volume: 0.5 });
+        this.background = this.sound.add('music', { volume: 0.5 });
         this.background.setLoop(true);
         this.background.play();
         this.add.bitmapText(game.config.width - 300, game.config.height/2, 'gem_font', 'Deaths: ' + deaths, 50);
