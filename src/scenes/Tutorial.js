@@ -79,6 +79,7 @@ class Tutorial extends Phaser.Scene {
          this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.scene.restart();
          });
+         tutorialLock = true;
       });
 
       //add worldbound collision to change scenes

@@ -14,7 +14,8 @@ class GameClear extends Phaser.Scene {
 
     }
     create() {
-        page1 = 0;
+        this.scene.stop('tutorialScene');
+        this.scene.stop('cutscene');
         this.scene.stop("hubScene");
         this.scene.stop("labScene");
         this.scene.stop("computerLabScene");
@@ -43,6 +44,12 @@ class GameClear extends Phaser.Scene {
             this.background.stop();
             this.scene.stop("gameClearScene");
             this.scene.start("menuScene");
+            page0 = 0;
+            page1 = 0;
+            page2 = 0;
+            page3 = 0;
+            deaths = 0;
+            tutorialLock = true;
         });
         this.input.keyboard.on('keydown-SHIFT', () => {
             this.background.stop();
