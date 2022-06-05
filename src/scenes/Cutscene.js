@@ -63,7 +63,7 @@ class Cutscene extends Phaser.Scene {
         cursors.shift.on('down', () => {
             this.scene.start('tutorialScene');
         });
-
+        this.add.bitmapText(game.config.width - 200, 50, this.DBOX_FONT, '[SHIFT] to skip', this.TEXT_SIZE)
         this.typeText();
     }
 

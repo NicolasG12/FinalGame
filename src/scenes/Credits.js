@@ -9,8 +9,15 @@ class Credits extends Phaser.Scene {
         this.TEXT_MAX_WIDTH = 625;
     }
 
+    preload() {
+        this.load.image('credits', './assets/credits.png');
+    }
+
     create() {
-        this.title = this.add.bitmapText(this.TEXT_X + 175, 50, this.TEXT_FONT, 'Demons 101', 50);
-        this.creators = this.add.bitmapText(this.TEXT_X + 225, this.TEXT_Y, this.TEXT_FONT, 'Created by: ', this.TEXT_SIZE);
+        this.add.image(0, 0, 'credits').setOrigin(0);
+
+        this.input.keyboard.on('keydown-SPACE', () => {
+            this.scene.start('gameClearScene');
+        })
     }
 }

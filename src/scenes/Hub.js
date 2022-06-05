@@ -80,9 +80,9 @@ class Hub extends Phaser.Scene {
 
       //create the player avatar
       this.gary = new Gary(this, this.ROOMWIDTH - 48, this.ROOMHEIGHT - 48, "gary_atlas", 'Gary_Idle_0');
-      this.virgil = this.add.sprite(this.gary.x - 35, this.gary.y - 30, 'virgil').setScale(0.75);
-      this.dbox = this.add.image(this.virgil.x + 10, this.virgil.y - 10, 'dialogbox').setScale(0.11).setOrigin(0, 0);
-      this.instructions = this.add.bitmapText(this.dbox.x + 2, this.dbox.y + 2, 'gem_font', 'Return the page to the Necronomicon', 8);
+      this.virgil = this.add.sprite(110, 120, 'virgil').setScale(0.75);
+      this.dbox = this.add.image(this.virgil.x + 10, this.virgil.y - 10, 'dialogbox').setScale(0.115).setOrigin(0, 0);
+      this.instructions = this.add.bitmapText(this.dbox.x + 3, this.dbox.y + 2, 'gem_font', 'Return the page to the Necronomicon', 8);
       this.instructions.maxWidth = 75;
 
       this.garyParticles = this.add.particles('gary_page');
@@ -94,6 +94,16 @@ class Hub extends Phaser.Scene {
          scale: { start: 0.1, end: 1 }
       });
 
+      let deathZone = new Phaser.Geom.Rectangle(112, 144, 96, 96);
+      this.bookParticle = this.garyParticles.createEmitter({
+         x: 160,
+         y: 192,
+         speed: {min: 10, max: 100, steps: 1000},
+         lifespan: 3000,
+         quantity: 20,
+         frequency: -1,
+         deathZone: { type: 'onLeave', source: deathZone}
+      });
       //assign keys for movement
       cursors = this.input.keyboard.createCursorKeys();
 
@@ -103,6 +113,9 @@ class Hub extends Phaser.Scene {
          this.creaks.play();
       }, 10000);
 
+      this.backgroundMusic = this.sound.add('mainMenu', {volume: 0.1});
+      this.backgroundMusic.setLoop(true);
+      this.backgroundMusic.play();
       //set up the camera  
       this.cameras.main.setBounds(0, 0, this.ROOMWIDTH, this.ROOMHEIGHT);
       this.cameras.main.setZoom(2);
@@ -124,6 +137,7 @@ class Hub extends Phaser.Scene {
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                this.scene.switch("labScene");
             });
+            this.backgroundMusic.stop();
             this.gary.x += 50;
          }
          if (blockedUp) {
@@ -134,6 +148,7 @@ class Hub extends Phaser.Scene {
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                this.scene.switch("computerLabScene");
             });
+            this.backgroundMusic.stop();
             this.gary.y += 75;
          }
          if (blockedRight) {
@@ -144,6 +159,7 @@ class Hub extends Phaser.Scene {
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                this.scene.switch("libraryScene");
             });
+            this.backgroundMusic.stop();
             this.gary.x -= 50;
          }
       });
@@ -154,6 +170,7 @@ class Hub extends Phaser.Scene {
          this.sound.stopByKey('whispers');
          this.cameras.main.fadeIn(1000, 0, 0, 0);
          this.gary.setVisible(true);
+         this.backgroundMusic.play();
       });
 
       //add in physics colliders
@@ -216,6 +233,12 @@ class Hub extends Phaser.Scene {
             });
             this.page3.setVisible(true);
             this.page3.anims.play('page_ani');
+            this.cameras.main.fadeOut(3000, 255, 244, 209);
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+               this.scene.start("gameClearScene");
+               this.backgroundMusic.stop();
+            });
+            this.bookParticle.explode(1000);
          }
          this.garyParticle.stop();
       });
@@ -224,9 +247,5 @@ class Hub extends Phaser.Scene {
 
    update() {
       this.gary.update();
-      //check for end of game scenario
-      if (page0 == 2 && page1 == 2 && page2 == 2 && page3 == 2) {
-         this.scene.start("gameClearScene");
-      }
    }
 }
