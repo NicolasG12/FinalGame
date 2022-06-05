@@ -59,7 +59,7 @@ class Hub extends Phaser.Scene {
 
 
       this.doorParticles = this.add.particles('door_particle');
-
+      //create each of the doors and give them particles
       doors.forEach((child) => {
          child.forEach((door) => {
             let deathZone = new Phaser.Geom.Rectangle(door.x - 16, door.y - 16, 32, 32);
@@ -75,17 +75,20 @@ class Hub extends Phaser.Scene {
          });
       });
 
+      //place the door emitters into arrays to group them
       this.labDoorEmitters = [this.doorParticles.emitters.list[0], this.doorParticles.emitters.list[1]];
       this.computerDoorEmitters = [this.doorParticles.emitters.list[2], this.doorParticles.emitters.list[3]];
       this.libraryDoorEmitters = [this.doorParticles.emitters.list[4], this.doorParticles.emitters.list[5]];
 
       //create the player avatar
       this.gary = new Gary(this, this.ROOMWIDTH - 48, this.ROOMHEIGHT - 48, "gary_atlas", 'Gary_Idle_0');
+      //create the tutorial sprites
       this.virgil = this.add.sprite(110, 120, 'virgil').setScale(0.75);
       this.dbox = this.add.image(this.virgil.x + 10, this.virgil.y - 10, 'dialogbox').setScale(0.115).setOrigin(0, 0);
       this.instructions = this.add.bitmapText(this.dbox.x + 3, this.dbox.y + 2, 'gem_font', 'Return the page to the Necronomicon', 8);
       this.instructions.maxWidth = 75;
 
+      //create particle effects for gary
       this.garyParticles = this.add.particles('gary_page');
       this.garyParticle = this.garyParticles.createEmitter({
          follow: this.gary,
@@ -95,6 +98,7 @@ class Hub extends Phaser.Scene {
          scale: { start: 0.1, end: 1 }
       });
 
+      //create particles used in an explosion at the end of game
       let deathZone = new Phaser.Geom.Rectangle(112, 144, 96, 96);
       this.bookParticle = this.garyParticles.createEmitter({
          x: 160,
@@ -241,6 +245,7 @@ class Hub extends Phaser.Scene {
    }
 
    update() {
+      //check for when to lock the doors
       if(page1 == 1) {
          this.labDoorEmitters.forEach((emitter) => {
             emitter.start();

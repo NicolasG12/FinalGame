@@ -7,11 +7,14 @@ class Menu extends Phaser.Scene {
       this.load.image('altar', 'altar.png');
       this.load.image('door', 'door.png');
       this.load.image('book', 'book.png');
+      //load in particle effects
       this.load.image('door_particle', 'door_particle.png');
       this.load.image('gary_death', 'blood.png');
       this.load.image('gary_page', 'page_part.png');
+      //load sprite atlas's
       this.load.atlas('gary_atlas', 'garysheet.png', 'garymap.json');
       this.load.atlas('bigEnemy_atlas', 'bigEnemySheet.png', 'bigEnemyMap.json');
+      //load spritesheets
       this.load.spritesheet('fog', 'fog_ani.png', {
          frameWidth: 700,
          frameHeight: 700,
@@ -49,6 +52,7 @@ class Menu extends Phaser.Scene {
       // load bitmap font
       this.load.bitmapFont('gem_font', 'gem.png', 'gem.xml');
 
+      //load in the audio
       this.load.path = "assets/sounds/"
       this.load.audio('creaks', 'Ambient_Creaks.wav');
       this.load.audio('collect', 'Place_Page.wav');
@@ -59,6 +63,7 @@ class Menu extends Phaser.Scene {
       this.load.audio('shine', 'Shine.wav');
       this.load.audio('hurt', 'Hurt.wav');
       this.load.audio('door', 'Door_Sound.wav');
+      this.load.audio('music', 'End_Screen_Song.wav');
 
 
    }
@@ -195,10 +200,12 @@ class Menu extends Phaser.Scene {
       this.background = this.add.sprite(0, 0, 'menu', 0).setOrigin(0);
       this.background.anims.play('menu_ani');
 
+      //play the music
       this.scene.mainMenuMusic = this.sound.add('mainMenu', { volume: 0.5 });
       this.scene.mainMenuMusic.setLoop(true);
       this.scene.mainMenuMusic.play();
 
+      //handle input to change scenes
       this.input.keyboard.on('keydown-SPACE', () => {
          this.scene.mainMenuMusic.stop();
          this.scene.start("cutscene");

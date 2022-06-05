@@ -10,7 +10,6 @@ class Tutorial extends Phaser.Scene {
       this.load.image("hubSheet", "./tilemaps/hub_spritesheet_extruded.png");
 
 
-      // this.load.json('tutorialDialog', 'tutorialDialog.json');
    }
 
    create() {
@@ -42,6 +41,7 @@ class Tutorial extends Phaser.Scene {
       this.instructions2 = this.add.bitmapText(this.dbox2.x + 2, this.dbox2.y + 2, 'gem_font', 'RUN with [SHIFT]', 8);
       this.instructions2.setVisible(false);
       this.instructions2.maxWidth = 75;
+
       //add the overlap between the page and player
       this.physics.add.overlap(this.gary, this.page, (obj1, obj2) => {
          obj2.destroy();
@@ -98,6 +98,7 @@ class Tutorial extends Phaser.Scene {
          this.instructions.text = 'Use the arrow keys to move around.'
          tutorialLock = false;
       });
+
       cursors.left.on('down', () => {
          if (!tutorialLock) {
             this.virgil.setVisible(false);
@@ -107,7 +108,7 @@ class Tutorial extends Phaser.Scene {
       });
 
    }
-
+   //a function used to setup all the levels
    setup(scene, map, tileset, width, height, garyX, garyY) {
       //create the layers for the map
       const backgroundLayer = map.createLayer("Background", tileset, 0, 0);
@@ -196,11 +197,10 @@ class Tutorial extends Phaser.Scene {
       scene.physics.add.collider(scene.gary, scene.doors);
 
       scene.particles = scene.add.particles('door_particle');
-
+      //add in a particle effect for the doors
       scene.doors.forEach((door) => {
          let deathZone = new Phaser.Geom.Rectangle(door.x - 16, door.y - 16, 32, 32);
          scene.particles.createEmitter({
-            // frame: 1,
             x: door.x,
             y: door.y,
             speed: { min: 10, max: 500, steps: 5000 },
@@ -210,16 +210,16 @@ class Tutorial extends Phaser.Scene {
             deathZone: { type: 'onLeave', source: deathZone }
          });
       });
+      //create a particle effect for when gary collects the page
       scene.garyPage = scene.add.particles('gary_page')
       scene.garyParticle = scene.garyPage.createEmitter({
-         // frame: 0,
          follow: scene.gary,
          speed: 100,
          lifespan: 300,
          gravity: { x: 0, y: 200 },
          scale: { start: 0.1, end: 1 }
       });
-
+      //create particle effect for when gary dies
       scene.deathParticles = scene.add.particles('gary_death');
       scene.garyDeath = scene.deathParticles.createEmitter({
          speed: {min: -100, max: 100},
@@ -275,6 +275,7 @@ class Tutorial extends Phaser.Scene {
       //add large enemy music
       scene.largeEnemySound = scene.sound.add('largeEnemyNoise', { volume: 0.25 });
 
+      //launch the hud
       scene.scene.launch("HUD");
       scene.scene.bringToTop("HUD");
    }

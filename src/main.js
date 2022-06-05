@@ -19,12 +19,10 @@ let game = new Phaser.Game(config);
 
 //object to store the config of the path follower
 let enemyConfig = {
-
    from: 0,
    to: 1,
    delay: 0,
    duration: 0, 
-   // ease: 'Quint.easeInOut',
    hold: 500,
    repeat: -1,
    yoyo: true,

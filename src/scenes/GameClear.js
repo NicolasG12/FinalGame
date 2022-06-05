@@ -12,7 +12,6 @@ class GameClear extends Phaser.Scene {
             endFrame: 5
         });
 
-        this.load.audio('music', './sounds/End_Screen_Song.wav');
     }
     create() {
         page1 = 0;
